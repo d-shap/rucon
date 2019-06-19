@@ -28,6 +28,6 @@ public interface ConfigurationLoader {
 
     void load();
 
-    String getConfig(String name);
+    String getProperty(String name);
 
 }
