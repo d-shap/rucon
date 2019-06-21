@@ -42,14 +42,15 @@ public final class SystemEnvironmentLoader extends AbstractConfigLoader {
      */
     public SystemEnvironmentLoader(final Map<String, String> aliases, final Set<String> excludeProperties) {
         super(excludeProperties);
-        _aliases = createMapCopy(aliases);
+        _aliases = new HashMap<>();
+        fillMap(aliases, _aliases);
         _properties = new HashMap<>();
     }
 
     @Override
     public void load() {
         Map<String, String> properties = System.getenv();
-        _properties.putAll(properties);
+        fillMap(properties, _properties);
         Set<String> excludeProperties = getExcludeProperties();
         _properties.keySet().removeAll(excludeProperties);
     }

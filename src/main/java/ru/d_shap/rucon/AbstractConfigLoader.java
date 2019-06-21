@@ -19,7 +19,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -40,54 +39,48 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      */
     protected AbstractConfigLoader(final Set<String> excludeProperties) {
         super();
-        _excludeProperties = createSetCopy(excludeProperties);
+        _excludeProperties = new HashSet<>();
+        fillSet(excludeProperties, _excludeProperties);
     }
 
     /**
-     * Create the copy of the specified set.
+     * Copy the values from one set to the other.
      *
-     * @param set the specified set.
-     *
-     * @return the copy of the specified set.
+     * @param from the set to copy values from.
+     * @param to   the set to copy values to.
      */
-    protected final Set<String> createSetCopy(final Set<String> set) {
-        Set<String> result = new HashSet<>();
-        if (set != null) {
-            result.addAll(set);
+    protected final void fillSet(final Set<String> from, final Set<String> to) {
+        if (from != null) {
+            to.addAll(from);
         }
-        return result;
     }
 
     /**
-     * Create the copy of the specified map.
+     * Copy the values from one map to the other.
      *
-     * @param map the specified map.
-     *
-     * @return the copy of the specified map.
+     * @param from the map to copy values from.
+     * @param to   the map to copy values to.
      */
-    protected final Map<String, String> createMapCopy(final Map<String, String> map) {
-        Map<String, String> result = new HashMap<>();
-        if (map != null) {
-            result.putAll(map);
+    protected final void fillMap(final Map<String, String> from, final Map<String, String> to) {
+        if (from != null) {
+            to.putAll(from);
         }
-        return result;
     }
 
     /**
-     * Create the copy of the specified properties.
+     * Copy the values from one map to the other.
      *
-     * @param properties the specified properties.
-     *
-     * @return the copy of the specified properties.
+     * @param from the map to copy values from.
+     * @param to   the map to copy values to.
      */
-    protected final Map<String, String> createPropertiesCopy(final Map<Object, Object> properties) {
-        Map<String, String> result = new HashMap<>();
-        for (Map.Entry<Object, Object> entry : properties.entrySet()) {
-            String key = (String) entry.getKey();
-            String value = (String) entry.getValue();
-            result.put(key, value);
+    protected final void fillProperties(final Map<Object, Object> from, final Map<String, String> to) {
+        if (from != null) {
+            for (Map.Entry<Object, Object> entry : from.entrySet()) {
+                String key = (String) entry.getKey();
+                String value = (String) entry.getValue();
+                to.put(key, value);
+            }
         }
-        return result;
     }
 
     /**

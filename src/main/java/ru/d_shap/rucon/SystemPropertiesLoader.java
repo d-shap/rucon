@@ -53,11 +53,7 @@ public final class SystemPropertiesLoader extends AbstractConfigLoader {
     @Override
     public void load() {
         Map<Object, Object> properties = System.getProperties();
-        for (Map.Entry<Object, Object> entry : properties.entrySet()) {
-            String key = (String) entry.getKey();
-            String value = (String) entry.getValue();
-            _properties.put(key, value);
-        }
+        fillProperties(properties, _properties);
         Set<String> excludeProperties = getExcludeProperties();
         _properties.keySet().removeAll(excludeProperties);
     }
