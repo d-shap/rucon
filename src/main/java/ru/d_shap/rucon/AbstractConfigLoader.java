@@ -47,12 +47,11 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      * Create the copy of the specified set.
      *
      * @param set the specified set.
-     * @param <V> the generic type of the value.
      *
      * @return the copy of the specified set.
      */
-    protected final <V> Set<V> createSetCopy(final Set<V> set) {
-        Set<V> result = new HashSet<>();
+    protected final Set<String> createSetCopy(final Set<String> set) {
+        Set<String> result = new HashSet<>();
         if (set != null) {
             result.addAll(set);
         }
@@ -63,13 +62,11 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      * Create the copy of the specified map.
      *
      * @param map the specified map.
-     * @param <K> the generic type of the key.
-     * @param <V> the generic type of the value.
      *
      * @return the copy of the specified map.
      */
-    protected final <K, V> Map<K, V> createMapCopy(final Map<K, V> map) {
-        Map<K, V> result = new HashMap<>();
+    protected final Map<String, String> createMapCopy(final Map<String, String> map) {
+        Map<String, String> result = new HashMap<>();
         if (map != null) {
             result.putAll(map);
         }
