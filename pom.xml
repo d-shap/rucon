@@ -7,8 +7,8 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Application run configuration helper</name>
-    <description>Application run configuration helper</description>
+    <name>RuCon</name>
+    <description>RuCon is the application configuration helper</description>
     <url>https://github.com/d-shap/rucon</url>
 
     <licenses>
