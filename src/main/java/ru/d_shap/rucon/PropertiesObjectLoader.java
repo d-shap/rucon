@@ -46,7 +46,8 @@ public final class PropertiesObjectLoader extends AbstractConfigLoader {
 
     @Override
     public void load() {
-        // Ignore
+        Set<String> excludeProperties = getExcludeProperties();
+        _properties.keySet().removeAll(excludeProperties);
     }
 
     @Override
