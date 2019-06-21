@@ -26,8 +26,18 @@ package ru.d_shap.rucon;
  */
 public interface ConfigLoader {
 
+    /**
+     * Load the configuration.
+     */
     void load();
 
+    /**
+     * Get the configuration property.
+     *
+     * @param name the property name.
+     *
+     * @return the property value.
+     */
     String getProperty(String name);
 
 }
