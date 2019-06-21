@@ -19,7 +19,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -38,10 +40,40 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      */
     protected AbstractConfigLoader(final Set<String> excludeProperties) {
         super();
-        _excludeProperties = new HashSet<>();
-        if (excludeProperties != null) {
-            _excludeProperties.addAll(excludeProperties);
+        _excludeProperties = createSetCopy(excludeProperties);
+    }
+
+    /**
+     * Create the copy of the specified set.
+     *
+     * @param set the specified set.
+     * @param <V> the generic type of the value.
+     *
+     * @return the copy of the specified set.
+     */
+    protected final <V> Set<V> createSetCopy(final Set<V> set) {
+        Set<V> result = new HashSet<>();
+        if (set != null) {
+            result.addAll(set);
         }
+        return result;
+    }
+
+    /**
+     * Create the copy of the specified map.
+     *
+     * @param map the specified map.
+     * @param <K> the generic type of the key.
+     * @param <V> the generic type of the value.
+     *
+     * @return the copy of the specified map.
+     */
+    protected final <K, V> Map<K, V> createMapCopy(final Map<K, V> map) {
+        Map<K, V> result = new HashMap<>();
+        if (map != null) {
+            result.putAll(map);
+        }
+        return result;
     }
 
     /**
