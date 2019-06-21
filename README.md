@@ -1,10 +1,10 @@
-# Application run configuration helper
-Application run configuration helper.
+# RuCon
+RuCon is the application configuration helper.
 
 # Latest release
-Pub-Sub library:
+RuCon:
 * **&lt;groupId&gt;**: ru.d-shap
-* **&lt;artifactId&gt;**: pub-sub
+* **&lt;artifactId&gt;**: rucon
 * **&lt;version&gt;**: -.-
 
 # Donation
