@@ -74,6 +74,23 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
     }
 
     /**
+     * Create the copy of the specified properties.
+     *
+     * @param properties the specified properties.
+     *
+     * @return the copy of the specified properties.
+     */
+    protected final Map<String, String> createPropertiesCopy(final Map<Object, Object> properties) {
+        Map<String, String> result = new HashMap<>();
+        for (Map.Entry<Object, Object> entry : properties.entrySet()) {
+            String key = (String) entry.getKey();
+            String value = (String) entry.getValue();
+            result.put(key, value);
+        }
+        return result;
+    }
+
+    /**
      * Get the properties to exclude.
      *
      * @return the properties to exclude.
