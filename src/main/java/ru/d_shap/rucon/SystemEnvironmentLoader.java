@@ -48,8 +48,8 @@ public final class SystemEnvironmentLoader extends AbstractConfigLoader {
 
     @Override
     public void load() {
-        Map<String, String> env = System.getenv();
-        _properties.putAll(env);
+        Map<String, String> properties = System.getenv();
+        _properties.putAll(properties);
         Set<String> excludeProperties = getExcludeProperties();
         _properties.keySet().removeAll(excludeProperties);
     }
