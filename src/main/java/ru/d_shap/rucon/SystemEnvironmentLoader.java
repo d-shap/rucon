@@ -56,13 +56,13 @@ public final class SystemEnvironmentLoader extends AbstractConfigLoader {
 
     @Override
     public String getProperty(final String name) {
-        String alias;
+        String key;
         if (_aliases.containsKey(name)) {
-            alias = _aliases.get(name);
+            key = _aliases.get(name);
         } else {
-            alias = name;
+            key = name;
         }
-        return _properties.get(alias);
+        return _properties.get(key);
     }
 
 }
