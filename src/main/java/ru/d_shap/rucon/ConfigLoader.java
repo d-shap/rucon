@@ -24,20 +24,11 @@ package ru.d_shap.rucon;
  *
  * @author Dmitry Shapovalov
  */
-public interface ConfigLoader {
+public interface ConfigLoader extends ConfigDelegate {
 
     /**
      * Load the configuration.
      */
     void load();
-
-    /**
-     * Get the configuration property.
-     *
-     * @param name the property name.
-     *
-     * @return the property value.
-     */
-    String getProperty(String name);
 
 }
