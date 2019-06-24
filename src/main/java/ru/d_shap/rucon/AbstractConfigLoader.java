@@ -121,4 +121,22 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
         }
     }
 
+    /**
+     * Replace the property aliases with the property names.
+     *
+     * @param properties the original properties.
+     * @param aliases    the property aliases.
+     */
+    protected void replaceAliases(final Map<String, String> properties, final Map<String, String> aliases) {
+        for (Map.Entry<String, String> entry : aliases.entrySet()) {
+            String alias = entry.getKey();
+            if (properties.containsKey(alias)) {
+                String propertyName = entry.getValue();
+                propertyName = getPropertyName(propertyName);
+                String propertyValue = properties.remove(alias);
+                properties.put(propertyName, propertyValue);
+            }
+        }
+    }
+
 }
