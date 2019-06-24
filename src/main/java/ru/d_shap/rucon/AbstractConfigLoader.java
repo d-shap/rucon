@@ -30,15 +30,23 @@ import java.util.Set;
  */
 public abstract class AbstractConfigLoader implements ConfigLoader {
 
+    private final String _prefix;
+
+    private final String _suffix;
+
     private final Set<String> _excludeProperties;
 
     /**
      * Create new object.
      *
+     * @param prefix            the prefix to add to the property name.
+     * @param suffix            the suffix to add to the property name.
      * @param excludeProperties the properties to exclude.
      */
-    protected AbstractConfigLoader(final Set<String> excludeProperties) {
+    protected AbstractConfigLoader(final String prefix, final String suffix, final Set<String> excludeProperties) {
         super();
+        _prefix = prefix;
+        _suffix = suffix;
         _excludeProperties = new HashSet<>();
         fillSet(excludeProperties, _excludeProperties);
     }
@@ -81,6 +89,24 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
                 to.put(key, value);
             }
         }
+    }
+
+    /**
+     * Generate the property name with prefix and suffix.
+     *
+     * @param name the original property name.
+     *
+     * @return the property name with prefix and suffix.
+     */
+    protected String getPropertyName(final String name) {
+        String propertyName = name;
+        if (_prefix != null) {
+            propertyName = _prefix + propertyName;
+        }
+        if (_suffix != null) {
+            propertyName = propertyName + _suffix;
+        }
+        return propertyName;
     }
 
     /**
