@@ -19,6 +19,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +35,8 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
 
     private final String _suffix;
 
+    private final Map<String, String> _aliases;
+
     private final Set<String> _excludeProperties;
 
     /**
@@ -41,12 +44,15 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      *
      * @param prefix            the prefix to add to the property name.
      * @param suffix            the suffix to add to the property name.
+     * @param aliases           the property aliases, the key is the property name, the value is the alias.
      * @param excludeProperties the properties to exclude.
      */
-    protected AbstractConfigLoader(final String prefix, final String suffix, final Set<String> excludeProperties) {
+    protected AbstractConfigLoader(final String prefix, final String suffix, final Map<String, String> aliases, final Set<String> excludeProperties) {
         super();
         _prefix = prefix;
         _suffix = suffix;
+        _aliases = new HashMap<>();
+        fillMap(aliases, _aliases);
         _excludeProperties = new HashSet<>();
         fillSet(excludeProperties, _excludeProperties);
     }
@@ -110,7 +116,7 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
     }
 
     /**
-     * Exclude the defined properties from the original properties.
+     * Exclude the defined properties.
      *
      * @param properties the original properties.
      */
@@ -125,10 +131,9 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      * Replace the property aliases with the property names.
      *
      * @param properties the original properties.
-     * @param aliases    the property aliases, the key is the property name, the value is the alias.
      */
-    protected void replaceAliases(final Map<String, String> properties, final Map<String, String> aliases) {
-        for (Map.Entry<String, String> entry : aliases.entrySet()) {
+    protected void replaceAliases(final Map<String, String> properties) {
+        for (Map.Entry<String, String> entry : _aliases.entrySet()) {
             String alias = entry.getValue();
             if (properties.containsKey(alias)) {
                 String propertyName = entry.getKey();
