@@ -30,20 +30,16 @@ import java.util.Set;
  */
 public final class SystemEnvironmentLoader extends AbstractConfigLoader {
 
-    private final Map<String, String> _aliases;
-
     private final Map<String, String> _properties;
 
     /**
      * Create new object.
      *
-     * @param aliases           the property name to environment variable name map.
+     * @param aliases           the property aliases, the key is the property name, the value is the alias.
      * @param excludeProperties the properties to exclude.
      */
     public SystemEnvironmentLoader(final Map<String, String> aliases, final Set<String> excludeProperties) {
-        super(excludeProperties);
-        _aliases = new HashMap<>();
-        fillMap(aliases, _aliases);
+        super(null, null, aliases, excludeProperties);
         _properties = new HashMap<>();
     }
 
@@ -51,19 +47,14 @@ public final class SystemEnvironmentLoader extends AbstractConfigLoader {
     public void load() {
         Map<String, String> properties = System.getenv();
         fillMap(properties, _properties);
-        Set<String> excludeProperties = getExcludeProperties();
-        _properties.keySet().removeAll(excludeProperties);
+        replaceAliases(_properties);
+        excludeProperties(_properties);
     }
 
     @Override
     public String getProperty(final String name) {
-        String key;
-        if (_aliases.containsKey(name)) {
-            key = _aliases.get(name);
-        } else {
-            key = name;
-        }
-        return _properties.get(key);
+        String propertyName = getPropertyName(name);
+        return _properties.get(propertyName);
     }
 
 }
