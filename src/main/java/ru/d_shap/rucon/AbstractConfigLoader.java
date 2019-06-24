@@ -110,12 +110,15 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
     }
 
     /**
-     * Get the properties to exclude.
+     * Exclude the defined properties from the original properties.
      *
-     * @return the properties to exclude.
+     * @param properties the original properties.
      */
-    protected final Set<String> getExcludeProperties() {
-        return _excludeProperties;
+    protected void excludeProperties(final Map<String, String> properties) {
+        for (String excludePropery : _excludeProperties) {
+            String propertyName = getPropertyName(excludePropery);
+            properties.keySet().remove(propertyName);
+        }
     }
 
 }
