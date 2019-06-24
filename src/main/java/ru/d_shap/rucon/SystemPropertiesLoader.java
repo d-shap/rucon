@@ -30,10 +30,6 @@ import java.util.Set;
  */
 public final class SystemPropertiesLoader extends AbstractConfigLoader {
 
-    private final String _prefix;
-
-    private final String _suffix;
-
     private final Map<String, String> _properties;
 
     /**
@@ -44,9 +40,7 @@ public final class SystemPropertiesLoader extends AbstractConfigLoader {
      * @param excludeProperties the properties to exclude.
      */
     public SystemPropertiesLoader(final String prefix, final String suffix, final Set<String> excludeProperties) {
-        super(excludeProperties);
-        _prefix = prefix;
-        _suffix = suffix;
+        super(prefix, suffix, null, excludeProperties);
         _properties = new HashMap<>();
     }
 
@@ -54,20 +48,13 @@ public final class SystemPropertiesLoader extends AbstractConfigLoader {
     public void load() {
         Map<Object, Object> properties = System.getProperties();
         fillProperties(properties, _properties);
-        Set<String> excludeProperties = getExcludeProperties();
-        _properties.keySet().removeAll(excludeProperties);
+        excludeProperties(_properties);
     }
 
     @Override
     public String getProperty(final String name) {
-        String key = name;
-        if (_prefix != null) {
-            key = _prefix + key;
-        }
-        if (_suffix != null) {
-            key = key + _suffix;
-        }
-        return _properties.get(key);
+        String propertyName = getPropertyName(name);
+        return _properties.get(propertyName);
     }
 
 }
