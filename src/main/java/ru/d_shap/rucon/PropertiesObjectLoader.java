@@ -39,20 +39,20 @@ public final class PropertiesObjectLoader extends AbstractConfigLoader {
      * @param excludeProperties the properties to exclude.
      */
     public PropertiesObjectLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
-        super(excludeProperties);
+        super(null, null, null, excludeProperties);
         _properties = new HashMap<>();
         fillProperties(properties, _properties);
     }
 
     @Override
     public void load() {
-        Set<String> excludeProperties = getExcludeProperties();
-        _properties.keySet().removeAll(excludeProperties);
+        excludeProperties(_properties);
     }
 
     @Override
     public String getProperty(final String name) {
-        return _properties.get(name);
+        String propertyName = getPropertyName(name);
+        return _properties.get(propertyName);
     }
 
 }
