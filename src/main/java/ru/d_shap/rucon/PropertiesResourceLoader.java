@@ -47,7 +47,7 @@ public final class PropertiesResourceLoader extends AbstractConfigLoader {
      * @param excludeProperties the properties to exclude.
      */
     public PropertiesResourceLoader(final ClassLoader classLoader, final String resource, final Set<String> excludeProperties) {
-        super(excludeProperties);
+        super(null, null, null, excludeProperties);
         _classLoader = classLoader;
         _resource = resource;
         _properties = new HashMap<>();
@@ -60,8 +60,7 @@ public final class PropertiesResourceLoader extends AbstractConfigLoader {
                 Map<Object, Object> properties = new Properties();
                 ((Properties) properties).load(inputStream);
                 fillProperties(properties, _properties);
-                Set<String> excludeProperties = getExcludeProperties();
-                _properties.keySet().removeAll(excludeProperties);
+                excludeProperties(_properties);
             }
         } catch (IOException ex) {
             throw new RuntimeIOException(ex);
@@ -70,7 +69,8 @@ public final class PropertiesResourceLoader extends AbstractConfigLoader {
 
     @Override
     public String getProperty(final String name) {
-        return _properties.get(name);
+        String propertyName = getPropertyName(name);
+        return _properties.get(propertyName);
     }
 
 }
