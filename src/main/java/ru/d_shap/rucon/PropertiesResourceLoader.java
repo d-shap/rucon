@@ -27,7 +27,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * Configuration loader for the properties resource.
+ * Configuration loader for the properties.
  *
  * @author Dmitry Shapovalov
  */

@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Configuration loader for the properties object.
+ * Configuration loader for the properties.
  *
  * @author Dmitry Shapovalov
  */
