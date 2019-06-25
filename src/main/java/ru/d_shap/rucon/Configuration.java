@@ -19,52 +19,12 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Configuration helper class.
+ * Configuration interface.
  *
  * @author Dmitry Shapovalov
  */
-public final class Configuration implements ConfigLoader {
-
-    private final List<ConfigLoader> _configLoaders;
-
-    /**
-     * Create new object.
-     *
-     * @param configLoaders configuration loaders.
-     */
-    public Configuration(final List<ConfigLoader> configLoaders) {
-        super();
-        _configLoaders = new ArrayList<>();
-        if (configLoaders != null) {
-            for (ConfigLoader configLoader : configLoaders) {
-                if (configLoader != null) {
-                    _configLoaders.add(configLoader);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void load() {
-        for (ConfigLoader configLoader : _configLoaders) {
-            configLoader.load();
-        }
-    }
-
-    @Override
-    public String getProperty(final String name) {
-        for (ConfigLoader configLoader : _configLoaders) {
-            String value = configLoader.getProperty(name);
-            if (value != null) {
-                return value;
-            }
-        }
-        return null;
-    }
+public interface Configuration {
 
     /**
      * Get the configuration property as String.
@@ -74,14 +34,7 @@ public final class Configuration implements ConfigLoader {
      *
      * @return the property value.
      */
-    public String getPropertyAsString(final String name, final String defaultValue) {
-        String value = getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        } else {
-            return value;
-        }
-    }
+    String getPropertyAsString(String name, String defaultValue);
 
     /**
      * Get the configuration property as boolean.
@@ -91,14 +44,7 @@ public final class Configuration implements ConfigLoader {
      *
      * @return the property value.
      */
-    public boolean getPropertyAsBoolean(final String name, final boolean defaultValue) {
-        String value = getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        } else {
-            return Boolean.parseBoolean(value);
-        }
-    }
+    boolean getPropertyAsBoolean(String name, boolean defaultValue);
 
     /**
      * Get the configuration property as int.
@@ -108,14 +54,7 @@ public final class Configuration implements ConfigLoader {
      *
      * @return the property value.
      */
-    public int getPropertyAsInt(final String name, final int defaultValue) {
-        String value = getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        } else {
-            return Integer.parseInt(value);
-        }
-    }
+    int getPropertyAsInt(String name, int defaultValue);
 
     /**
      * Get the configuration property as long.
@@ -125,14 +64,7 @@ public final class Configuration implements ConfigLoader {
      *
      * @return the property value.
      */
-    public long getPropertyAsLong(final String name, final long defaultValue) {
-        String value = getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        } else {
-            return Long.parseLong(value);
-        }
-    }
+    long getPropertyAsLong(String name, long defaultValue);
 
     /**
      * Get the configuration property as float.
@@ -142,14 +74,7 @@ public final class Configuration implements ConfigLoader {
      *
      * @return the property value.
      */
-    public float getPropertyAsFloat(final String name, final float defaultValue) {
-        String value = getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        } else {
-            return Float.parseFloat(value);
-        }
-    }
+    float getPropertyAsFloat(String name, float defaultValue);
 
     /**
      * Get the configuration property as double.
@@ -159,14 +84,7 @@ public final class Configuration implements ConfigLoader {
      *
      * @return the property value.
      */
-    public double getPropertyAsDouble(final String name, final double defaultValue) {
-        String value = getProperty(name);
-        if (value == null) {
-            return defaultValue;
-        } else {
-            return Double.parseDouble(value);
-        }
-    }
+    double getPropertyAsDouble(String name, double defaultValue);
 
     /**
      * Get the configuration property as char.
@@ -176,13 +94,6 @@ public final class Configuration implements ConfigLoader {
      *
      * @return the property value.
      */
-    public char getPropertyAsChar(final String name, final char defaultValue) {
-        String value = getProperty(name);
-        if (value == null || value.length() == 0) {
-            return defaultValue;
-        } else {
-            return value.charAt(0);
-        }
-    }
+    char getPropertyAsChar(String name, char defaultValue);
 
 }
