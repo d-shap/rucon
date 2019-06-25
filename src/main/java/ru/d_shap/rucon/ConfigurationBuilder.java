@@ -31,11 +31,11 @@ import java.util.Set;
  */
 public final class ConfigurationBuilder {
 
-    private final List<ConfigLoader> _configLoaders;
+    private final List<ConfigDelegate> _configDelegates;
 
     private ConfigurationBuilder() {
         super();
-        _configLoaders = new ArrayList<>();
+        _configDelegates = new ArrayList<>();
     }
 
     /**
@@ -48,14 +48,14 @@ public final class ConfigurationBuilder {
     }
 
     /**
-     * Add the specified configuration loader.
+     * Add the specified configuration delegate.
      *
-     * @param configLoader the specified configuration loader.
+     * @param configDelegate the specified configuration delegate.
      *
      * @return current object for the method chaining.
      */
-    public ConfigurationBuilder addConfigLoader(final ConfigLoader configLoader) {
-        _configLoaders.add(configLoader);
+    public ConfigurationBuilder addConfigDelegate(final ConfigDelegate configDelegate) {
+        _configDelegates.add(configDelegate);
         return this;
     }
 
@@ -65,8 +65,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemPropertiesLoader() {
-        ConfigLoader configLoader = new SystemPropertiesLoader(null, null, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemPropertiesLoader(null, null, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -77,8 +77,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix) {
-        ConfigLoader configLoader = new SystemPropertiesLoader(prefix, null, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemPropertiesLoader(prefix, null, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -90,8 +90,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix, final String suffix) {
-        ConfigLoader configLoader = new SystemPropertiesLoader(prefix, suffix, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemPropertiesLoader(prefix, suffix, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -103,8 +103,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix, final Set<String> excludeProperties) {
-        ConfigLoader configLoader = new SystemPropertiesLoader(prefix, null, excludeProperties);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemPropertiesLoader(prefix, null, excludeProperties);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -117,8 +117,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix, final String suffix, final Set<String> excludeProperties) {
-        ConfigLoader configLoader = new SystemPropertiesLoader(prefix, suffix, excludeProperties);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemPropertiesLoader(prefix, suffix, excludeProperties);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -127,8 +127,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemEnvironmentLoader() {
-        ConfigLoader configLoader = new SystemEnvironmentLoader(null, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemEnvironmentLoader(null, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -139,8 +139,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemEnvironmentLoader(final Map<String, String> aliases) {
-        ConfigLoader configLoader = new SystemEnvironmentLoader(aliases, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemEnvironmentLoader(aliases, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -152,8 +152,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemEnvironmentLoader(final Map<String, String> aliases, final Set<String> excludeProperties) {
-        ConfigLoader configLoader = new SystemEnvironmentLoader(aliases, excludeProperties);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new SystemEnvironmentLoader(aliases, excludeProperties);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -164,8 +164,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addPropertiesLoader(final String resource) {
-        ConfigLoader configLoader = new PropertiesResourceLoader(getClass().getClassLoader(), resource, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new PropertiesResourceLoader(getClass().getClassLoader(), resource, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -177,8 +177,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addPropertiesLoader(final ClassLoader classLoader, final String resource) {
-        ConfigLoader configLoader = new PropertiesResourceLoader(classLoader, resource, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new PropertiesResourceLoader(classLoader, resource, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -190,8 +190,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addPropertiesLoader(final String resource, final Set<String> excludeProperties) {
-        ConfigLoader configLoader = new PropertiesResourceLoader(getClass().getClassLoader(), resource, excludeProperties);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new PropertiesResourceLoader(getClass().getClassLoader(), resource, excludeProperties);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -204,8 +204,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addPropertiesLoader(final ClassLoader classLoader, final String resource, final Set<String> excludeProperties) {
-        ConfigLoader configLoader = new PropertiesResourceLoader(classLoader, resource, excludeProperties);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new PropertiesResourceLoader(classLoader, resource, excludeProperties);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -216,8 +216,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addPropertiesLoader(final Map<Object, Object> properties) {
-        ConfigLoader configLoader = new PropertiesObjectLoader(properties, null);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new PropertiesObjectLoader(properties, null);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -229,8 +229,8 @@ public final class ConfigurationBuilder {
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addPropertiesLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
-        ConfigLoader configLoader = new PropertiesObjectLoader(properties, excludeProperties);
-        return addConfigLoader(configLoader);
+        ConfigDelegate configDelegate = new PropertiesObjectLoader(properties, excludeProperties);
+        return addConfigDelegate(configDelegate);
     }
 
     /**
@@ -239,8 +239,8 @@ public final class ConfigurationBuilder {
      * @return the configuration instance.
      */
     public Configuration buildAndLoad() {
-        ConfigurationLoader configuration = new ConfigurationLoader(_configLoaders);
-        _configLoaders.clear();
+        ConfigurationLoader configuration = new ConfigurationLoader(_configDelegates);
+        _configDelegates.clear();
         configuration.load();
         return configuration;
     }
