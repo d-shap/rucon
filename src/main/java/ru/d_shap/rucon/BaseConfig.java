@@ -104,7 +104,7 @@ public class BaseConfig {
      *
      * @return the property name with prefix and suffix.
      */
-    protected String getPropertyName(final String name) {
+    protected final String getPropertyName(final String name) {
         String propertyName = name;
         if (_prefix != null) {
             propertyName = _prefix + propertyName;
@@ -120,7 +120,7 @@ public class BaseConfig {
      *
      * @param properties the original properties.
      */
-    protected void excludeProperties(final Map<String, String> properties) {
+    protected final void excludeProperties(final Map<String, String> properties) {
         Set<String> keySet = properties.keySet();
         for (String excludePropery : _excludeProperties) {
             String propertyName = getPropertyName(excludePropery);
@@ -133,7 +133,7 @@ public class BaseConfig {
      *
      * @param properties the original properties.
      */
-    protected void replaceAliases(final Map<String, String> properties) {
+    protected final void replaceAliases(final Map<String, String> properties) {
         for (Map.Entry<String, String> entry : _aliases.entrySet()) {
             String alias = entry.getValue();
             if (properties.containsKey(alias)) {
