@@ -121,9 +121,10 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      * @param properties the original properties.
      */
     protected void excludeProperties(final Map<String, String> properties) {
+        Set<String> keySet = properties.keySet();
         for (String excludePropery : _excludeProperties) {
             String propertyName = getPropertyName(excludePropery);
-            properties.keySet().remove(propertyName);
+            keySet.remove(propertyName);
         }
     }
 
@@ -136,8 +137,8 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
         for (Map.Entry<String, String> entry : _aliases.entrySet()) {
             String alias = entry.getValue();
             if (properties.containsKey(alias)) {
-                String propertyName = entry.getKey();
-                propertyName = getPropertyName(propertyName);
+                String name = entry.getKey();
+                String propertyName = getPropertyName(name);
                 String propertyValue = properties.remove(alias);
                 properties.put(propertyName, propertyValue);
             }
