@@ -27,22 +27,22 @@ import java.util.List;
  *
  * @author Dmitry Shapovalov
  */
-public final class ConfigurationLoader implements ConfigLoader, Configuration {
+public final class ConfigurationLoader implements ConfigLoader, ConfigDelegate, Configuration {
 
-    private final List<ConfigLoader> _configLoaders;
+    private final List<ConfigDelegate> _configDelegates;
 
     /**
      * Create new object.
      *
-     * @param configLoaders configuration loaders.
+     * @param configDelegates configuration delegates.
      */
-    public ConfigurationLoader(final List<ConfigLoader> configLoaders) {
+    public ConfigurationLoader(final List<ConfigDelegate> configDelegates) {
         super();
-        _configLoaders = new ArrayList<>();
-        if (configLoaders != null) {
-            for (ConfigLoader configLoader : configLoaders) {
-                if (configLoader != null) {
-                    _configLoaders.add(configLoader);
+        _configDelegates = new ArrayList<>();
+        if (configDelegates != null) {
+            for (ConfigDelegate configDelegate : configDelegates) {
+                if (configDelegate != null) {
+                    _configDelegates.add(configDelegate);
                 }
             }
         }
@@ -50,15 +50,17 @@ public final class ConfigurationLoader implements ConfigLoader, Configuration {
 
     @Override
     public void load() {
-        for (ConfigLoader configLoader : _configLoaders) {
-            configLoader.load();
+        for (ConfigDelegate configDelegate : _configDelegates) {
+            if (configDelegate instanceof ConfigLoader) {
+                ((ConfigLoader) configDelegate).load();
+            }
         }
     }
 
     @Override
     public String getProperty(final String name) {
-        for (ConfigLoader configLoader : _configLoaders) {
-            String value = configLoader.getProperty(name);
+        for (ConfigDelegate configDelegate : _configDelegates) {
+            String value = configDelegate.getProperty(name);
             if (value != null) {
                 return value;
             }
