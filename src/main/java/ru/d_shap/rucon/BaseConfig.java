@@ -25,11 +25,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Base configuration loader class.
+ * Base configuration class.
  *
  * @author Dmitry Shapovalov
  */
-public abstract class AbstractLoader implements ConfigLoader {
+public class BaseConfig {
 
     private final String _prefix;
 
@@ -47,7 +47,7 @@ public abstract class AbstractLoader implements ConfigLoader {
      * @param aliases           the property aliases, the key is the property name, the value is the alias.
      * @param excludeProperties the properties to exclude.
      */
-    protected AbstractLoader(final String prefix, final String suffix, final Map<String, String> aliases, final Set<String> excludeProperties) {
+    protected BaseConfig(final String prefix, final String suffix, final Map<String, String> aliases, final Set<String> excludeProperties) {
         super();
         _prefix = prefix;
         _suffix = suffix;
