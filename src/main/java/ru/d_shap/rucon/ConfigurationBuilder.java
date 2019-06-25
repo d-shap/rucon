@@ -60,6 +60,68 @@ public final class ConfigurationBuilder {
     }
 
     /**
+     * Add configuration delegate for the system properties.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemPropertiesDelegate() {
+        ConfigDelegate configDelegate = new SystemPropertiesDelegate(null, null, null);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration delegate for the system properties.
+     *
+     * @param prefix the prefix to add to the property name.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemPropertiesDelegate(final String prefix) {
+        ConfigDelegate configDelegate = new SystemPropertiesDelegate(prefix, null, null);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration delegate for the system properties.
+     *
+     * @param prefix the prefix to add to the property name.
+     * @param suffix the suffix to add to the property name.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemPropertiesDelegate(final String prefix, final String suffix) {
+        ConfigDelegate configDelegate = new SystemPropertiesDelegate(prefix, suffix, null);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration delegate for the system properties.
+     *
+     * @param prefix            the prefix to add to the property name.
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemPropertiesDelegate(final String prefix, final Set<String> excludeProperties) {
+        ConfigDelegate configDelegate = new SystemPropertiesDelegate(prefix, null, excludeProperties);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration delegate for the system properties.
+     *
+     * @param prefix            the prefix to add to the property name.
+     * @param suffix            the suffix to add to the property name.
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemPropertiesDelegate(final String prefix, final String suffix, final Set<String> excludeProperties) {
+        ConfigDelegate configDelegate = new SystemPropertiesDelegate(prefix, suffix, excludeProperties);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
      * Add configuration loader for the system properties.
      *
      * @return current object for the method chaining.
