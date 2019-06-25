@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Application configuration implementation.
+ * Application configuration loader.
  *
  * @author Dmitry Shapovalov
  */
