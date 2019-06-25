@@ -48,14 +48,25 @@ public final class ConfigurationBuilder {
     }
 
     /**
+     * Add the specified configuration loader.
+     *
+     * @param configLoader the specified configuration loader.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addConfigLoader(final ConfigLoader configLoader) {
+        _configLoaders.add(configLoader);
+        return this;
+    }
+
+    /**
      * Add configuration loader for the system properties.
      *
      * @return current object for the method chaining.
      */
     public ConfigurationBuilder addSystemPropertiesLoader() {
         ConfigLoader configLoader = new SystemPropertiesLoader(null, null, null);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -67,8 +78,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix) {
         ConfigLoader configLoader = new SystemPropertiesLoader(prefix, null, null);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -81,8 +91,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix, final String suffix) {
         ConfigLoader configLoader = new SystemPropertiesLoader(prefix, suffix, null);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -95,8 +104,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix, final Set<String> excludeProperties) {
         ConfigLoader configLoader = new SystemPropertiesLoader(prefix, null, excludeProperties);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -110,8 +118,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix, final String suffix, final Set<String> excludeProperties) {
         ConfigLoader configLoader = new SystemPropertiesLoader(prefix, suffix, excludeProperties);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -121,8 +128,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemEnvironmentLoader() {
         ConfigLoader configLoader = new SystemEnvironmentLoader(null, null);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -134,8 +140,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemEnvironmentLoader(final Map<String, String> aliases) {
         ConfigLoader configLoader = new SystemEnvironmentLoader(aliases, null);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -148,8 +153,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemEnvironmentLoader(final Map<String, String> aliases, final Set<String> excludeProperties) {
         ConfigLoader configLoader = new SystemEnvironmentLoader(aliases, excludeProperties);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -162,8 +166,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addPropertiesLoader(final ClassLoader classLoader, final String resource) {
         ConfigLoader configLoader = new PropertiesResourceLoader(classLoader, resource, null);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -177,8 +180,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addPropertiesLoader(final ClassLoader classLoader, final String resource, final Set<String> excludeProperties) {
         ConfigLoader configLoader = new PropertiesResourceLoader(classLoader, resource, excludeProperties);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -190,8 +192,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addPropertiesLoader(final Map<Object, Object> properties) {
         ConfigLoader configLoader = new PropertiesObjectLoader(properties, null);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
@@ -204,8 +205,7 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addPropertiesLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
         ConfigLoader configLoader = new PropertiesObjectLoader(properties, excludeProperties);
-        _configLoaders.add(configLoader);
-        return this;
+        return addConfigLoader(configLoader);
     }
 
     /**
