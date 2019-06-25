@@ -51,8 +51,7 @@ public final class PropertiesObjectLoader extends AbstractConfigLoader {
 
     @Override
     public String getProperty(final String name) {
-        String propertyName = getPropertyName(name);
-        return _properties.get(propertyName);
+        return _properties.get(name);
     }
 
 }
