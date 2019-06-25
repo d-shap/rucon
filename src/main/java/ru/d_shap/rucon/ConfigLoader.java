@@ -24,7 +24,7 @@ package ru.d_shap.rucon;
  *
  * @author Dmitry Shapovalov
  */
-public interface ConfigLoader extends ConfigDelegate {
+public interface ConfigLoader {
 
     /**
      * Load the configuration.
