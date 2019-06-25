@@ -20,7 +20,7 @@
 package ru.d_shap.rucon;
 
 /**
- * Configuration interface.
+ * Application configuration interface.
  *
  * @author Dmitry Shapovalov
  */
