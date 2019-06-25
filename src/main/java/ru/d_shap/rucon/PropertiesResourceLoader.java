@@ -31,7 +31,7 @@ import java.util.Set;
  *
  * @author Dmitry Shapovalov
  */
-public final class PropertiesResourceLoader extends AbstractConfigLoader {
+public final class PropertiesResourceLoader extends AbstractLoader {
 
     private final ClassLoader _classLoader;
 

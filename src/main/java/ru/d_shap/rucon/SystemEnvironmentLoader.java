@@ -28,7 +28,7 @@ import java.util.Set;
  *
  * @author Dmitry Shapovalov
  */
-public final class SystemEnvironmentLoader extends AbstractConfigLoader {
+public final class SystemEnvironmentLoader extends AbstractLoader {
 
     private final Map<String, String> _properties;
 

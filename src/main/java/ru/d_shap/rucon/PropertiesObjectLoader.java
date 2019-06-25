@@ -28,7 +28,7 @@ import java.util.Set;
  *
  * @author Dmitry Shapovalov
  */
-public final class PropertiesObjectLoader extends AbstractConfigLoader {
+public final class PropertiesObjectLoader extends AbstractLoader {
 
     private final Map<String, String> _properties;
 

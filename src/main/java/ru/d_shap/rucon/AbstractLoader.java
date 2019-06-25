@@ -29,7 +29,7 @@ import java.util.Set;
  *
  * @author Dmitry Shapovalov
  */
-public abstract class AbstractConfigLoader implements ConfigLoader {
+public abstract class AbstractLoader implements ConfigLoader {
 
     private final String _prefix;
 
@@ -47,7 +47,7 @@ public abstract class AbstractConfigLoader implements ConfigLoader {
      * @param aliases           the property aliases, the key is the property name, the value is the alias.
      * @param excludeProperties the properties to exclude.
      */
-    protected AbstractConfigLoader(final String prefix, final String suffix, final Map<String, String> aliases, final Set<String> excludeProperties) {
+    protected AbstractLoader(final String prefix, final String suffix, final Map<String, String> aliases, final Set<String> excludeProperties) {
         super();
         _prefix = prefix;
         _suffix = suffix;
