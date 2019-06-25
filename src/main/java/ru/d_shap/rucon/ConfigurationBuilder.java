@@ -159,6 +159,18 @@ public final class ConfigurationBuilder {
     /**
      * Add configuration loader for the properties.
      *
+     * @param resource the resource.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addPropertiesLoader(final String resource) {
+        ConfigLoader configLoader = new PropertiesResourceLoader(getClass().getClassLoader(), resource, null);
+        return addConfigLoader(configLoader);
+    }
+
+    /**
+     * Add configuration loader for the properties.
+     *
      * @param classLoader the class loader to load the resource.
      * @param resource    the resource.
      *
@@ -166,6 +178,19 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addPropertiesLoader(final ClassLoader classLoader, final String resource) {
         ConfigLoader configLoader = new PropertiesResourceLoader(classLoader, resource, null);
+        return addConfigLoader(configLoader);
+    }
+
+    /**
+     * Add configuration loader for the properties.
+     *
+     * @param resource          the resource.
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addPropertiesLoader(final String resource, final Set<String> excludeProperties) {
+        ConfigLoader configLoader = new PropertiesResourceLoader(getClass().getClassLoader(), resource, excludeProperties);
         return addConfigLoader(configLoader);
     }
 
