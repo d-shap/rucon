@@ -90,8 +90,8 @@ public abstract class AbstractLoader implements ConfigLoader {
     protected final void fillProperties(final Map<Object, Object> from, final Map<String, String> to) {
         if (from != null) {
             for (Map.Entry<Object, Object> entry : from.entrySet()) {
-                String key = (String) entry.getKey();
-                String value = (String) entry.getValue();
+                String key = String.valueOf(entry.getKey());
+                String value = String.valueOf(entry.getValue());
                 to.put(key, value);
             }
         }
@@ -116,7 +116,7 @@ public abstract class AbstractLoader implements ConfigLoader {
     }
 
     /**
-     * Exclude the defined properties.
+     * Exclude the properties with the names, specified in constructor, from the original properties.
      *
      * @param properties the original properties.
      */
@@ -129,7 +129,7 @@ public abstract class AbstractLoader implements ConfigLoader {
     }
 
     /**
-     * Replace the property aliases with the property names.
+     * Replace the property aliases, specified in constructor, with the property names.
      *
      * @param properties the original properties.
      */
