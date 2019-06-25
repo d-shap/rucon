@@ -116,6 +116,18 @@ public class BaseConfig {
     }
 
     /**
+     * Check if the property should be excluded.
+     *
+     * @param name the original property name.
+     *
+     * @return true, if the property should be excluded.
+     */
+    protected final boolean isExcludeProperty(final String name) {
+        String propertyName = getPropertyName(name);
+        return _excludeProperties.contains(propertyName);
+    }
+
+    /**
      * Exclude the properties with the names, specified in constructor, from the original properties.
      *
      * @param properties the original properties.
