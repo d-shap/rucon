@@ -31,7 +31,7 @@ import java.util.Set;
  *
  * @author Dmitry Shapovalov
  */
-public final class PropertiesResourceLoader extends AbstractLoader {
+public final class PropertiesResourceLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
 
     private final ClassLoader _classLoader;
 
