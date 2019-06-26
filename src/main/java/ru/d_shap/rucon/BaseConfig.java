@@ -134,8 +134,8 @@ public class BaseConfig {
      */
     protected final void excludeProperties(final Map<String, String> properties) {
         Set<String> keySet = properties.keySet();
-        for (String excludePropery : _excludeProperties) {
-            String propertyName = getPropertyName(excludePropery);
+        for (String name : _excludeProperties) {
+            String propertyName = getPropertyName(name);
             keySet.remove(propertyName);
         }
     }
