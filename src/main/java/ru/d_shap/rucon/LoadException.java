@@ -19,23 +19,21 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
-import java.io.IOException;
-
 /**
- * Runtime exception wrapper for the IO exception.
+ * Runtime exception wrapper for the load exception.
  *
  * @author Dmitry Shapovalov
  */
-public final class RuntimeIOException extends RuntimeException {
+public final class LoadException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Create new object.
      *
-     * @param exception IO exception.
+     * @param exception load exception cause.
      */
-    public RuntimeIOException(final IOException exception) {
+    public LoadException(final Exception exception) {
         super(exception);
     }
 
