@@ -1,15 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// CLI tools provide facilities for the command line interface development.
-// Copyright (C) 2018 Dmitry Shapovalov.
+// RuCon is the application configuration helper.
+// Copyright (C) 2019 Dmitry Shapovalov.
 //
-// This file is part of CLI tools.
+// This file is part of RuCon.
 //
-// CLI tools is free software: you can redistribute it and/or modify
+// RuCon is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// CLI tools is distributed in the hope that it will be useful,
+// RuCon is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
