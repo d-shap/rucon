@@ -327,7 +327,7 @@ public final class ConfigurationBuilder {
      *
      * @return current object for the method chaining.
      */
-    public ConfigurationBuilder addPropertiesLoader(final Map<Object, Object> properties) {
+    public ConfigurationBuilder addPropertiesObjectLoader(final Map<Object, Object> properties) {
         ConfigDelegate configDelegate = new PropertiesObjectLoader(properties, null);
         return addConfigDelegate(configDelegate);
     }
@@ -340,7 +340,7 @@ public final class ConfigurationBuilder {
      *
      * @return current object for the method chaining.
      */
-    public ConfigurationBuilder addPropertiesLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
+    public ConfigurationBuilder addPropertiesObjectLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
         ConfigDelegate configDelegate = new PropertiesObjectLoader(properties, excludeProperties);
         return addConfigDelegate(configDelegate);
     }
