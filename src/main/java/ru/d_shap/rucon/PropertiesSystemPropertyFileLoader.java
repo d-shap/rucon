@@ -35,29 +35,29 @@ import java.util.Set;
  */
 public final class PropertiesSystemPropertyFileLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
 
-    private final String _propertyName;
+    private final String _name;
 
     private final Map<String, String> _properties;
 
     /**
      * Create new object.
      *
-     * @param propertyName      the name of the property with the path to the properties file.
+     * @param name              the name of the property with the path to the properties file.
      * @param excludeProperties the properties to exclude.
      */
-    public PropertiesSystemPropertyFileLoader(final String propertyName, final Set<String> excludeProperties) {
+    public PropertiesSystemPropertyFileLoader(final String name, final Set<String> excludeProperties) {
         super(null, null, null, excludeProperties);
-        _propertyName = propertyName;
+        _name = name;
         _properties = new HashMap<>();
     }
 
     @Override
     public void load() {
         try {
-            if (_propertyName == null) {
+            if (_name == null) {
                 return;
             }
-            String filePath = System.getProperty(_propertyName);
+            String filePath = System.getProperty(_name);
             if (filePath == null) {
                 return;
             }
