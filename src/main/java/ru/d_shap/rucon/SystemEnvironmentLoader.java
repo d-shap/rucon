@@ -47,7 +47,7 @@ public final class SystemEnvironmentLoader extends BaseConfig implements ConfigL
     public void load() {
         Map<String, String> properties = System.getenv();
         fillMap(properties, _properties);
-        replaceAliases(_properties);
+        replacePropertyAliases(_properties);
         excludeProperties(_properties);
     }
 
