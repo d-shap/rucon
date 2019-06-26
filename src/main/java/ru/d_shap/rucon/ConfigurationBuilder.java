@@ -225,7 +225,7 @@ public final class ConfigurationBuilder {
      *
      * @return current object for the method chaining.
      */
-    public ConfigurationBuilder addPropertiesLoader(final String resource) {
+    public ConfigurationBuilder addPropertiesResourceLoader(final String resource) {
         ConfigDelegate configDelegate = new PropertiesResourceLoader(getClass().getClassLoader(), resource, null);
         return addConfigDelegate(configDelegate);
     }
@@ -238,7 +238,7 @@ public final class ConfigurationBuilder {
      *
      * @return current object for the method chaining.
      */
-    public ConfigurationBuilder addPropertiesLoader(final ClassLoader classLoader, final String resource) {
+    public ConfigurationBuilder addPropertiesResourceLoader(final ClassLoader classLoader, final String resource) {
         ConfigDelegate configDelegate = new PropertiesResourceLoader(classLoader, resource, null);
         return addConfigDelegate(configDelegate);
     }
@@ -251,7 +251,7 @@ public final class ConfigurationBuilder {
      *
      * @return current object for the method chaining.
      */
-    public ConfigurationBuilder addPropertiesLoader(final String resource, final Set<String> excludeProperties) {
+    public ConfigurationBuilder addPropertiesResourceLoader(final String resource, final Set<String> excludeProperties) {
         ConfigDelegate configDelegate = new PropertiesResourceLoader(getClass().getClassLoader(), resource, excludeProperties);
         return addConfigDelegate(configDelegate);
     }
@@ -265,7 +265,7 @@ public final class ConfigurationBuilder {
      *
      * @return current object for the method chaining.
      */
-    public ConfigurationBuilder addPropertiesLoader(final ClassLoader classLoader, final String resource, final Set<String> excludeProperties) {
+    public ConfigurationBuilder addPropertiesResourceLoader(final ClassLoader classLoader, final String resource, final Set<String> excludeProperties) {
         ConfigDelegate configDelegate = new PropertiesResourceLoader(classLoader, resource, excludeProperties);
         return addConfigDelegate(configDelegate);
     }
