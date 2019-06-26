@@ -33,7 +33,7 @@ import java.util.Set;
  *
  * @author Dmitry Shapovalov
  */
-public final class PropertiesFileSystemPropertyLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
+public final class PropertiesSystemPropertyFileLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
 
     private final String _propertyName;
 
@@ -45,7 +45,7 @@ public final class PropertiesFileSystemPropertyLoader extends BaseConfig impleme
      * @param propertyName      the name of the property with the path to the properties file.
      * @param excludeProperties the properties to exclude.
      */
-    public PropertiesFileSystemPropertyLoader(final String propertyName, final Set<String> excludeProperties) {
+    public PropertiesSystemPropertyFileLoader(final String propertyName, final Set<String> excludeProperties) {
         super(null, null, null, excludeProperties);
         _propertyName = propertyName;
         _properties = new HashMap<>();
