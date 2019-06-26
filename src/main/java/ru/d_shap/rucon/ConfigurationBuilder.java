@@ -273,6 +273,31 @@ public final class ConfigurationBuilder {
     /**
      * Add configuration loader for the properties.
      *
+     * @param filePath the path to the properties file.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addPropertiesFilePathLoader(final String filePath) {
+        ConfigDelegate configDelegate = new PropertiesFilePathLoader(filePath, null);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration loader for the properties.
+     *
+     * @param filePath          the path to the properties file.
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addPropertiesFilePathLoader(final String filePath, final Set<String> excludeProperties) {
+        ConfigDelegate configDelegate = new PropertiesFilePathLoader(filePath, excludeProperties);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration loader for the properties.
+     *
      * @param properties the properties object.
      *
      * @return current object for the method chaining.
