@@ -20,9 +20,10 @@
 package ru.d_shap.rucon;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -61,7 +62,7 @@ public final class PropertiesFilePathLoader extends BaseConfig implements Config
             if (!file.exists()) {
                 return;
             }
-            try (InputStream inputStream = new FileInputStream(file)) {
+            try (InputStream inputStream = Files.newInputStream(Paths.get(file.getAbsolutePath()))) {
                 Map<Object, Object> properties = new Properties();
                 ((Properties) properties).load(inputStream);
                 fillProperties(properties, _properties);
