@@ -63,7 +63,7 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
                 excludeProperties(_properties);
             }
         } catch (IOException ex) {
-            throw new RuntimeIOException(ex);
+            throw new LoadException(ex);
         }
     }
 
