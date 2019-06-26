@@ -123,8 +123,7 @@ public class BaseConfig {
      * @return true, if the property should be excluded.
      */
     protected final boolean isExcludeProperty(final String name) {
-        String propertyName = getPropertyName(name);
-        return _excludeProperties.contains(propertyName);
+        return _excludeProperties.contains(name);
     }
 
     /**
@@ -141,11 +140,28 @@ public class BaseConfig {
     }
 
     /**
+     * Get the property alias for the specified property name.
+     *
+     * @param name the specified property name.
+     *
+     * @return the property alias.
+     */
+    protected final String getPropertyAlias(final String name) {
+        for (Map.Entry<String, String> entry : _aliases.entrySet()) {
+            String key = entry.getKey();
+            if (key.equals(name)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
+    /**
      * Replace the property aliases, specified in constructor, with the property names.
      *
      * @param properties the original properties.
      */
-    protected final void replaceAliases(final Map<String, String> properties) {
+    protected final void replacePropertyAliases(final Map<String, String> properties) {
         for (Map.Entry<String, String> entry : _aliases.entrySet()) {
             String alias = entry.getValue();
             if (properties.containsKey(alias)) {
