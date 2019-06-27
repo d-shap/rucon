@@ -280,6 +280,14 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test
+    public void excludePropertiesTest() {
+        // TODO
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test
     public void getPropertyAliasTest() {
         // TODO
     }
