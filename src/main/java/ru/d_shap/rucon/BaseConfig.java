@@ -115,7 +115,10 @@ public class BaseConfig {
      * @return the property name with prefix and suffix.
      */
     protected final String getPropertyName(final String name) {
-        String propertyName = String.valueOf(name);
+        if (name == null) {
+            return null;
+        }
+        String propertyName = name;
         if (_prefix != null) {
             propertyName = _prefix + propertyName;
         }
