@@ -90,8 +90,18 @@ public class BaseConfig {
     protected final void fillProperties(final Map<Object, Object> from, final Map<String, String> to) {
         if (from != null) {
             for (Map.Entry<Object, Object> entry : from.entrySet()) {
-                String key = String.valueOf(entry.getKey());
-                String value = String.valueOf(entry.getValue());
+                String key;
+                if (entry.getKey() == null) {
+                    key = null;
+                } else {
+                    key = entry.getKey().toString();
+                }
+                String value;
+                if (entry.getValue() == null) {
+                    value = null;
+                } else {
+                    value = entry.getValue().toString();
+                }
                 to.put(key, value);
             }
         }
