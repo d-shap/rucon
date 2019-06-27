@@ -19,7 +19,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.Test;
+
+import ru.d_shap.assertions.Assertions;
 
 /**
  * Tests for {@link BaseConfig}.
@@ -40,7 +47,44 @@ public final class BaseConfigTest {
      */
     @Test
     public void fillSetTest() {
-        // TODO
+        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
+
+        Set<String> fromSet1 = null;
+        Set<String> toSet1 = new HashSet<>();
+        baseConfig.fillSet(fromSet1, toSet1);
+        Assertions.assertThat(toSet1).containsExactly();
+
+        Set<String> fromSet2 = new HashSet<>();
+        Set<String> toSet2 = new HashSet<>();
+        baseConfig.fillSet(fromSet2, toSet2);
+        Assertions.assertThat(toSet2).containsExactly();
+
+        Set<String> fromSet3 = new HashSet<>();
+        fromSet3.add("value");
+        Set<String> toSet3 = new HashSet<>();
+        baseConfig.fillSet(fromSet3, toSet3);
+        Assertions.assertThat(toSet3).containsExactly("value");
+
+        Set<String> fromSet4 = new HashSet<>();
+        fromSet4.add("value1");
+        fromSet4.add("value2");
+        fromSet4.add("value3");
+        fromSet4.add("value4");
+        Set<String> toSet4 = new HashSet<>();
+        baseConfig.fillSet(fromSet4, toSet4);
+        Assertions.assertThat(toSet4).containsExactly("value1", "value2", "value3", "value4");
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void fillSetNullFailTest() {
+        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
+
+        Set<String> fromSet = new HashSet<>();
+        Set<String> toSet = null;
+        baseConfig.fillSet(fromSet, toSet);
     }
 
     /**
@@ -48,7 +92,44 @@ public final class BaseConfigTest {
      */
     @Test
     public void fillMapTest() {
-        // TODO
+        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
+
+        Map<String, String> fromMap1 = null;
+        Map<String, String> toMap1 = new HashMap<>();
+        baseConfig.fillMap(fromMap1, toMap1);
+        Assertions.assertThat(toMap1).containsExactly();
+
+        Map<String, String> fromMap2 = new HashMap<>();
+        Map<String, String> toMap2 = new HashMap<>();
+        baseConfig.fillMap(fromMap2, toMap2);
+        Assertions.assertThat(toMap2).containsExactly();
+
+        Map<String, String> fromMap3 = new HashMap<>();
+        fromMap3.put("key", "value");
+        Map<String, String> toMap3 = new HashMap<>();
+        baseConfig.fillMap(fromMap3, toMap3);
+        Assertions.assertThat(toMap3).containsExactly("key", "value");
+
+        Map<String, String> fromMap4 = new HashMap<>();
+        fromMap4.put("key1", "value1");
+        fromMap4.put("key2", "value2");
+        fromMap4.put("key3", "value3");
+        fromMap4.put("key4", "value4");
+        Map<String, String> toMap4 = new HashMap<>();
+        baseConfig.fillMap(fromMap4, toMap4);
+        Assertions.assertThat(toMap4).containsExactly("key1", "value1", "key2", "value2", "key3", "value3", "key4", "value4");
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void fillMapNullFailTest() {
+        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
+
+        Map<String, String> fromMap = new HashMap<>();
+        Map<String, String> toMap = null;
+        baseConfig.fillMap(fromMap, toMap);
     }
 
     /**
