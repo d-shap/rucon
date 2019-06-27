@@ -73,6 +73,12 @@ public final class BaseConfigTest {
         Set<String> toSet4 = new HashSet<>();
         baseConfig.fillSet(fromSet4, toSet4);
         Assertions.assertThat(toSet4).containsExactly("value1", "value2", "value3", "value4");
+
+        Set<String> fromSet5 = new HashSet<>();
+        fromSet5.add(null);
+        Set<String> toSet5 = new HashSet<>();
+        baseConfig.fillSet(fromSet5, toSet5);
+        Assertions.assertThat(toSet5).containsExactly((String) null);
     }
 
     /**
@@ -83,6 +89,7 @@ public final class BaseConfigTest {
         BaseConfig baseConfig = new BaseConfig(null, null, null, null);
 
         Set<String> fromSet = new HashSet<>();
+        fromSet.add("value");
         Set<String> toSet = null;
         baseConfig.fillSet(fromSet, toSet);
     }
@@ -118,6 +125,18 @@ public final class BaseConfigTest {
         Map<String, String> toMap4 = new HashMap<>();
         baseConfig.fillMap(fromMap4, toMap4);
         Assertions.assertThat(toMap4).containsExactly("key1", "value1", "key2", "value2", "key3", "value3", "key4", "value4");
+
+        Map<String, String> fromMap5 = new HashMap<>();
+        fromMap5.put(null, "value");
+        Map<String, String> toMap5 = new HashMap<>();
+        baseConfig.fillMap(fromMap5, toMap5);
+        Assertions.assertThat(toMap5).containsExactly(null, "value");
+
+        Map<String, String> fromMap6 = new HashMap<>();
+        fromMap6.put("key", null);
+        Map<String, String> toMap6 = new HashMap<>();
+        baseConfig.fillMap(fromMap6, toMap6);
+        Assertions.assertThat(toMap6).containsExactly("key", null);
     }
 
     /**
@@ -128,6 +147,7 @@ public final class BaseConfigTest {
         BaseConfig baseConfig = new BaseConfig(null, null, null, null);
 
         Map<String, String> fromMap = new HashMap<>();
+        fromMap.put("key", "value");
         Map<String, String> toMap = null;
         baseConfig.fillMap(fromMap, toMap);
     }
@@ -137,7 +157,69 @@ public final class BaseConfigTest {
      */
     @Test
     public void fillPropertiesTest() {
-        // TODO
+        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
+
+        Map<Object, Object> fromMap1 = null;
+        Map<String, String> toMap1 = new HashMap<>();
+        baseConfig.fillProperties(fromMap1, toMap1);
+        Assertions.assertThat(toMap1).containsExactly();
+
+        Map<Object, Object> fromMap2 = new HashMap<>();
+        Map<String, String> toMap2 = new HashMap<>();
+        baseConfig.fillProperties(fromMap2, toMap2);
+        Assertions.assertThat(toMap2).containsExactly();
+
+        Map<Object, Object> fromMap3 = new HashMap<>();
+        fromMap3.put("key", "value");
+        Map<String, String> toMap3 = new HashMap<>();
+        baseConfig.fillProperties(fromMap3, toMap3);
+        Assertions.assertThat(toMap3).containsExactly("key", "value");
+
+        Map<Object, Object> fromMap4 = new HashMap<>();
+        fromMap4.put("key1", "value1");
+        fromMap4.put("key2", "value2");
+        fromMap4.put("key3", "value3");
+        fromMap4.put("key4", "value4");
+        Map<String, String> toMap4 = new HashMap<>();
+        baseConfig.fillProperties(fromMap4, toMap4);
+        Assertions.assertThat(toMap4).containsExactly("key1", "value1", "key2", "value2", "key3", "value3", "key4", "value4");
+
+        Map<Object, Object> fromMap5 = new HashMap<>();
+        fromMap5.put(new StringBuilder("key"), "value");
+        Map<String, String> toMap5 = new HashMap<>();
+        baseConfig.fillProperties(fromMap5, toMap5);
+        Assertions.assertThat(toMap5).containsExactly("key", "value");
+
+        Map<Object, Object> fromMap6 = new HashMap<>();
+        fromMap6.put("key", new StringBuilder("value"));
+        Map<String, String> toMap6 = new HashMap<>();
+        baseConfig.fillProperties(fromMap6, toMap6);
+        Assertions.assertThat(toMap6).containsExactly("key", "value");
+
+        Map<Object, Object> fromMap7 = new HashMap<>();
+        fromMap7.put(null, "value");
+        Map<String, String> toMap7 = new HashMap<>();
+        baseConfig.fillProperties(fromMap7, toMap7);
+        Assertions.assertThat(toMap7).containsExactly(null, "value");
+
+        Map<Object, Object> fromMap8 = new HashMap<>();
+        fromMap8.put("key", null);
+        Map<String, String> toMap8 = new HashMap<>();
+        baseConfig.fillProperties(fromMap8, toMap8);
+        Assertions.assertThat(toMap8).containsExactly("key", null);
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void fillPropertiesNullFailTest() {
+        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
+
+        Map<Object, Object> fromMap = new HashMap<>();
+        fromMap.put("key", "value");
+        Map<String, String> toMap = null;
+        baseConfig.fillProperties(fromMap, toMap);
     }
 
     /**
