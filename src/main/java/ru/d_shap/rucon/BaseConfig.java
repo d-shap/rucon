@@ -90,20 +90,25 @@ public class BaseConfig {
     protected final void fillProperties(final Map<Object, Object> from, final Map<String, String> to) {
         if (from != null) {
             for (Map.Entry<Object, Object> entry : from.entrySet()) {
-                String key;
-                if (entry.getKey() == null) {
-                    key = null;
-                } else {
-                    key = entry.getKey().toString();
-                }
-                String value;
-                if (entry.getValue() == null) {
-                    value = null;
-                } else {
-                    value = entry.getValue().toString();
-                }
+                String key = getString(entry.getKey());
+                String value = getString(entry.getValue());
                 to.put(key, value);
             }
+        }
+    }
+
+    /**
+     * Get the string representation of the object.
+     *
+     * @param object the object.
+     *
+     * @return the string representation of the object.
+     */
+    protected final String getString(final Object object) {
+        if (object == null) {
+            return null;
+        } else {
+            return object.toString();
         }
     }
 
