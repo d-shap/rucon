@@ -852,4 +852,15 @@ public final class BaseConfigTest {
         Assertions.assertThat(properties68).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "pre.key1.post", "value4", "pre.key2.post", "value4");
     }
 
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void replacePropertyAliasesNullFailTest() {
+        Map<String, String> propertyAliases = new HashMap<>();
+        propertyAliases.put("key", "KEY_ALIAS");
+        Map<String, String> properties = null;
+        new BaseConfig(null, null, propertyAliases, null).excludeProperties(properties);
+    }
+
 }
