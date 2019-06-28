@@ -169,15 +169,20 @@ public class BaseConfig {
      * @param properties the original properties.
      */
     protected final void replacePropertyAliases(final Map<String, String> properties) {
+        Set<String> removeKeys = new HashSet<>();
+        Map<String, String> putProperties = new HashMap<>();
         for (Map.Entry<String, String> entry : _aliases.entrySet()) {
             String alias = entry.getValue();
             if (properties.containsKey(alias)) {
+                removeKeys.add(alias);
                 String name = entry.getKey();
                 String propertyName = getPropertyName(name);
-                String propertyValue = properties.remove(alias);
-                properties.put(propertyName, propertyValue);
+                String propertyValue = properties.get(alias);
+                putProperties.put(propertyName, propertyValue);
             }
         }
+        properties.keySet().removeAll(removeKeys);
+        properties.putAll(putProperties);
     }
 
 }
