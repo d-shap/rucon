@@ -618,7 +618,7 @@ public final class BaseConfigTest {
         new BaseConfig("pre.", ".post", propertyAliases1, null).replacePropertyAliases(properties18);
         Assertions.assertThat(properties18).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
 
-        Map<String, String> propertyAliases2 = null;
+        Map<String, String> propertyAliases2 = new HashMap<>();
         Map<String, String> properties21 = new HashMap<>();
         new BaseConfig(null, null, propertyAliases2, null).replacePropertyAliases(properties21);
         Assertions.assertThat(properties21).containsExactly();
