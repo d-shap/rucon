@@ -273,7 +273,51 @@ public final class BaseConfigTest {
      */
     @Test
     public void isExcludePropertyTest() {
-        // TODO
+        Set<String> excludeProperties1 = null;
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty("")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty(" ")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty("name")).isFalse();
+
+        Set<String> excludeProperties2 = new HashSet<>();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty("")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty(" ")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty("name")).isFalse();
+
+        Set<String> excludeProperties3 = new HashSet<>();
+        excludeProperties3.add("name");
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty("")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty(" ")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty("name")).isTrue();
+
+        Set<String> excludeProperties4 = new HashSet<>();
+        excludeProperties4.add(null);
+        excludeProperties4.add("");
+        excludeProperties4.add(" ");
+        excludeProperties4.add("name");
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty(null)).isTrue();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty("")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty(" ")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty("name")).isTrue();
+
+        Set<String> excludeProperties5 = new HashSet<>();
+        excludeProperties5.add("name");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty(null)).isFalse();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty("")).isFalse();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty(" ")).isFalse();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty("name")).isTrue();
+
+        Set<String> excludeProperties6 = new HashSet<>();
+        excludeProperties6.add(null);
+        excludeProperties6.add("");
+        excludeProperties6.add(" ");
+        excludeProperties6.add("name");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty(null)).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty("")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty(" ")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty("name")).isTrue();
     }
 
     /**
