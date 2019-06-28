@@ -573,7 +573,95 @@ public final class BaseConfigTest {
      */
     @Test
     public void replacePropertyAliasesTest() {
-        // TODO
+        Map<String, String> propertyAliases1 = null;
+        Map<String, String> properties11 = new HashMap<>();
+        new BaseConfig(null, null, propertyAliases1, null).replacePropertyAliases(properties11);
+        Assertions.assertThat(properties11).containsExactly();
+        Map<String, String> properties12 = new HashMap<>();
+        properties12.put("KEY_ALIAS", "value");
+        new BaseConfig(null, null, propertyAliases1, null).replacePropertyAliases(properties12);
+        Assertions.assertThat(properties12).containsExactly("KEY_ALIAS", "value");
+        Map<String, String> properties13 = new HashMap<>();
+        properties13.put("NULL_ALIAS", "value1");
+        properties13.put("EMPTY_ALIAS", "value2");
+        properties13.put("SPACE_ALIAS", "value3");
+        properties13.put("KEY_ALIAS", "value4");
+        new BaseConfig(null, null, propertyAliases1, null).replacePropertyAliases(properties13);
+        Assertions.assertThat(properties13).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
+        Map<String, String> properties14 = new HashMap<>();
+        properties14.put(null, "value");
+        new BaseConfig(null, null, propertyAliases1, null).replacePropertyAliases(properties14);
+        Assertions.assertThat(properties14).containsExactly(null, "value");
+        Map<String, String> properties15 = new HashMap<>();
+        properties15.put("KEY_ALIAS", null);
+        new BaseConfig(null, null, propertyAliases1, null).replacePropertyAliases(properties15);
+        Assertions.assertThat(properties15).containsExactly("KEY_ALIAS", null);
+        Map<String, String> properties16 = new HashMap<>();
+        properties16.put("NULL_ALIAS", "value1");
+        properties16.put("EMPTY_ALIAS", "value2");
+        properties16.put("SPACE_ALIAS", "value3");
+        properties16.put("KEY_ALIAS", "value4");
+        new BaseConfig("pre.", null, propertyAliases1, null).replacePropertyAliases(properties16);
+        Assertions.assertThat(properties16).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
+        Map<String, String> properties17 = new HashMap<>();
+        properties17.put("NULL_ALIAS", "value1");
+        properties17.put("EMPTY_ALIAS", "value2");
+        properties17.put("SPACE_ALIAS", "value3");
+        properties17.put("KEY_ALIAS", "value4");
+        new BaseConfig(null, ".post", propertyAliases1, null).replacePropertyAliases(properties17);
+        Assertions.assertThat(properties17).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
+        Map<String, String> properties18 = new HashMap<>();
+        properties18.put("NULL_ALIAS", "value1");
+        properties18.put("EMPTY_ALIAS", "value2");
+        properties18.put("SPACE_ALIAS", "value3");
+        properties18.put("KEY_ALIAS", "value4");
+        new BaseConfig("pre.", ".post", propertyAliases1, null).replacePropertyAliases(properties18);
+        Assertions.assertThat(properties18).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
+
+        Map<String, String> propertyAliases2 = null;
+        Map<String, String> properties21 = new HashMap<>();
+        new BaseConfig(null, null, propertyAliases2, null).replacePropertyAliases(properties21);
+        Assertions.assertThat(properties21).containsExactly();
+        Map<String, String> properties22 = new HashMap<>();
+        properties22.put("KEY_ALIAS", "value");
+        new BaseConfig(null, null, propertyAliases2, null).replacePropertyAliases(properties22);
+        Assertions.assertThat(properties22).containsExactly("KEY_ALIAS", "value");
+        Map<String, String> properties23 = new HashMap<>();
+        properties23.put("NULL_ALIAS", "value1");
+        properties23.put("EMPTY_ALIAS", "value2");
+        properties23.put("SPACE_ALIAS", "value3");
+        properties23.put("KEY_ALIAS", "value4");
+        new BaseConfig(null, null, propertyAliases2, null).replacePropertyAliases(properties23);
+        Assertions.assertThat(properties23).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
+        Map<String, String> properties24 = new HashMap<>();
+        properties24.put(null, "value");
+        new BaseConfig(null, null, propertyAliases2, null).replacePropertyAliases(properties24);
+        Assertions.assertThat(properties24).containsExactly(null, "value");
+        Map<String, String> properties25 = new HashMap<>();
+        properties25.put("KEY_ALIAS", null);
+        new BaseConfig(null, null, propertyAliases2, null).replacePropertyAliases(properties25);
+        Assertions.assertThat(properties25).containsExactly("KEY_ALIAS", null);
+        Map<String, String> properties26 = new HashMap<>();
+        properties26.put("NULL_ALIAS", "value1");
+        properties26.put("EMPTY_ALIAS", "value2");
+        properties26.put("SPACE_ALIAS", "value3");
+        properties26.put("KEY_ALIAS", "value4");
+        new BaseConfig("pre.", null, propertyAliases2, null).replacePropertyAliases(properties26);
+        Assertions.assertThat(properties26).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
+        Map<String, String> properties27 = new HashMap<>();
+        properties27.put("NULL_ALIAS", "value1");
+        properties27.put("EMPTY_ALIAS", "value2");
+        properties27.put("SPACE_ALIAS", "value3");
+        properties27.put("KEY_ALIAS", "value4");
+        new BaseConfig(null, ".post", propertyAliases2, null).replacePropertyAliases(properties27);
+        Assertions.assertThat(properties27).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
+        Map<String, String> properties28 = new HashMap<>();
+        properties28.put("NULL_ALIAS", "value1");
+        properties28.put("EMPTY_ALIAS", "value2");
+        properties28.put("SPACE_ALIAS", "value3");
+        properties28.put("KEY_ALIAS", "value4");
+        new BaseConfig("pre.", ".post", propertyAliases2, null).replacePropertyAliases(properties28);
+        Assertions.assertThat(properties28).containsExactly("NULL_ALIAS", "value1", "EMPTY_ALIAS", "value2", "SPACE_ALIAS", "value3", "KEY_ALIAS", "value4");
     }
 
 }
