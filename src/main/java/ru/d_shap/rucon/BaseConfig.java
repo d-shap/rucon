@@ -160,13 +160,7 @@ public class BaseConfig {
      * @return the property alias.
      */
     protected final String getPropertyAlias(final String name) {
-        for (Map.Entry<String, String> entry : _aliases.entrySet()) {
-            String key = entry.getKey();
-            if (key.equals(name)) {
-                return entry.getValue();
-            }
-        }
-        return null;
+        return _aliases.get(name);
     }
 
     /**
