@@ -321,6 +321,31 @@ public final class ConfigurationBuilder {
     }
 
     /**
+     * Add configuration delegate for the properties.
+     *
+     * @param properties the properties object.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addPropertiesObjectDelegate(final Map<Object, Object> properties) {
+        ConfigDelegate configDelegate = new PropertiesObjectDelegate(properties, null);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration delegate for the properties.
+     *
+     * @param properties        the properties object.
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addPropertiesObjectDelegate(final Map<Object, Object> properties, final Set<String> excludeProperties) {
+        ConfigDelegate configDelegate = new PropertiesObjectDelegate(properties, excludeProperties);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
      * Add configuration loader for the properties.
      *
      * @param properties the properties object.
