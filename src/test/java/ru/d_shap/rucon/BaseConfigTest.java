@@ -86,12 +86,10 @@ public final class BaseConfigTest {
      */
     @Test(expected = NullPointerException.class)
     public void fillSetNullFailTest() {
-        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
-
         Set<String> fromSet = new HashSet<>();
         fromSet.add("value");
         Set<String> toSet = null;
-        baseConfig.fillSet(fromSet, toSet);
+        new BaseConfig(null, null, null, null).fillSet(fromSet, toSet);
     }
 
     /**
@@ -144,12 +142,10 @@ public final class BaseConfigTest {
      */
     @Test(expected = NullPointerException.class)
     public void fillMapNullFailTest() {
-        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
-
         Map<String, String> fromMap = new HashMap<>();
         fromMap.put("key", "value");
         Map<String, String> toMap = null;
-        baseConfig.fillMap(fromMap, toMap);
+        new BaseConfig(null, null, null, null).fillMap(fromMap, toMap);
     }
 
     /**
@@ -214,12 +210,10 @@ public final class BaseConfigTest {
      */
     @Test(expected = NullPointerException.class)
     public void fillPropertiesNullFailTest() {
-        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
-
         Map<Object, Object> fromMap = new HashMap<>();
         fromMap.put("key", "value");
         Map<String, String> toMap = null;
-        baseConfig.fillProperties(fromMap, toMap);
+        new BaseConfig(null, null, null, null).fillProperties(fromMap, toMap);
     }
 
     /**
@@ -509,6 +503,17 @@ public final class BaseConfigTest {
         properties48.put("pre.key.post", "value4");
         new BaseConfig("pre.", ".post", null, excludeProperties4).excludeProperties(properties48);
         Assertions.assertThat(properties48).containsExactly("key", "value1", "pre.key", "value2", "key.post", "value3");
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void excludePropertiesNullFailTest() {
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key");
+        Map<String, String> properties = null;
+        new BaseConfig(null, null, null, excludeProperties).excludeProperties(properties);
     }
 
     /**
