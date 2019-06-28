@@ -224,42 +224,42 @@ public final class BaseConfigTest {
         Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName("")).isEqualTo("");
         Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName(" ")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName("name")).isEqualTo("name");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName("key")).isEqualTo("key");
 
         Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName("")).isEqualTo("");
         Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName(" ")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName("name")).isEqualTo("name");
+        Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName("key")).isEqualTo("key");
 
         Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName("")).isEqualTo(" ");
         Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName(" ")).isEqualTo("  ");
-        Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName("name")).isEqualTo(" name");
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName("key")).isEqualTo(" key");
 
         Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName("")).isEqualTo("pre.");
         Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName(" ")).isEqualTo("pre. ");
-        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName("name")).isEqualTo("pre.name");
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName("key")).isEqualTo("pre.key");
 
         Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName("")).isEqualTo("");
         Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName(" ")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName("name")).isEqualTo("name");
+        Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName("key")).isEqualTo("key");
 
         Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName("")).isEqualTo(" ");
         Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName(" ")).isEqualTo("  ");
-        Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName("name")).isEqualTo("name ");
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName("key")).isEqualTo("key ");
 
         Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName("")).isEqualTo(".post");
         Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName(" ")).isEqualTo(" .post");
-        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName("name")).isEqualTo("name.post");
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName("key")).isEqualTo("key.post");
 
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName("")).isEqualTo("pre..post");
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName(" ")).isEqualTo("pre. .post");
-        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName("name")).isEqualTo("pre.name.post");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName("key")).isEqualTo("pre.key.post");
     }
 
     /**
@@ -271,47 +271,47 @@ public final class BaseConfigTest {
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty(null)).isFalse();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty("")).isFalse();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty(" ")).isFalse();
-        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty("name")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties1).isExcludeProperty("key")).isFalse();
 
         Set<String> excludeProperties2 = new HashSet<>();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty(null)).isFalse();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty("")).isFalse();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty(" ")).isFalse();
-        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty("name")).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties2).isExcludeProperty("key")).isFalse();
 
         Set<String> excludeProperties3 = new HashSet<>();
-        excludeProperties3.add("name");
+        excludeProperties3.add("key");
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty(null)).isFalse();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty("")).isFalse();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty(" ")).isFalse();
-        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty("name")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties3).isExcludeProperty("key")).isTrue();
 
         Set<String> excludeProperties4 = new HashSet<>();
         excludeProperties4.add(null);
         excludeProperties4.add("");
         excludeProperties4.add(" ");
-        excludeProperties4.add("name");
+        excludeProperties4.add("key");
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty(null)).isTrue();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty("")).isTrue();
         Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty(" ")).isTrue();
-        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty("name")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, null, null, excludeProperties4).isExcludeProperty("key")).isTrue();
 
         Set<String> excludeProperties5 = new HashSet<>();
-        excludeProperties5.add("name");
+        excludeProperties5.add("key");
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty(null)).isFalse();
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty("")).isFalse();
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty(" ")).isFalse();
-        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty("name")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties5).isExcludeProperty("key")).isTrue();
 
         Set<String> excludeProperties6 = new HashSet<>();
         excludeProperties6.add(null);
         excludeProperties6.add("");
         excludeProperties6.add(" ");
-        excludeProperties6.add("name");
+        excludeProperties6.add("key");
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty(null)).isTrue();
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty("")).isTrue();
         Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty(" ")).isTrue();
-        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty("name")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, excludeProperties6).isExcludeProperty("key")).isTrue();
     }
 
     /**
@@ -521,7 +521,51 @@ public final class BaseConfigTest {
      */
     @Test
     public void getPropertyAliasTest() {
-        // TODO
+        Map<String, String> propertyAliases1 = null;
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases1, null).getPropertyAlias(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases1, null).getPropertyAlias("")).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases1, null).getPropertyAlias(" ")).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases1, null).getPropertyAlias("key")).isNull();
+
+        Map<String, String> propertyAliases2 = new HashMap<>();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases2, null).getPropertyAlias(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases2, null).getPropertyAlias("")).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases2, null).getPropertyAlias(" ")).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases2, null).getPropertyAlias("key")).isNull();
+
+        Map<String, String> propertyAliases3 = new HashMap<>();
+        propertyAliases3.put("key", "KEY_ALIAS");
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases3, null).getPropertyAlias(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases3, null).getPropertyAlias("")).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases3, null).getPropertyAlias(" ")).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases3, null).getPropertyAlias("key")).isEqualTo("KEY_ALIAS");
+
+        Map<String, String> propertyAliases4 = new HashMap<>();
+        propertyAliases4.put(null, "NULL_ALIAS");
+        propertyAliases4.put("", "EMPTY_ALIAS");
+        propertyAliases4.put(" ", "SPACE_ALIAS");
+        propertyAliases4.put("key", "KEY_ALIAS");
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases4, null).getPropertyAlias(null)).isEqualTo("NULL_ALIAS");
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases4, null).getPropertyAlias("")).isEqualTo("EMPTY_ALIAS");
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases4, null).getPropertyAlias(" ")).isEqualTo("SPACE_ALIAS");
+        Assertions.assertThat(new BaseConfig(null, null, propertyAliases4, null).getPropertyAlias("key")).isEqualTo("KEY_ALIAS");
+
+        Map<String, String> propertyAliases5 = new HashMap<>();
+        propertyAliases5.put("key", "KEY_ALIAS");
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases5, null).getPropertyAlias(null)).isNull();
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases5, null).getPropertyAlias("")).isNull();
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases5, null).getPropertyAlias(" ")).isNull();
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases5, null).getPropertyAlias("key")).isEqualTo("KEY_ALIAS");
+
+        Map<String, String> propertyAliases6 = new HashMap<>();
+        propertyAliases6.put(null, "NULL_ALIAS");
+        propertyAliases6.put("", "EMPTY_ALIAS");
+        propertyAliases6.put(" ", "SPACE_ALIAS");
+        propertyAliases6.put("key", "KEY_ALIAS");
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases6, null).getPropertyAlias(null)).isEqualTo("NULL_ALIAS");
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases6, null).getPropertyAlias("")).isEqualTo("EMPTY_ALIAS");
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases6, null).getPropertyAlias(" ")).isEqualTo("SPACE_ALIAS");
+        Assertions.assertThat(new BaseConfig("pre.", ",post", propertyAliases6, null).getPropertyAlias("key")).isEqualTo("KEY_ALIAS");
     }
 
     /**
