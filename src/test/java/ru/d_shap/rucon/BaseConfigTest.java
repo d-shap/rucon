@@ -325,7 +325,106 @@ public final class BaseConfigTest {
      */
     @Test
     public void excludePropertiesTest() {
-        // TODO
+        Set<String> excludeProperties1 = null;
+        Map<String, String> properties11 = new HashMap<>();
+        new BaseConfig(null, null, null, excludeProperties1).excludeProperties(properties11);
+        Assertions.assertThat(properties11).containsExactly();
+        Map<String, String> properties12 = new HashMap<>();
+        properties12.put("key", "value");
+        new BaseConfig(null, null, null, excludeProperties1).excludeProperties(properties12);
+        Assertions.assertThat(properties12).containsExactly("key", "value");
+        Map<String, String> properties13 = new HashMap<>();
+        properties13.put("key", "value1");
+        properties13.put("pre.key", "value2");
+        properties13.put("key.post", "value3");
+        properties13.put("pre.key.post", "value4");
+        new BaseConfig(null, null, null, excludeProperties1).excludeProperties(properties13);
+        Assertions.assertThat(properties13).containsExactly("key", "value1", "pre.key", "value2", "key.post", "value3", "pre.key.post", "value4");
+        Map<String, String> properties14 = new HashMap<>();
+        properties14.put(null, "value");
+        new BaseConfig(null, null, null, excludeProperties1).excludeProperties(properties14);
+        Assertions.assertThat(properties14).containsExactly(null, "value");
+        Map<String, String> properties15 = new HashMap<>();
+        properties15.put("key", null);
+        new BaseConfig(null, null, null, excludeProperties1).excludeProperties(properties15);
+        Assertions.assertThat(properties15).containsExactly("key", null);
+
+        Set<String> excludeProperties2 = new HashSet<>();
+        Map<String, String> properties21 = new HashMap<>();
+        new BaseConfig(null, null, null, excludeProperties2).excludeProperties(properties21);
+        Assertions.assertThat(properties21).containsExactly();
+        Map<String, String> properties22 = new HashMap<>();
+        properties22.put("key", "value");
+        new BaseConfig(null, null, null, excludeProperties2).excludeProperties(properties22);
+        Assertions.assertThat(properties22).containsExactly("key", "value");
+        Map<String, String> properties23 = new HashMap<>();
+        properties23.put("key", "value1");
+        properties23.put("pre.key", "value2");
+        properties23.put("key.post", "value3");
+        properties23.put("pre.key.post", "value4");
+        new BaseConfig(null, null, null, excludeProperties2).excludeProperties(properties23);
+        Assertions.assertThat(properties23).containsExactly("key", "value1", "pre.key", "value2", "key.post", "value3", "pre.key.post", "value4");
+        Map<String, String> properties24 = new HashMap<>();
+        properties24.put(null, "value");
+        new BaseConfig(null, null, null, excludeProperties2).excludeProperties(properties24);
+        Assertions.assertThat(properties24).containsExactly(null, "value");
+        Map<String, String> properties25 = new HashMap<>();
+        properties25.put("key", null);
+        new BaseConfig(null, null, null, excludeProperties2).excludeProperties(properties25);
+        Assertions.assertThat(properties25).containsExactly("key", null);
+
+        Set<String> excludeProperties3 = new HashSet<>();
+        excludeProperties3.add("key");
+        Map<String, String> properties31 = new HashMap<>();
+        new BaseConfig(null, null, null, excludeProperties3).excludeProperties(properties31);
+        Assertions.assertThat(properties31).containsExactly();
+        Map<String, String> properties32 = new HashMap<>();
+        properties32.put("key", "value");
+        new BaseConfig(null, null, null, excludeProperties3).excludeProperties(properties32);
+        Assertions.assertThat(properties32).containsExactly();
+        Map<String, String> properties33 = new HashMap<>();
+        properties33.put("key", "value1");
+        properties33.put("pre.key", "value2");
+        properties33.put("key.post", "value3");
+        properties33.put("pre.key.post", "value4");
+        new BaseConfig(null, null, null, excludeProperties3).excludeProperties(properties33);
+        Assertions.assertThat(properties33).containsExactly("pre.key", "value2", "key.post", "value3", "pre.key.post", "value4");
+        Map<String, String> properties34 = new HashMap<>();
+        properties34.put(null, "value");
+        new BaseConfig(null, null, null, excludeProperties3).excludeProperties(properties34);
+        Assertions.assertThat(properties34).containsExactly(null, "value");
+        Map<String, String> properties35 = new HashMap<>();
+        properties35.put("key", null);
+        new BaseConfig(null, null, null, excludeProperties3).excludeProperties(properties35);
+        Assertions.assertThat(properties35).containsExactly();
+
+        Set<String> excludeProperties4 = new HashSet<>();
+        excludeProperties4.add(null);
+        excludeProperties4.add("");
+        excludeProperties4.add(" ");
+        excludeProperties4.add("key");
+        Map<String, String> properties41 = new HashMap<>();
+        new BaseConfig(null, null, null, excludeProperties4).excludeProperties(properties41);
+        Assertions.assertThat(properties41).containsExactly();
+        Map<String, String> properties42 = new HashMap<>();
+        properties42.put("key", "value");
+        new BaseConfig(null, null, null, excludeProperties4).excludeProperties(properties42);
+        Assertions.assertThat(properties42).containsExactly();
+        Map<String, String> properties43 = new HashMap<>();
+        properties43.put("key", "value1");
+        properties43.put("pre.key", "value2");
+        properties43.put("key.post", "value3");
+        properties43.put("pre.key.post", "value4");
+        new BaseConfig(null, null, null, excludeProperties4).excludeProperties(properties43);
+        Assertions.assertThat(properties43).containsExactly("pre.key", "value2", "key.post", "value3", "pre.key.post", "value4");
+        Map<String, String> properties44 = new HashMap<>();
+        properties44.put(null, "value");
+        new BaseConfig(null, null, null, excludeProperties4).excludeProperties(properties44);
+        Assertions.assertThat(properties44).containsExactly();
+        Map<String, String> properties45 = new HashMap<>();
+        properties45.put("key", null);
+        new BaseConfig(null, null, null, excludeProperties4).excludeProperties(properties45);
+        Assertions.assertThat(properties45).containsExactly();
     }
 
     /**
