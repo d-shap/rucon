@@ -52,13 +52,29 @@ public final class PropertiesObjectDelegate extends BaseConfig implements Config
         if (isExcludeProperty(name)) {
             return null;
         } else {
-            Object value = _properties.get(name);
+            Object value = getValue(name);
             if (value == null) {
                 return null;
             } else {
                 return value.toString();
             }
         }
+    }
+
+    private Object getValue(final String name) {
+        for (Map.Entry<Object, Object> entry : _properties.entrySet()) {
+            Object key = entry.getKey();
+            if (key == null) {
+                if (name == null) {
+                    return entry.getValue();
+                }
+            } else {
+                if (key.toString().equals(name)) {
+                    return entry.getValue();
+                }
+            }
+        }
+        return null;
     }
 
 }
