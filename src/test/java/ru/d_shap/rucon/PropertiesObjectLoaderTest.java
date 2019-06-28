@@ -20,6 +20,7 @@
 package ru.d_shap.rucon;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -154,6 +155,45 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader06.getProperty("key")).isNull();
         Assertions.assertThat(loader06.getProperty("key1")).isEqualTo("value1");
         Assertions.assertThat(loader06.getProperty("key2")).isEqualTo("value2");
+
+        Map<Object, Object> properties07 = new HashMap<>();
+        properties07.put("key1", "value1");
+        properties07.put("key2", "value2");
+        Set<String> excludeProperties07 = new HashSet<>();
+        PropertiesObjectLoader loader07 = new PropertiesObjectLoader(properties07, excludeProperties07);
+        Assertions.assertThat(loader07.getProperty(null)).isNull();
+        Assertions.assertThat(loader07.getProperty("")).isNull();
+        Assertions.assertThat(loader07.getProperty(" ")).isNull();
+        Assertions.assertThat(loader07.getProperty("key")).isNull();
+        Assertions.assertThat(loader07.getProperty("key1")).isEqualTo("value1");
+        Assertions.assertThat(loader07.getProperty("key2")).isEqualTo("value2");
+        loader07.load();
+        Assertions.assertThat(loader07.getProperty(null)).isNull();
+        Assertions.assertThat(loader07.getProperty("")).isNull();
+        Assertions.assertThat(loader07.getProperty(" ")).isNull();
+        Assertions.assertThat(loader07.getProperty("key")).isNull();
+        Assertions.assertThat(loader07.getProperty("key1")).isEqualTo("value1");
+        Assertions.assertThat(loader07.getProperty("key2")).isEqualTo("value2");
+
+        Map<Object, Object> properties08 = new HashMap<>();
+        properties08.put("key1", "value1");
+        properties08.put("key2", "value2");
+        Set<String> excludeProperties08 = new HashSet<>();
+        excludeProperties08.add("key1");
+        PropertiesObjectLoader loader08 = new PropertiesObjectLoader(properties08, excludeProperties08);
+        Assertions.assertThat(loader08.getProperty(null)).isNull();
+        Assertions.assertThat(loader08.getProperty("")).isNull();
+        Assertions.assertThat(loader08.getProperty(" ")).isNull();
+        Assertions.assertThat(loader08.getProperty("key")).isNull();
+        Assertions.assertThat(loader08.getProperty("key1")).isEqualTo("value1");
+        Assertions.assertThat(loader08.getProperty("key2")).isEqualTo("value2");
+        loader08.load();
+        Assertions.assertThat(loader08.getProperty(null)).isNull();
+        Assertions.assertThat(loader08.getProperty("")).isNull();
+        Assertions.assertThat(loader08.getProperty(" ")).isNull();
+        Assertions.assertThat(loader08.getProperty("key")).isNull();
+        Assertions.assertThat(loader08.getProperty("key1")).isNull();
+        Assertions.assertThat(loader08.getProperty("key2")).isEqualTo("value2");
     }
 
 }
