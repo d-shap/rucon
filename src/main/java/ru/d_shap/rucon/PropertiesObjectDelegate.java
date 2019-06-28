@@ -53,23 +53,19 @@ public final class PropertiesObjectDelegate extends BaseConfig implements Config
             return null;
         } else {
             Object value = getValue(name);
-            if (value == null) {
-                return null;
-            } else {
-                return value.toString();
-            }
+            return getString(value);
         }
     }
 
     private Object getValue(final String name) {
         for (Map.Entry<Object, Object> entry : _properties.entrySet()) {
-            Object key = entry.getKey();
+            String key = getString(entry.getKey());
             if (key == null) {
                 if (name == null) {
                     return entry.getValue();
                 }
             } else {
-                if (key.toString().equals(name)) {
+                if (key.equals(name)) {
                     return entry.getValue();
                 }
             }
