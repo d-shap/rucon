@@ -220,6 +220,20 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test
+    public void getStringTest() {
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString("")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString(" ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString("key")).isEqualTo("key");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString(new StringBuilder(""))).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString(new StringBuilder(" "))).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString(new StringBuilder("key"))).isEqualTo("key");
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test
     public void getPropertyNameTest() {
         Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName("")).isEqualTo("");
