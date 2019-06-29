@@ -113,13 +113,13 @@ public class BaseConfig {
     }
 
     /**
-     * Generate the property name with prefix and suffix.
+     * Get the property name with prefix and suffix.
      *
      * @param name the original property name.
      *
      * @return the property name with prefix and suffix.
      */
-    protected final String getPropertyName(final String name) {
+    protected final String getFullPropertyName(final String name) {
         if (name == null) {
             return null;
         }
@@ -129,6 +129,29 @@ public class BaseConfig {
         }
         if (_suffix != null) {
             propertyName = propertyName + _suffix;
+        }
+        return propertyName;
+    }
+
+    /**
+     * Get the original property name without prefix and suffix.
+     *
+     * @param name the property name with prefix and suffix.
+     *
+     * @return the original property name.
+     */
+    protected final String extractPropertyName(final String name) {
+        if (name == null) {
+            return null;
+        }
+        String propertyName = name;
+        if (_prefix != null && propertyName.startsWith(_prefix)) {
+            int beginIndex = _prefix.length();
+            propertyName = propertyName.substring(beginIndex);
+        }
+        if (_suffix != null && propertyName.endsWith(_suffix)) {
+            int endIndex = propertyName.length() - _suffix.length();
+            propertyName = propertyName.substring(0, endIndex);
         }
         return propertyName;
     }
@@ -152,7 +175,7 @@ public class BaseConfig {
     protected final void excludeProperties(final Map<String, String> properties) {
         Set<String> keySet = properties.keySet();
         for (String name : _excludeProperties) {
-            String propertyName = getPropertyName(name);
+            String propertyName = getFullPropertyName(name);
             keySet.remove(propertyName);
         }
     }
@@ -181,7 +204,7 @@ public class BaseConfig {
             if (properties.containsKey(alias)) {
                 removeKeys.add(alias);
                 String name = entry.getKey();
-                String propertyName = getPropertyName(name);
+                String propertyName = getFullPropertyName(name);
                 String propertyValue = properties.get(alias);
                 putProperties.put(propertyName, propertyValue);
             }
