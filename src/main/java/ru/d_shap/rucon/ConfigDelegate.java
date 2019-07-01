@@ -19,12 +19,21 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.Set;
+
 /**
  * Configuration delegate interface.
  *
  * @author Dmitry Shapovalov
  */
 public interface ConfigDelegate {
+
+    /**
+     * Get all configuration property names.
+     *
+     * @return all configuration property names.
+     */
+    Set<String> getNames();
 
     /**
      * Get the configuration property.

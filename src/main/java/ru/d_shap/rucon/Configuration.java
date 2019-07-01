@@ -19,12 +19,21 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.Set;
+
 /**
  * Application configuration interface.
  *
  * @author Dmitry Shapovalov
  */
 public interface Configuration {
+
+    /**
+     * Get all configuration property names.
+     *
+     * @return all configuration property names.
+     */
+    Set<String> getNames();
 
     /**
      * Get the configuration property as String.
