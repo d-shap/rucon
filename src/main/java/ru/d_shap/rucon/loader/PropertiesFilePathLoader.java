@@ -17,26 +17,32 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-package ru.d_shap.rucon;
+package ru.d_shap.rucon.loader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import ru.d_shap.rucon.BaseConfig;
+import ru.d_shap.rucon.ConfigDelegate;
+import ru.d_shap.rucon.ConfigLoader;
+import ru.d_shap.rucon.LoadException;
+
 /**
  * Configuration loader for the properties.
  *
  * @author Dmitry Shapovalov
  */
-public final class PropertiesResourceLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
+public final class PropertiesFilePathLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
 
-    private final ClassLoader _classLoader;
-
-    private final String _resource;
+    private final String _filePath;
 
     private final Set<String> _names;
 
@@ -45,14 +51,12 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
     /**
      * Create new object.
      *
-     * @param classLoader       the class loader to load the resource.
-     * @param resource          the resource.
+     * @param filePath          the path to the properties file.
      * @param excludeProperties the properties to exclude.
      */
-    public PropertiesResourceLoader(final ClassLoader classLoader, final String resource, final Set<String> excludeProperties) {
+    public PropertiesFilePathLoader(final String filePath, final Set<String> excludeProperties) {
         super(null, null, null, excludeProperties);
-        _classLoader = classLoader;
-        _resource = resource;
+        _filePath = filePath;
         _names = new HashSet<>();
         _properties = new HashMap<>();
     }
@@ -60,7 +64,14 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
     @Override
     public void load() {
         try {
-            try (InputStream inputStream = _classLoader.getResourceAsStream(_resource)) {
+            if (_filePath == null) {
+                return;
+            }
+            File file = new File(_filePath);
+            if (!file.exists()) {
+                return;
+            }
+            try (InputStream inputStream = Files.newInputStream(Paths.get(file.getAbsolutePath()))) {
                 Map<Object, Object> properties = new Properties();
                 ((Properties) properties).load(inputStream);
                 fillObjectMap(properties, _properties);
@@ -68,6 +79,7 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
                 Set<String> names = _properties.keySet();
                 fillStringSet(names, _names);
             }
+            fillStringSet(_names, _properties.keySet());
         } catch (IOException ex) {
             throw new LoadException(ex);
         }

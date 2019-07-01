@@ -17,19 +17,23 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-package ru.d_shap.rucon;
+package ru.d_shap.rucon.loader;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import ru.d_shap.rucon.BaseConfig;
+import ru.d_shap.rucon.ConfigDelegate;
+import ru.d_shap.rucon.ConfigLoader;
+
 /**
- * Configuration loader for the properties.
+ * Configuration loader for the system properties.
  *
  * @author Dmitry Shapovalov
  */
-public final class PropertiesObjectLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
+public final class SystemPropertiesLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
 
     private final Set<String> _names;
 
@@ -38,21 +42,26 @@ public final class PropertiesObjectLoader extends BaseConfig implements ConfigLo
     /**
      * Create new object.
      *
-     * @param properties        the properties object.
+     * @param prefix            the prefix to add to the property name.
+     * @param suffix            the suffix to add to the property name.
      * @param excludeProperties the properties to exclude.
      */
-    public PropertiesObjectLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
-        super(null, null, null, excludeProperties);
+    public SystemPropertiesLoader(final String prefix, final String suffix, final Set<String> excludeProperties) {
+        super(prefix, suffix, null, excludeProperties);
         _names = new HashSet<>();
         _properties = new HashMap<>();
-        fillObjectMap(properties, _properties);
     }
 
     @Override
     public void load() {
+        Map<Object, Object> sysProperties = System.getProperties();
+        fillObjectMap(sysProperties, _properties);
         excludeProperties(_properties);
         Set<String> names = _properties.keySet();
-        fillStringSet(names, _names);
+        for (String name : names) {
+            String propertyName = extractPropertyName(name);
+            _names.add(propertyName);
+        }
     }
 
     @Override
@@ -62,7 +71,8 @@ public final class PropertiesObjectLoader extends BaseConfig implements ConfigLo
 
     @Override
     public String getProperty(final String name) {
-        return _properties.get(name);
+        String propertyName = getFullPropertyName(name);
+        return _properties.get(propertyName);
     }
 
 }

@@ -17,27 +17,23 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-package ru.d_shap.rucon;
+package ru.d_shap.rucon.loader;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
+
+import ru.d_shap.rucon.BaseConfig;
+import ru.d_shap.rucon.ConfigDelegate;
+import ru.d_shap.rucon.ConfigLoader;
 
 /**
  * Configuration loader for the properties.
  *
  * @author Dmitry Shapovalov
  */
-public final class PropertiesFilePathLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
-
-    private final String _filePath;
+public final class PropertiesObjectLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
 
     private final Set<String> _names;
 
@@ -46,38 +42,21 @@ public final class PropertiesFilePathLoader extends BaseConfig implements Config
     /**
      * Create new object.
      *
-     * @param filePath          the path to the properties file.
+     * @param properties        the properties object.
      * @param excludeProperties the properties to exclude.
      */
-    public PropertiesFilePathLoader(final String filePath, final Set<String> excludeProperties) {
+    public PropertiesObjectLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
         super(null, null, null, excludeProperties);
-        _filePath = filePath;
         _names = new HashSet<>();
         _properties = new HashMap<>();
+        fillObjectMap(properties, _properties);
     }
 
     @Override
     public void load() {
-        try {
-            if (_filePath == null) {
-                return;
-            }
-            File file = new File(_filePath);
-            if (!file.exists()) {
-                return;
-            }
-            try (InputStream inputStream = Files.newInputStream(Paths.get(file.getAbsolutePath()))) {
-                Map<Object, Object> properties = new Properties();
-                ((Properties) properties).load(inputStream);
-                fillObjectMap(properties, _properties);
-                excludeProperties(_properties);
-                Set<String> names = _properties.keySet();
-                fillStringSet(names, _names);
-            }
-            fillStringSet(_names, _properties.keySet());
-        } catch (IOException ex) {
-            throw new LoadException(ex);
-        }
+        excludeProperties(_properties);
+        Set<String> names = _properties.keySet();
+        fillStringSet(names, _names);
     }
 
     @Override

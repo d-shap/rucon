@@ -17,7 +17,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-package ru.d_shap.rucon;
+package ru.d_shap.rucon.loader;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +29,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+
+import ru.d_shap.rucon.BaseConfig;
+import ru.d_shap.rucon.ConfigDelegate;
+import ru.d_shap.rucon.ConfigLoader;
+import ru.d_shap.rucon.LoadException;
 
 /**
  * Configuration loader for the properties.

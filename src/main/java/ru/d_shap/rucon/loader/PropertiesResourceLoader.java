@@ -17,19 +17,31 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-package ru.d_shap.rucon;
+package ru.d_shap.rucon.loader;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
+import ru.d_shap.rucon.BaseConfig;
+import ru.d_shap.rucon.ConfigDelegate;
+import ru.d_shap.rucon.ConfigLoader;
+import ru.d_shap.rucon.LoadException;
+
 /**
- * Configuration loader for the system environment.
+ * Configuration loader for the properties.
  *
  * @author Dmitry Shapovalov
  */
-public final class SystemEnvironmentLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
+public final class PropertiesResourceLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
+
+    private final ClassLoader _classLoader;
+
+    private final String _resource;
 
     private final Set<String> _names;
 
@@ -38,23 +50,32 @@ public final class SystemEnvironmentLoader extends BaseConfig implements ConfigL
     /**
      * Create new object.
      *
-     * @param aliases           the property aliases, the key is the property name, the value is the alias.
+     * @param classLoader       the class loader to load the resource.
+     * @param resource          the resource.
      * @param excludeProperties the properties to exclude.
      */
-    public SystemEnvironmentLoader(final Map<String, String> aliases, final Set<String> excludeProperties) {
-        super(null, null, aliases, excludeProperties);
+    public PropertiesResourceLoader(final ClassLoader classLoader, final String resource, final Set<String> excludeProperties) {
+        super(null, null, null, excludeProperties);
+        _classLoader = classLoader;
+        _resource = resource;
         _names = new HashSet<>();
         _properties = new HashMap<>();
     }
 
     @Override
     public void load() {
-        Map<String, String> envProperties = System.getenv();
-        fillStringMap(envProperties, _properties);
-        replacePropertyAliases(_properties);
-        excludeProperties(_properties);
-        Set<String> names = _properties.keySet();
-        fillStringSet(names, _names);
+        try {
+            try (InputStream inputStream = _classLoader.getResourceAsStream(_resource)) {
+                Map<Object, Object> properties = new Properties();
+                ((Properties) properties).load(inputStream);
+                fillObjectMap(properties, _properties);
+                excludeProperties(_properties);
+                Set<String> names = _properties.keySet();
+                fillStringSet(names, _names);
+            }
+        } catch (IOException ex) {
+            throw new LoadException(ex);
+        }
     }
 
     @Override
@@ -64,8 +85,7 @@ public final class SystemEnvironmentLoader extends BaseConfig implements ConfigL
 
     @Override
     public String getProperty(final String name) {
-        String propertyName = getFullPropertyName(name);
-        return _properties.get(propertyName);
+        return _properties.get(name);
     }
 
 }
