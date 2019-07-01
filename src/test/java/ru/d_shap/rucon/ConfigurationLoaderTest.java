@@ -19,6 +19,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ConfigurationLoader}.
  *
@@ -31,6 +33,78 @@ public final class ConfigurationLoaderTest {
      */
     public ConfigurationLoaderTest() {
         super();
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getNamesTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyAsStringTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyAsBooleanTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyAsIntTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyAsLongTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyAsFloatTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyAsDoubleTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationLoader} class test.
+     */
+    @Test
+    public void getPropertyAsCharTest() {
+        // TODO
     }
 
 }
