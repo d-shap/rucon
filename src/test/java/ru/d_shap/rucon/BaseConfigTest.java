@@ -97,7 +97,44 @@ public final class BaseConfigTest {
      */
     @Test
     public void fillObjectSetTest() {
+        BaseConfig baseConfig = new BaseConfig(null, null, null, null);
 
+        Set<Object> fromSet1 = null;
+        Set<String> toSet1 = new HashSet<>();
+        baseConfig.fillObjectSet(fromSet1, toSet1);
+        Assertions.assertThat(toSet1).containsExactly();
+
+        Set<Object> fromSet2 = new HashSet<>();
+        Set<String> toSet2 = new HashSet<>();
+        baseConfig.fillObjectSet(fromSet2, toSet2);
+        Assertions.assertThat(toSet2).containsExactly();
+
+        Set<Object> fromSet3 = new HashSet<>();
+        fromSet3.add("value");
+        Set<String> toSet3 = new HashSet<>();
+        baseConfig.fillObjectSet(fromSet3, toSet3);
+        Assertions.assertThat(toSet3).containsExactly("value");
+
+        Set<Object> fromSet4 = new HashSet<>();
+        fromSet4.add("value1");
+        fromSet4.add("value2");
+        fromSet4.add("value3");
+        fromSet4.add("value4");
+        Set<String> toSet4 = new HashSet<>();
+        baseConfig.fillObjectSet(fromSet4, toSet4);
+        Assertions.assertThat(toSet4).containsExactly("value1", "value2", "value3", "value4");
+
+        Set<Object> fromSet5 = new HashSet<>();
+        fromSet5.add(new StringBuilder("value"));
+        Set<String> toSet5 = new HashSet<>();
+        baseConfig.fillObjectSet(fromSet5, toSet5);
+        Assertions.assertThat(toSet5).containsExactly("value");
+
+        Set<Object> fromSet6 = new HashSet<>();
+        fromSet6.add(null);
+        Set<String> toSet6 = new HashSet<>();
+        baseConfig.fillObjectSet(fromSet6, toSet6);
+        Assertions.assertThat(toSet6).containsExactly((String) null);
     }
 
     /**
@@ -105,7 +142,10 @@ public final class BaseConfigTest {
      */
     @Test(expected = NullPointerException.class)
     public void fillObjectSetNullFailTest() {
-
+        Set<Object> fromSet = new HashSet<>();
+        fromSet.add("value");
+        Set<String> toSet = null;
+        new BaseConfig(null, null, null, null).fillObjectSet(fromSet, toSet);
     }
 
     /**
