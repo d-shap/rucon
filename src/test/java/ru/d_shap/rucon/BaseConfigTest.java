@@ -46,23 +46,23 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test
-    public void fillSetTest() {
+    public void fillStringSetTest() {
         BaseConfig baseConfig = new BaseConfig(null, null, null, null);
 
         Set<String> fromSet1 = null;
         Set<String> toSet1 = new HashSet<>();
-        baseConfig.fillSet(fromSet1, toSet1);
+        baseConfig.fillStringSet(fromSet1, toSet1);
         Assertions.assertThat(toSet1).containsExactly();
 
         Set<String> fromSet2 = new HashSet<>();
         Set<String> toSet2 = new HashSet<>();
-        baseConfig.fillSet(fromSet2, toSet2);
+        baseConfig.fillStringSet(fromSet2, toSet2);
         Assertions.assertThat(toSet2).containsExactly();
 
         Set<String> fromSet3 = new HashSet<>();
         fromSet3.add("value");
         Set<String> toSet3 = new HashSet<>();
-        baseConfig.fillSet(fromSet3, toSet3);
+        baseConfig.fillStringSet(fromSet3, toSet3);
         Assertions.assertThat(toSet3).containsExactly("value");
 
         Set<String> fromSet4 = new HashSet<>();
@@ -71,13 +71,13 @@ public final class BaseConfigTest {
         fromSet4.add("value3");
         fromSet4.add("value4");
         Set<String> toSet4 = new HashSet<>();
-        baseConfig.fillSet(fromSet4, toSet4);
+        baseConfig.fillStringSet(fromSet4, toSet4);
         Assertions.assertThat(toSet4).containsExactly("value1", "value2", "value3", "value4");
 
         Set<String> fromSet5 = new HashSet<>();
         fromSet5.add(null);
         Set<String> toSet5 = new HashSet<>();
-        baseConfig.fillSet(fromSet5, toSet5);
+        baseConfig.fillStringSet(fromSet5, toSet5);
         Assertions.assertThat(toSet5).containsExactly((String) null);
     }
 
@@ -85,34 +85,50 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test(expected = NullPointerException.class)
-    public void fillSetNullFailTest() {
+    public void fillStringSetNullFailTest() {
         Set<String> fromSet = new HashSet<>();
         fromSet.add("value");
         Set<String> toSet = null;
-        new BaseConfig(null, null, null, null).fillSet(fromSet, toSet);
+        new BaseConfig(null, null, null, null).fillStringSet(fromSet, toSet);
     }
 
     /**
      * {@link BaseConfig} class test.
      */
     @Test
-    public void fillMapTest() {
+    public void fillObjectSetTest() {
+
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void fillObjectSetNullFailTest() {
+
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test
+    public void fillStringMapTest() {
         BaseConfig baseConfig = new BaseConfig(null, null, null, null);
 
         Map<String, String> fromMap1 = null;
         Map<String, String> toMap1 = new HashMap<>();
-        baseConfig.fillMap(fromMap1, toMap1);
+        baseConfig.fillStringMap(fromMap1, toMap1);
         Assertions.assertThat(toMap1).containsExactly();
 
         Map<String, String> fromMap2 = new HashMap<>();
         Map<String, String> toMap2 = new HashMap<>();
-        baseConfig.fillMap(fromMap2, toMap2);
+        baseConfig.fillStringMap(fromMap2, toMap2);
         Assertions.assertThat(toMap2).containsExactly();
 
         Map<String, String> fromMap3 = new HashMap<>();
         fromMap3.put("key", "value");
         Map<String, String> toMap3 = new HashMap<>();
-        baseConfig.fillMap(fromMap3, toMap3);
+        baseConfig.fillStringMap(fromMap3, toMap3);
         Assertions.assertThat(toMap3).containsExactly("key", "value");
 
         Map<String, String> fromMap4 = new HashMap<>();
@@ -121,19 +137,19 @@ public final class BaseConfigTest {
         fromMap4.put("key3", "value3");
         fromMap4.put("key4", "value4");
         Map<String, String> toMap4 = new HashMap<>();
-        baseConfig.fillMap(fromMap4, toMap4);
+        baseConfig.fillStringMap(fromMap4, toMap4);
         Assertions.assertThat(toMap4).containsExactly("key1", "value1", "key2", "value2", "key3", "value3", "key4", "value4");
 
         Map<String, String> fromMap5 = new HashMap<>();
         fromMap5.put(null, "value");
         Map<String, String> toMap5 = new HashMap<>();
-        baseConfig.fillMap(fromMap5, toMap5);
+        baseConfig.fillStringMap(fromMap5, toMap5);
         Assertions.assertThat(toMap5).containsExactly(null, "value");
 
         Map<String, String> fromMap6 = new HashMap<>();
         fromMap6.put("key", null);
         Map<String, String> toMap6 = new HashMap<>();
-        baseConfig.fillMap(fromMap6, toMap6);
+        baseConfig.fillStringMap(fromMap6, toMap6);
         Assertions.assertThat(toMap6).containsExactly("key", null);
     }
 
@@ -141,34 +157,34 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test(expected = NullPointerException.class)
-    public void fillMapNullFailTest() {
+    public void fillStringMapNullFailTest() {
         Map<String, String> fromMap = new HashMap<>();
         fromMap.put("key", "value");
         Map<String, String> toMap = null;
-        new BaseConfig(null, null, null, null).fillMap(fromMap, toMap);
+        new BaseConfig(null, null, null, null).fillStringMap(fromMap, toMap);
     }
 
     /**
      * {@link BaseConfig} class test.
      */
     @Test
-    public void fillPropertiesTest() {
+    public void fillObjectMapTest() {
         BaseConfig baseConfig = new BaseConfig(null, null, null, null);
 
         Map<Object, Object> fromMap1 = null;
         Map<String, String> toMap1 = new HashMap<>();
-        baseConfig.fillProperties(fromMap1, toMap1);
+        baseConfig.fillObjectMap(fromMap1, toMap1);
         Assertions.assertThat(toMap1).containsExactly();
 
         Map<Object, Object> fromMap2 = new HashMap<>();
         Map<String, String> toMap2 = new HashMap<>();
-        baseConfig.fillProperties(fromMap2, toMap2);
+        baseConfig.fillObjectMap(fromMap2, toMap2);
         Assertions.assertThat(toMap2).containsExactly();
 
         Map<Object, Object> fromMap3 = new HashMap<>();
         fromMap3.put("key", "value");
         Map<String, String> toMap3 = new HashMap<>();
-        baseConfig.fillProperties(fromMap3, toMap3);
+        baseConfig.fillObjectMap(fromMap3, toMap3);
         Assertions.assertThat(toMap3).containsExactly("key", "value");
 
         Map<Object, Object> fromMap4 = new HashMap<>();
@@ -177,31 +193,31 @@ public final class BaseConfigTest {
         fromMap4.put("key3", "value3");
         fromMap4.put("key4", "value4");
         Map<String, String> toMap4 = new HashMap<>();
-        baseConfig.fillProperties(fromMap4, toMap4);
+        baseConfig.fillObjectMap(fromMap4, toMap4);
         Assertions.assertThat(toMap4).containsExactly("key1", "value1", "key2", "value2", "key3", "value3", "key4", "value4");
 
         Map<Object, Object> fromMap5 = new HashMap<>();
         fromMap5.put(new StringBuilder("key"), "value");
         Map<String, String> toMap5 = new HashMap<>();
-        baseConfig.fillProperties(fromMap5, toMap5);
+        baseConfig.fillObjectMap(fromMap5, toMap5);
         Assertions.assertThat(toMap5).containsExactly("key", "value");
 
         Map<Object, Object> fromMap6 = new HashMap<>();
         fromMap6.put("key", new StringBuilder("value"));
         Map<String, String> toMap6 = new HashMap<>();
-        baseConfig.fillProperties(fromMap6, toMap6);
+        baseConfig.fillObjectMap(fromMap6, toMap6);
         Assertions.assertThat(toMap6).containsExactly("key", "value");
 
         Map<Object, Object> fromMap7 = new HashMap<>();
         fromMap7.put(null, "value");
         Map<String, String> toMap7 = new HashMap<>();
-        baseConfig.fillProperties(fromMap7, toMap7);
+        baseConfig.fillObjectMap(fromMap7, toMap7);
         Assertions.assertThat(toMap7).containsExactly(null, "value");
 
         Map<Object, Object> fromMap8 = new HashMap<>();
         fromMap8.put("key", null);
         Map<String, String> toMap8 = new HashMap<>();
-        baseConfig.fillProperties(fromMap8, toMap8);
+        baseConfig.fillObjectMap(fromMap8, toMap8);
         Assertions.assertThat(toMap8).containsExactly("key", null);
     }
 
@@ -209,11 +225,11 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test(expected = NullPointerException.class)
-    public void fillPropertiesNullFailTest() {
+    public void fillObjectMapNullFailTest() {
         Map<Object, Object> fromMap = new HashMap<>();
         fromMap.put("key", "value");
         Map<String, String> toMap = null;
-        new BaseConfig(null, null, null, null).fillProperties(fromMap, toMap);
+        new BaseConfig(null, null, null, null).fillObjectMap(fromMap, toMap);
     }
 
     /**
@@ -234,46 +250,54 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test
-    public void getPropertyNameTest() {
-        Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName("")).isEqualTo("");
-        Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName(" ")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig(null, null, null, null).getPropertyName("key")).isEqualTo("key");
+    public void getFullPropertyNameTest() {
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getFullPropertyName("")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getFullPropertyName(" ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getFullPropertyName("key")).isEqualTo("key");
 
-        Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName("")).isEqualTo("");
-        Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName(" ")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig("", null, null, null).getPropertyName("key")).isEqualTo("key");
+        Assertions.assertThat(new BaseConfig("", null, null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig("", null, null, null).getFullPropertyName("")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig("", null, null, null).getFullPropertyName(" ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig("", null, null, null).getFullPropertyName("key")).isEqualTo("key");
 
-        Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName("")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName(" ")).isEqualTo("  ");
-        Assertions.assertThat(new BaseConfig(" ", null, null, null).getPropertyName("key")).isEqualTo(" key");
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).getFullPropertyName("")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).getFullPropertyName(" ")).isEqualTo("  ");
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).getFullPropertyName("key")).isEqualTo(" key");
 
-        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName("")).isEqualTo("pre.");
-        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName(" ")).isEqualTo("pre. ");
-        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getPropertyName("key")).isEqualTo("pre.key");
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getFullPropertyName("")).isEqualTo("pre.");
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getFullPropertyName(" ")).isEqualTo("pre. ");
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).getFullPropertyName("key")).isEqualTo("pre.key");
 
-        Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName("")).isEqualTo("");
-        Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName(" ")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig(null, "", null, null).getPropertyName("key")).isEqualTo("key");
+        Assertions.assertThat(new BaseConfig(null, "", null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, "", null, null).getFullPropertyName("")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, "", null, null).getFullPropertyName(" ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, "", null, null).getFullPropertyName("key")).isEqualTo("key");
 
-        Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName("")).isEqualTo(" ");
-        Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName(" ")).isEqualTo("  ");
-        Assertions.assertThat(new BaseConfig(null, " ", null, null).getPropertyName("key")).isEqualTo("key ");
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).getFullPropertyName("")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).getFullPropertyName(" ")).isEqualTo("  ");
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).getFullPropertyName("key")).isEqualTo("key ");
 
-        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName("")).isEqualTo(".post");
-        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName(" ")).isEqualTo(" .post");
-        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getPropertyName("key")).isEqualTo("key.post");
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getFullPropertyName("")).isEqualTo(".post");
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getFullPropertyName(" ")).isEqualTo(" .post");
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).getFullPropertyName("key")).isEqualTo("key.post");
 
-        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName(null)).isNull();
-        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName("")).isEqualTo("pre..post");
-        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName(" ")).isEqualTo("pre. .post");
-        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getPropertyName("key")).isEqualTo("pre.key.post");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getFullPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getFullPropertyName("")).isEqualTo("pre..post");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getFullPropertyName(" ")).isEqualTo("pre. .post");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).getFullPropertyName("key")).isEqualTo("pre.key.post");
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test
+    public void extractPropertyNameTest() {
+
     }
 
     /**
