@@ -19,6 +19,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import org.junit.Test;
+
 /**
  * Tests for {@link ConfigurationBuilder}.
  *
@@ -31,6 +33,230 @@ public final class ConfigurationBuilderTest {
      */
     public ConfigurationBuilderTest() {
         super();
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void newInstanceTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addConfigDelegateTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesDelegateTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesDelegateWithPrefixTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesDelegateWithPrefixSuffixTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesDelegateWithPrefixExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesDelegateWithPrefixSuffixExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesLoaderTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesLoaderWithPrefixTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesLoaderWithPrefixSuffixTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesLoaderWithPrefixExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesLoaderWithPrefixSuffixExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemEnvironmentLoaderTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemEnvironmentLoaderWithAliasesTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemEnvironmentLoaderWithAliasesExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesResourceLoaderTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesResourceLoaderWithClassLoaderTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesResourceLoaderWithExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesResourceLoaderWithClassLoaderExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesFilePathLoaderTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesFilePathLoaderWithExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesSystemPropertyFileLoaderTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesSystemPropertyFileLoaderWithExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesObjectDelegateTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesObjectDelegateWithExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesObjectLoaderTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addPropertiesObjectLoaderWithExcludeTest() {
+        // TODO
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void buildAndLoadTest() {
+        // TODO
     }
 
 }
