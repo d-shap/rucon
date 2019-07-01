@@ -20,6 +20,7 @@
 package ru.d_shap.rucon;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +30,8 @@ import java.util.Set;
  * @author Dmitry Shapovalov
  */
 public final class PropertiesObjectLoader extends BaseConfig implements ConfigLoader, ConfigDelegate {
+
+    private final Set<String> _names;
 
     private final Map<String, String> _properties;
 
@@ -40,13 +43,21 @@ public final class PropertiesObjectLoader extends BaseConfig implements ConfigLo
      */
     public PropertiesObjectLoader(final Map<Object, Object> properties, final Set<String> excludeProperties) {
         super(null, null, null, excludeProperties);
+        _names = new HashSet<>();
         _properties = new HashMap<>();
-        fillProperties(properties, _properties);
+        fillObjectMap(properties, _properties);
     }
 
     @Override
     public void load() {
         excludeProperties(_properties);
+        Set<String> names = _properties.keySet();
+        fillStringSet(names, _names);
+    }
+
+    @Override
+    public Set<String> getNames() {
+        return new HashSet<>(_names);
     }
 
     @Override
