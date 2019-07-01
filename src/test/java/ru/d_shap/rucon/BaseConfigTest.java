@@ -337,7 +337,45 @@ public final class BaseConfigTest {
      */
     @Test
     public void extractPropertyNameTest() {
+        Assertions.assertThat(new BaseConfig(null, null, null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, null, null, null).extractPropertyName("")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).extractPropertyName(" ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).extractPropertyName("key")).isEqualTo("key");
 
+        Assertions.assertThat(new BaseConfig("", null, null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig("", null, null, null).extractPropertyName("")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig("", null, null, null).extractPropertyName(" ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig("", null, null, null).extractPropertyName("key")).isEqualTo("key");
+
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).extractPropertyName(" ")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).extractPropertyName("  ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).extractPropertyName(" key")).isEqualTo("key");
+
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).extractPropertyName("pre.")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).extractPropertyName("pre. ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).extractPropertyName("pre.key")).isEqualTo("key");
+
+        Assertions.assertThat(new BaseConfig(null, "", null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, "", null, null).extractPropertyName("")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, "", null, null).extractPropertyName(" ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, "", null, null).extractPropertyName("key")).isEqualTo("key");
+
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).extractPropertyName(" ")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).extractPropertyName("  ")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).extractPropertyName("key ")).isEqualTo("key");
+
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).extractPropertyName(".post")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).extractPropertyName(" .post")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).extractPropertyName("key.post")).isEqualTo("key");
+
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).extractPropertyName(null)).isNull();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).extractPropertyName("pre..post")).isEqualTo("");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).extractPropertyName("pre. .post")).isEqualTo(" ");
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).extractPropertyName("pre.key.post")).isEqualTo("key");
     }
 
     /**
