@@ -22,6 +22,7 @@ package ru.d_shap.rucon;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -37,6 +38,8 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
 
     private final String _resource;
 
+    private final Set<String> _names;
+
     private final Map<String, String> _properties;
 
     /**
@@ -50,6 +53,7 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
         super(null, null, null, excludeProperties);
         _classLoader = classLoader;
         _resource = resource;
+        _names = new HashSet<>();
         _properties = new HashMap<>();
     }
 
@@ -59,12 +63,19 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
             try (InputStream inputStream = _classLoader.getResourceAsStream(_resource)) {
                 Map<Object, Object> properties = new Properties();
                 ((Properties) properties).load(inputStream);
-                fillProperties(properties, _properties);
+                fillObjectMap(properties, _properties);
                 excludeProperties(_properties);
+                Set<String> names = _properties.keySet();
+                fillStringSet(names, _names);
             }
         } catch (IOException ex) {
             throw new LoadException(ex);
         }
+    }
+
+    @Override
+    public Set<String> getNames() {
+        return new HashSet<>(_names);
     }
 
     @Override
