@@ -20,6 +20,7 @@
 package ru.d_shap.rucon;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,11 +44,17 @@ public final class SystemPropertiesDelegate extends BaseConfig implements Config
 
     @Override
     public Set<String> getNames() {
-        Map<Object, Object> fromProperties = System.getProperties();
+        Map<Object, Object> sysProperties = System.getProperties();
         Map<String, String> properties = new HashMap<>();
-        fillObjectMap(fromProperties, properties);
+        fillObjectMap(sysProperties, properties);
         excludeProperties(properties);
-        return properties.keySet();
+        Set<String> sysNames = properties.keySet();
+        Set<String> names = new HashSet<>();
+        for (String name : sysNames) {
+            String propertyName = extractPropertyName(name);
+            names.add(propertyName);
+        }
+        return names;
     }
 
     @Override
