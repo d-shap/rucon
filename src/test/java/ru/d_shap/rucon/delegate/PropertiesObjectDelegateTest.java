@@ -46,6 +46,14 @@ public final class PropertiesObjectDelegateTest {
      * {@link PropertiesObjectDelegate} class test.
      */
     @Test
+    public void getNamesTest() {
+        // TODO
+    }
+
+    /**
+     * {@link PropertiesObjectDelegate} class test.
+     */
+    @Test
     public void getPropertyTest() {
         Map<Object, Object> properties01 = null;
         Set<String> excludeProperties01 = null;
