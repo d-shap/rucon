@@ -20,7 +20,9 @@
 package ru.d_shap.rucon;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Application configuration loader.
@@ -30,6 +32,8 @@ import java.util.List;
 public final class ConfigurationLoader implements ConfigLoader, ConfigDelegate, Configuration {
 
     private final List<ConfigDelegate> _configDelegates;
+
+    private final Set<String> _loadedNames;
 
     /**
      * Create new object.
@@ -46,6 +50,7 @@ public final class ConfigurationLoader implements ConfigLoader, ConfigDelegate, 
                 }
             }
         }
+        _loadedNames = new HashSet<>();
     }
 
     @Override
@@ -53,8 +58,22 @@ public final class ConfigurationLoader implements ConfigLoader, ConfigDelegate, 
         for (ConfigDelegate configDelegate : _configDelegates) {
             if (configDelegate instanceof ConfigLoader) {
                 ((ConfigLoader) configDelegate).load();
+                Set<String> names = configDelegate.getNames();
+                _loadedNames.addAll(names);
             }
         }
+    }
+
+    @Override
+    public Set<String> getNames() {
+        Set<String> allNames = new HashSet<>(_loadedNames);
+        for (ConfigDelegate configDelegate : _configDelegates) {
+            if (!(configDelegate instanceof ConfigLoader)) {
+                Set<String> names = configDelegate.getNames();
+                allNames.addAll(names);
+            }
+        }
+        return allNames;
     }
 
     @Override
