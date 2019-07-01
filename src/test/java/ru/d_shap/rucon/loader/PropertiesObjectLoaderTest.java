@@ -46,6 +46,14 @@ public final class PropertiesObjectLoaderTest {
      * {@link PropertiesObjectLoader} class test.
      */
     @Test
+    public void getNamesTest() {
+        // TODO
+    }
+
+    /**
+     * {@link PropertiesObjectLoader} class test.
+     */
+    @Test
     public void getPropertyTest() {
         Map<Object, Object> properties01 = null;
         Set<String> excludeProperties01 = null;
