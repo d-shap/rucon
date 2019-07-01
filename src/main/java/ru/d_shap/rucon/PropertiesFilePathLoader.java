@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -38,6 +39,8 @@ public final class PropertiesFilePathLoader extends BaseConfig implements Config
 
     private final String _filePath;
 
+    private final Set<String> _names;
+
     private final Map<String, String> _properties;
 
     /**
@@ -49,6 +52,7 @@ public final class PropertiesFilePathLoader extends BaseConfig implements Config
     public PropertiesFilePathLoader(final String filePath, final Set<String> excludeProperties) {
         super(null, null, null, excludeProperties);
         _filePath = filePath;
+        _names = new HashSet<>();
         _properties = new HashMap<>();
     }
 
@@ -65,12 +69,20 @@ public final class PropertiesFilePathLoader extends BaseConfig implements Config
             try (InputStream inputStream = Files.newInputStream(Paths.get(file.getAbsolutePath()))) {
                 Map<Object, Object> properties = new Properties();
                 ((Properties) properties).load(inputStream);
-                fillProperties(properties, _properties);
+                fillObjectMap(properties, _properties);
                 excludeProperties(_properties);
+                Set<String> names = _properties.keySet();
+                fillStringSet(names, _names);
             }
+            fillStringSet(_names, _properties.keySet());
         } catch (IOException ex) {
             throw new LoadException(ex);
         }
+    }
+
+    @Override
+    public Set<String> getNames() {
+        return new HashSet<>(_names);
     }
 
     @Override
