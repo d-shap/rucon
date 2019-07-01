@@ -58,8 +58,8 @@ public final class ConfigurationLoader implements ConfigLoader, ConfigDelegate, 
         for (ConfigDelegate configDelegate : _configDelegates) {
             if (configDelegate instanceof ConfigLoader) {
                 ((ConfigLoader) configDelegate).load();
-                Set<String> names = configDelegate.getNames();
-                _loadedNames.addAll(names);
+                Set<String> loadedNames = configDelegate.getNames();
+                _loadedNames.addAll(loadedNames);
             }
         }
     }
