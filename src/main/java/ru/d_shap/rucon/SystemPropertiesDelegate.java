@@ -19,6 +19,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -40,11 +42,20 @@ public final class SystemPropertiesDelegate extends BaseConfig implements Config
     }
 
     @Override
+    public Set<String> getNames() {
+        Map<Object, Object> fromProperties = System.getProperties();
+        Map<String, String> properties = new HashMap<>();
+        fillObjectMap(fromProperties, properties);
+        excludeProperties(properties);
+        return properties.keySet();
+    }
+
+    @Override
     public String getProperty(final String name) {
         if (isExcludeProperty(name)) {
             return null;
         } else {
-            String propertyName = getPropertyName(name);
+            String propertyName = getFullPropertyName(name);
             return System.getProperty(propertyName);
         }
     }
