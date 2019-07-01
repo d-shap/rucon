@@ -50,11 +50,14 @@ public final class SystemPropertiesLoader extends BaseConfig implements ConfigLo
 
     @Override
     public void load() {
-        Map<Object, Object> fromProperties = System.getProperties();
-        fillObjectMap(fromProperties, _properties);
+        Map<Object, Object> sysProperties = System.getProperties();
+        fillObjectMap(sysProperties, _properties);
         excludeProperties(_properties);
         Set<String> names = _properties.keySet();
-        fillStringSet(names, _names);
+        for (String name : names) {
+            String propertyName = extractPropertyName(name);
+            _names.add(propertyName);
+        }
     }
 
     @Override
