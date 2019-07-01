@@ -48,6 +48,14 @@ public final class PropertiesObjectDelegate extends BaseConfig implements Config
     }
 
     @Override
+    public Set<String> getNames() {
+        Map<String, String> properties = new HashMap<>();
+        fillObjectMap(_properties, properties);
+        excludeProperties(properties);
+        return properties.keySet();
+    }
+
+    @Override
     public String getProperty(final String name) {
         if (isExcludeProperty(name)) {
             return null;
