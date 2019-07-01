@@ -52,9 +52,9 @@ public class BaseConfig {
         _prefix = prefix;
         _suffix = suffix;
         _aliases = new HashMap<>();
-        fillMap(aliases, _aliases);
+        fillStringMap(aliases, _aliases);
         _excludeProperties = new HashSet<>();
-        fillSet(excludeProperties, _excludeProperties);
+        fillStringSet(excludeProperties, _excludeProperties);
     }
 
     /**
@@ -63,9 +63,24 @@ public class BaseConfig {
      * @param from the set to copy values from.
      * @param to   the set to copy values to.
      */
-    protected final void fillSet(final Set<String> from, final Set<String> to) {
+    protected final void fillStringSet(final Set<String> from, final Set<String> to) {
         if (from != null) {
             to.addAll(from);
+        }
+    }
+
+    /**
+     * Copy the values from one set to the other.
+     *
+     * @param from the set to copy values from.
+     * @param to   the set to copy values to.
+     */
+    protected final void fillObjectSet(final Set<Object> from, final Set<String> to) {
+        if (from != null) {
+            for (Object entry : from) {
+                String value = getString(entry);
+                to.add(value);
+            }
         }
     }
 
@@ -75,7 +90,7 @@ public class BaseConfig {
      * @param from the map to copy values from.
      * @param to   the map to copy values to.
      */
-    protected final void fillMap(final Map<String, String> from, final Map<String, String> to) {
+    protected final void fillStringMap(final Map<String, String> from, final Map<String, String> to) {
         if (from != null) {
             to.putAll(from);
         }
@@ -87,7 +102,7 @@ public class BaseConfig {
      * @param from the map to copy values from.
      * @param to   the map to copy values to.
      */
-    protected final void fillProperties(final Map<Object, Object> from, final Map<String, String> to) {
+    protected final void fillObjectMap(final Map<Object, Object> from, final Map<String, String> to) {
         if (from != null) {
             for (Map.Entry<Object, Object> entry : from.entrySet()) {
                 String key = getString(entry.getKey());
