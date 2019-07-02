@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -240,10 +241,24 @@ public class BaseConfig {
      *
      * @return new input stream to read the file.
      */
-    protected InputStream getInputStream(final String filePath) {
+    protected final InputStream getInputStream(final String filePath) {
         try {
             Path path = Paths.get(filePath);
             return Files.newInputStream(path);
+        } catch (IOException ex) {
+            throw new LoadException(ex);
+        }
+    }
+
+    /**
+     * Load the properties from the input stream.
+     *
+     * @param properties  the properties.
+     * @param inputStream the input stream.
+     */
+    protected final void loadProperties(final Map<Object, Object> properties, final InputStream inputStream) {
+        try {
+            ((Properties) properties).load(inputStream);
         } catch (IOException ex) {
             throw new LoadException(ex);
         }
