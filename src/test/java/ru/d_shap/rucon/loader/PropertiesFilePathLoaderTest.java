@@ -260,4 +260,22 @@ public final class PropertiesFilePathLoaderTest {
         Assertions.assertThat(loader06.getProperty("key3")).isEqualTo("value1-3");
     }
 
+    /**
+     * {@link PropertiesFilePathLoader} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test
+    public void loadTextFileTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("dir/file.txt");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+
+        PropertiesFilePathLoader loader = new PropertiesFilePathLoader(filePath, null);
+        loader.load();
+        Assertions.assertThat(loader.getNames()).containsExactly("some");
+        Assertions.assertThat(loader.getProperty("some")).isEqualTo("other text");
+    }
+
 }
