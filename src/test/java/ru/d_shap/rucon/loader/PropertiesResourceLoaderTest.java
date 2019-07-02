@@ -91,7 +91,95 @@ public final class PropertiesResourceLoaderTest {
      */
     @Test
     public void getPropertyTest() {
-        // TODO
+        Set<String> excludeProperties01 = null;
+        PropertiesResourceLoader loader01 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties01);
+        Assertions.assertThat(loader01.getProperty(null)).isNull();
+        Assertions.assertThat(loader01.getProperty("")).isNull();
+        Assertions.assertThat(loader01.getProperty(" ")).isNull();
+        Assertions.assertThat(loader01.getProperty("key")).isNull();
+        Assertions.assertThat(loader01.getProperty("key1")).isNull();
+        Assertions.assertThat(loader01.getProperty("key2")).isNull();
+        Assertions.assertThat(loader01.getProperty("key3")).isNull();
+        loader01.load();
+        Assertions.assertThat(loader01.getProperty(null)).isNull();
+        Assertions.assertThat(loader01.getProperty("")).isNull();
+        Assertions.assertThat(loader01.getProperty(" ")).isNull();
+        Assertions.assertThat(loader01.getProperty("key")).isNull();
+        Assertions.assertThat(loader01.getProperty("key1")).isEqualTo("value1-1");
+        Assertions.assertThat(loader01.getProperty("key2")).isEqualTo("value1-2");
+        Assertions.assertThat(loader01.getProperty("key3")).isEqualTo("value1-3");
+
+        Set<String> excludeProperties02 = new HashSet<>();
+        PropertiesResourceLoader loader02 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties02);
+        Assertions.assertThat(loader02.getProperty(null)).isNull();
+        Assertions.assertThat(loader02.getProperty("")).isNull();
+        Assertions.assertThat(loader02.getProperty(" ")).isNull();
+        Assertions.assertThat(loader02.getProperty("key")).isNull();
+        Assertions.assertThat(loader02.getProperty("key1")).isNull();
+        Assertions.assertThat(loader02.getProperty("key2")).isNull();
+        Assertions.assertThat(loader02.getProperty("key3")).isNull();
+        loader02.load();
+        Assertions.assertThat(loader02.getProperty(null)).isNull();
+        Assertions.assertThat(loader02.getProperty("")).isNull();
+        Assertions.assertThat(loader02.getProperty(" ")).isNull();
+        Assertions.assertThat(loader02.getProperty("key")).isNull();
+        Assertions.assertThat(loader02.getProperty("key1")).isEqualTo("value1-1");
+        Assertions.assertThat(loader02.getProperty("key2")).isEqualTo("value1-2");
+        Assertions.assertThat(loader02.getProperty("key3")).isEqualTo("value1-3");
+
+        Set<String> excludeProperties03 = new HashSet<>();
+        excludeProperties03.add("key1");
+        PropertiesResourceLoader loader03 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties03);
+        Assertions.assertThat(loader03.getProperty(null)).isNull();
+        Assertions.assertThat(loader03.getProperty("")).isNull();
+        Assertions.assertThat(loader03.getProperty(" ")).isNull();
+        Assertions.assertThat(loader03.getProperty("key")).isNull();
+        Assertions.assertThat(loader03.getProperty("key1")).isNull();
+        Assertions.assertThat(loader03.getProperty("key2")).isNull();
+        Assertions.assertThat(loader03.getProperty("key3")).isNull();
+        loader03.load();
+        Assertions.assertThat(loader03.getProperty(null)).isNull();
+        Assertions.assertThat(loader03.getProperty("")).isNull();
+        Assertions.assertThat(loader03.getProperty(" ")).isNull();
+        Assertions.assertThat(loader03.getProperty("key")).isNull();
+        Assertions.assertThat(loader03.getProperty("key1")).isNull();
+        Assertions.assertThat(loader03.getProperty("key2")).isEqualTo("value1-2");
+        Assertions.assertThat(loader03.getProperty("key3")).isEqualTo("value1-3");
+
+        Set<String> excludeProperties04 = new HashSet<>();
+        excludeProperties04.add("key1");
+        PropertiesResourceLoader loader04 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties04);
+        Assertions.assertThat(loader04.getProperty(null)).isNull();
+        Assertions.assertThat(loader04.getProperty("")).isNull();
+        Assertions.assertThat(loader04.getProperty(" ")).isNull();
+        Assertions.assertThat(loader04.getProperty("key")).isNull();
+        Assertions.assertThat(loader04.getProperty("key1")).isNull();
+        Assertions.assertThat(loader04.getProperty("key2")).isNull();
+        Assertions.assertThat(loader04.getProperty("key3")).isNull();
+        loader04.load();
+        Assertions.assertThat(loader04.getProperty(null)).isNull();
+        Assertions.assertThat(loader04.getProperty("")).isNull();
+        Assertions.assertThat(loader04.getProperty(" ")).isNull();
+        Assertions.assertThat(loader04.getProperty("key")).isNull();
+        Assertions.assertThat(loader04.getProperty("key1")).isNull();
+        Assertions.assertThat(loader04.getProperty("key2")).isEqualTo("value1-2");
+        Assertions.assertThat(loader04.getProperty("key3")).isEqualTo("value1-3");
+        excludeProperties04.add("key2");
+        Assertions.assertThat(loader04.getProperty(null)).isNull();
+        Assertions.assertThat(loader04.getProperty("")).isNull();
+        Assertions.assertThat(loader04.getProperty(" ")).isNull();
+        Assertions.assertThat(loader04.getProperty("key")).isNull();
+        Assertions.assertThat(loader04.getProperty("key1")).isNull();
+        Assertions.assertThat(loader04.getProperty("key2")).isEqualTo("value1-2");
+        Assertions.assertThat(loader04.getProperty("key3")).isEqualTo("value1-3");
+        loader04.load();
+        Assertions.assertThat(loader04.getProperty(null)).isNull();
+        Assertions.assertThat(loader04.getProperty("")).isNull();
+        Assertions.assertThat(loader04.getProperty(" ")).isNull();
+        Assertions.assertThat(loader04.getProperty("key")).isNull();
+        Assertions.assertThat(loader04.getProperty("key1")).isNull();
+        Assertions.assertThat(loader04.getProperty("key2")).isEqualTo("value1-2");
+        Assertions.assertThat(loader04.getProperty("key3")).isEqualTo("value1-3");
     }
 
 }
