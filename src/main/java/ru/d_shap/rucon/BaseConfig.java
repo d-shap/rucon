@@ -264,4 +264,19 @@ public class BaseConfig {
         }
     }
 
+    /**
+     * Close the specified input stream.
+     *
+     * @param inputStream the specified input stream.
+     */
+    protected final void closeInputStream(final InputStream inputStream) {
+        try {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        } catch (IOException ex) {
+            throw new LoadException(ex);
+        }
+    }
+
 }
