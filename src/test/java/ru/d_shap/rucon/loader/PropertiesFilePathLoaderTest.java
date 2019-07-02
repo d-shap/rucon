@@ -28,6 +28,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import ru.d_shap.assertions.Assertions;
+import ru.d_shap.rucon.LoadException;
 
 /**
  * Tests for {@link PropertiesFilePathLoader}.
@@ -276,6 +277,21 @@ public final class PropertiesFilePathLoaderTest {
         loader.load();
         Assertions.assertThat(loader.getNames()).containsExactly("some");
         Assertions.assertThat(loader.getProperty("some")).isEqualTo("other text");
+    }
+
+    /**
+     * {@link PropertiesFilePathLoader} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test(expected = LoadException.class)
+    public void loadDirectoryFailTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("dir");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+        PropertiesFilePathLoader loader = new PropertiesFilePathLoader(filePath, null);
+        loader.load();
     }
 
 }
