@@ -19,7 +19,15 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon.loader;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
+
+import ru.d_shap.assertions.Assertions;
 
 /**
  * Tests for {@link PropertiesFilePathLoader}.
@@ -37,10 +45,74 @@ public final class PropertiesFilePathLoaderTest {
 
     /**
      * {@link PropertiesFilePathLoader} class test.
+     *
+     * @throws Exception exception in test.
      */
     @Test
-    public void getNamesTest() {
-        // TODO
+    public void getNamesTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("config1.properties");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+
+        String filePath01 = null;
+        Set<String> excludeProperties01 = null;
+        PropertiesFilePathLoader loader01 = new PropertiesFilePathLoader(filePath01, excludeProperties01);
+        Assertions.assertThat(loader01.getNames()).containsExactly();
+        loader01.load();
+        Assertions.assertThat(loader01.getNames()).containsExactly();
+
+        String filePath02 = filePath.replace("config1.properties", "configWrong.properties");
+        Set<String> excludeProperties02 = null;
+        PropertiesFilePathLoader loader02 = new PropertiesFilePathLoader(filePath02, excludeProperties02);
+        Assertions.assertThat(loader02.getNames()).containsExactly();
+        loader02.load();
+        Assertions.assertThat(loader02.getNames()).containsExactly();
+
+        String filePath03 = filePath;
+        Set<String> excludeProperties03 = null;
+        PropertiesFilePathLoader loader03 = new PropertiesFilePathLoader(filePath03, excludeProperties03);
+        Assertions.assertThat(loader03.getNames()).containsExactly();
+        loader03.load();
+        Assertions.assertThat(loader03.getNames()).containsExactly("key1", "key2", "key3");
+
+        String filePath04 = filePath;
+        Set<String> excludeProperties04 = new HashSet<>();
+        PropertiesFilePathLoader loader04 = new PropertiesFilePathLoader(filePath04, excludeProperties04);
+        Assertions.assertThat(loader04.getNames()).containsExactly();
+        loader04.load();
+        Assertions.assertThat(loader04.getNames()).containsExactly("key1", "key2", "key3");
+
+        String filePath05 = filePath;
+        Set<String> excludeProperties05 = new HashSet<>();
+        excludeProperties05.add("key1");
+        PropertiesFilePathLoader loader05 = new PropertiesFilePathLoader(filePath05, excludeProperties05);
+        Assertions.assertThat(loader05.getNames()).containsExactly();
+        loader05.load();
+        Assertions.assertThat(loader05.getNames()).containsExactly("key2", "key3");
+
+        String filePath06 = filePath;
+        Set<String> excludeProperties06 = null;
+        PropertiesFilePathLoader loader06 = new PropertiesFilePathLoader(filePath06, excludeProperties06);
+        Assertions.assertThat(loader06.getNames()).containsExactly();
+        loader06.load();
+        Assertions.assertThat(loader06.getNames()).containsExactly("key1", "key2", "key3");
+        loader06.getNames().add("key");
+        Assertions.assertThat(loader06.getNames()).containsExactly("key1", "key2", "key3");
+        loader06.load();
+        Assertions.assertThat(loader06.getNames()).containsExactly("key1", "key2", "key3");
+
+        String filePath07 = filePath;
+        Set<String> excludeProperties07 = new HashSet<>();
+        excludeProperties07.add("key1");
+        PropertiesFilePathLoader loader07 = new PropertiesFilePathLoader(filePath07, excludeProperties07);
+        Assertions.assertThat(loader07.getNames()).containsExactly();
+        loader07.load();
+        Assertions.assertThat(loader07.getNames()).containsExactly("key2", "key3");
+        excludeProperties07.add("key2");
+        Assertions.assertThat(loader07.getNames()).containsExactly("key2", "key3");
+        loader07.load();
+        Assertions.assertThat(loader07.getNames()).containsExactly("key2", "key3");
     }
 
     /**
