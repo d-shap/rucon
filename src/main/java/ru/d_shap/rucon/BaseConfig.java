@@ -19,6 +19,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -226,6 +231,22 @@ public class BaseConfig {
         }
         properties.keySet().removeAll(removeKeys);
         properties.putAll(putProperties);
+    }
+
+    /**
+     * Create new input stream to read the file with the specified path.
+     *
+     * @param filePath the specified path.
+     *
+     * @return new input stream to read the file.
+     */
+    protected InputStream getInputStream(final String filePath) {
+        try {
+            Path path = Paths.get(filePath);
+            return Files.newInputStream(path);
+        } catch (IOException ex) {
+            throw new LoadException(ex);
+        }
     }
 
 }
