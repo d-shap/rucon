@@ -123,7 +123,7 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader09.getNames()).containsExactly();
         loader09.load();
         Assertions.assertThat(loader09.getNames()).containsExactly("key1", "key2");
-        loader09.getNames().add("key3");
+        loader09.getNames().add("key");
         Assertions.assertThat(loader09.getNames()).containsExactly("key1", "key2");
 
         Map<Object, Object> properties10 = new HashMap<>();
