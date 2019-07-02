@@ -21,6 +21,7 @@ package ru.d_shap.rucon.loader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -65,6 +66,13 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
     @Override
     public void load() {
         try {
+            if (_resource == null) {
+                return;
+            }
+            URL url = _classLoader.getResource(_resource);
+            if (url == null) {
+                return;
+            }
             try (InputStream inputStream = _classLoader.getResourceAsStream(_resource)) {
                 Map<Object, Object> properties = new Properties();
                 ((Properties) properties).load(inputStream);
