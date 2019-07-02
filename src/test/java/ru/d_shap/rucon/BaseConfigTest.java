@@ -1006,7 +1006,7 @@ public final class BaseConfigTest {
         }
 
         try {
-            filePath = filePath.replace("config1.properties", "config.properties");
+            filePath = filePath.replace("config1.properties", "configWrong.properties");
             new BaseConfig(null, null, null, null).getInputStream(filePath);
             Assertions.fail("BaseConfig test fail");
         } catch (LoadException ex) {
@@ -1047,6 +1047,41 @@ public final class BaseConfigTest {
     }
 
     /**
+     * {@link BaseConfig} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test
+    public void closeInputStreamTest() throws Exception {
+        new BaseConfig(null, null, null, null).closeInputStream(null);
+
+        URL url = getClass().getClassLoader().getResource("config1.properties");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+        ClosedInputStream inputStream = null;
+        try {
+            inputStream = new ClosedInputStream(new BaseConfig(null, null, null, null).getInputStream(filePath));
+            Map<Object, Object> properties = new Properties();
+            new BaseConfig(null, null, null, null).loadProperties(properties, inputStream);
+            Assertions.assertThat(properties).containsExactly("key1", "value1-1", "key2", "value1-2", "key3", "value1-3");
+            Assertions.assertThat(inputStream.isClosed()).isFalse();
+        } finally {
+            new BaseConfig(null, null, null, null).closeInputStream(inputStream);
+            Assertions.assertThat(inputStream.isClosed()).isTrue();
+        }
+
+        try {
+            InputStream failInputStream = new FailOnCloseInputStream();
+            new BaseConfig(null, null, null, null).closeInputStream(failInputStream);
+            Assertions.fail("BaseConfig test fail");
+        } catch (LoadException ex) {
+            Assertions.assertThat(ex).hasCause(IOException.class);
+            Assertions.assertThat(ex).hasCauseMessage("CLOSE FAIL!");
+        }
+    }
+
+    /**
      * Test class.
      *
      * @author Dmitry Shapovalov
@@ -1060,6 +1095,63 @@ public final class BaseConfigTest {
         @Override
         public int read() throws IOException {
             throw new IOException("READ FAIL!");
+        }
+
+    }
+
+    /**
+     * Test class.
+     *
+     * @author Dmitry Shapovalov
+     */
+    private static final class ClosedInputStream extends InputStream {
+
+        private final InputStream _inputStream;
+
+        private boolean _closed;
+
+        ClosedInputStream(final InputStream inputStream) {
+            super();
+            _inputStream = inputStream;
+            _closed = false;
+        }
+
+        boolean isClosed() {
+            return _closed;
+        }
+
+        @Override
+        public int read() throws IOException {
+            return _inputStream.read();
+        }
+
+        @Override
+        public void close() throws IOException {
+            _inputStream.close();
+            _closed = true;
+        }
+
+    }
+
+    /**
+     * Test class.
+     *
+     * @author Dmitry Shapovalov
+     */
+    private static final class FailOnCloseInputStream extends InputStream {
+
+        FailOnCloseInputStream() {
+            super();
+        }
+
+        @Override
+        public int read() throws IOException {
+            return -1;
+        }
+
+        @Override
+        public void close() throws IOException {
+            throw new IOException("CLOSE FAIL!");
         }
 
     }
