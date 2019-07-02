@@ -20,10 +20,7 @@
 package ru.d_shap.rucon.loader;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,7 +30,6 @@ import java.util.Set;
 import ru.d_shap.rucon.BaseConfig;
 import ru.d_shap.rucon.ConfigDelegate;
 import ru.d_shap.rucon.ConfigLoader;
-import ru.d_shap.rucon.LoadException;
 
 /**
  * Configuration loader for the properties.
@@ -63,29 +59,29 @@ public final class PropertiesSystemPropertyFileLoader extends BaseConfig impleme
 
     @Override
     public void load() {
-        try {
-            if (_name == null) {
-                return;
-            }
-            String filePath = System.getProperty(_name);
-            if (filePath == null) {
-                return;
-            }
-            File file = new File(filePath);
-            if (!file.exists()) {
-                return;
-            }
-            try (InputStream inputStream = Files.newInputStream(Paths.get(file.getAbsolutePath()))) {
-                Map<Object, Object> properties = new Properties();
-                ((Properties) properties).load(inputStream);
-                fillObjectMap(properties, _properties);
-                excludeProperties(_properties);
-                Set<String> names = _properties.keySet();
-                fillStringSet(names, _names);
-            }
-        } catch (IOException ex) {
-            throw new LoadException(ex);
+        if (_name == null) {
+            return;
         }
+        String filePath = System.getProperty(_name);
+        if (filePath == null) {
+            return;
+        }
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return;
+        }
+        InputStream inputStream = null;
+        try {
+            inputStream = getInputStream(file.getAbsolutePath());
+            Map<Object, Object> properties = new Properties();
+            loadProperties(properties, inputStream);
+            fillObjectMap(properties, _properties);
+        } finally {
+            closeInputStream(inputStream);
+        }
+        excludeProperties(_properties);
+        Set<String> names = _properties.keySet();
+        fillStringSet(names, _names);
     }
 
     @Override
