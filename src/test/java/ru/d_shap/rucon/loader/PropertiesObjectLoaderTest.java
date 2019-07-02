@@ -125,6 +125,8 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader09.getNames()).containsExactly("key1", "key2");
         loader09.getNames().add("key");
         Assertions.assertThat(loader09.getNames()).containsExactly("key1", "key2");
+        loader09.load();
+        Assertions.assertThat(loader09.getNames()).containsExactly("key1", "key2");
 
         Map<Object, Object> properties10 = new HashMap<>();
         properties10.put("key1", "value1");
@@ -139,6 +141,8 @@ public final class PropertiesObjectLoaderTest {
         properties10.remove("key2");
         Assertions.assertThat(loader10.getNames()).containsExactly("key2");
         excludeProperties10.add("key2");
+        Assertions.assertThat(loader10.getNames()).containsExactly("key2");
+        loader10.load();
         Assertions.assertThat(loader10.getNames()).containsExactly("key2");
     }
 
@@ -323,6 +327,13 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader09.getProperty("key1")).isNull();
         Assertions.assertThat(loader09.getProperty("key2")).isEqualTo("value2");
         excludeProperties09.add("key2");
+        Assertions.assertThat(loader09.getProperty(null)).isNull();
+        Assertions.assertThat(loader09.getProperty("")).isNull();
+        Assertions.assertThat(loader09.getProperty(" ")).isNull();
+        Assertions.assertThat(loader09.getProperty("key")).isNull();
+        Assertions.assertThat(loader09.getProperty("key1")).isNull();
+        Assertions.assertThat(loader09.getProperty("key2")).isEqualTo("value2");
+        loader09.load();
         Assertions.assertThat(loader09.getProperty(null)).isNull();
         Assertions.assertThat(loader09.getProperty("")).isNull();
         Assertions.assertThat(loader09.getProperty(" ")).isNull();
