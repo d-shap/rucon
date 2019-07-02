@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.junit.Test;
@@ -1011,6 +1012,56 @@ public final class BaseConfigTest {
         } catch (LoadException ex) {
             Assertions.assertThat(ex).hasCause(IOException.class);
         }
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test
+    public void loadPropertiesTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("config1.properties");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+        InputStream inputStream = null;
+        try {
+            inputStream = new BaseConfig(null, null, null, null).getInputStream(filePath);
+            Map<Object, Object> properties = new Properties();
+            new BaseConfig(null, null, null, null).loadProperties(properties, inputStream);
+            Assertions.assertThat(properties).containsExactly("key1", "value1-1", "key2", "value1-2", "key3", "value1-3");
+        } finally {
+            new BaseConfig(null, null, null, null).closeInputStream(inputStream);
+        }
+
+        try {
+            InputStream failInputStream = new FailOnReadInputStream();
+            Map<Object, Object> properties = new Properties();
+            new BaseConfig(null, null, null, null).loadProperties(properties, failInputStream);
+            Assertions.fail("BaseConfig test fail");
+        } catch (LoadException ex) {
+            Assertions.assertThat(ex).hasCause(IOException.class);
+            Assertions.assertThat(ex).hasCauseMessage("READ FAIL!");
+        }
+    }
+
+    /**
+     * Test class.
+     *
+     * @author Dmitry Shapovalov
+     */
+    private static final class FailOnReadInputStream extends InputStream {
+
+        FailOnReadInputStream() {
+            super();
+        }
+
+        @Override
+        public int read() throws IOException {
+            throw new IOException("READ FAIL!");
+        }
+
     }
 
 }
