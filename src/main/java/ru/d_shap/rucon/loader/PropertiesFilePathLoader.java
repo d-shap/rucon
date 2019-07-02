@@ -79,7 +79,6 @@ public final class PropertiesFilePathLoader extends BaseConfig implements Config
                 Set<String> names = _properties.keySet();
                 fillStringSet(names, _names);
             }
-            fillStringSet(_names, _properties.keySet());
         } catch (IOException ex) {
             throw new LoadException(ex);
         }
