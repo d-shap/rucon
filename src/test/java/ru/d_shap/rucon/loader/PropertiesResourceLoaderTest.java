@@ -45,45 +45,64 @@ public final class PropertiesResourceLoaderTest {
      */
     @Test
     public void getNamesTest() {
+        String resource01 = null;
         Set<String> excludeProperties01 = null;
-        PropertiesResourceLoader loader01 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties01);
+        PropertiesResourceLoader loader01 = new PropertiesResourceLoader(getClass().getClassLoader(), resource01, excludeProperties01);
         Assertions.assertThat(loader01.getNames()).containsExactly();
         loader01.load();
-        Assertions.assertThat(loader01.getNames()).containsExactly("key1", "key2", "key3");
+        Assertions.assertThat(loader01.getNames()).containsExactly();
 
-        Set<String> excludeProperties02 = new HashSet<>();
-        PropertiesResourceLoader loader02 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties02);
+        String resource02 = "configWrong.properties";
+        Set<String> excludeProperties02 = null;
+        PropertiesResourceLoader loader02 = new PropertiesResourceLoader(getClass().getClassLoader(), resource02, excludeProperties02);
         Assertions.assertThat(loader02.getNames()).containsExactly();
         loader02.load();
-        Assertions.assertThat(loader02.getNames()).containsExactly("key1", "key2", "key3");
+        Assertions.assertThat(loader02.getNames()).containsExactly();
 
-        Set<String> excludeProperties03 = new HashSet<>();
-        excludeProperties03.add("key1");
-        PropertiesResourceLoader loader03 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties03);
+        String resource03 = "config1.properties";
+        Set<String> excludeProperties03 = null;
+        PropertiesResourceLoader loader03 = new PropertiesResourceLoader(getClass().getClassLoader(), resource03, excludeProperties03);
         Assertions.assertThat(loader03.getNames()).containsExactly();
         loader03.load();
-        Assertions.assertThat(loader03.getNames()).containsExactly("key2", "key3");
+        Assertions.assertThat(loader03.getNames()).containsExactly("key1", "key2", "key3");
 
-        Set<String> excludeProperties04 = null;
-        PropertiesResourceLoader loader04 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties04);
+        String resource04 = "config1.properties";
+        Set<String> excludeProperties04 = new HashSet<>();
+        PropertiesResourceLoader loader04 = new PropertiesResourceLoader(getClass().getClassLoader(), resource04, excludeProperties04);
         Assertions.assertThat(loader04.getNames()).containsExactly();
         loader04.load();
         Assertions.assertThat(loader04.getNames()).containsExactly("key1", "key2", "key3");
-        loader04.getNames().add("key");
-        Assertions.assertThat(loader04.getNames()).containsExactly("key1", "key2", "key3");
-        loader04.load();
-        Assertions.assertThat(loader04.getNames()).containsExactly("key1", "key2", "key3");
 
+        String resource05 = "config1.properties";
         Set<String> excludeProperties05 = new HashSet<>();
         excludeProperties05.add("key1");
-        PropertiesResourceLoader loader05 = new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties05);
+        PropertiesResourceLoader loader05 = new PropertiesResourceLoader(getClass().getClassLoader(), resource05, excludeProperties05);
         Assertions.assertThat(loader05.getNames()).containsExactly();
         loader05.load();
         Assertions.assertThat(loader05.getNames()).containsExactly("key2", "key3");
-        excludeProperties05.add("key2");
-        Assertions.assertThat(loader05.getNames()).containsExactly("key2", "key3");
-        loader05.load();
-        Assertions.assertThat(loader05.getNames()).containsExactly("key2", "key3");
+
+        String resource06 = "config1.properties";
+        Set<String> excludeProperties06 = null;
+        PropertiesResourceLoader loader06 = new PropertiesResourceLoader(getClass().getClassLoader(), resource06, excludeProperties06);
+        Assertions.assertThat(loader06.getNames()).containsExactly();
+        loader06.load();
+        Assertions.assertThat(loader06.getNames()).containsExactly("key1", "key2", "key3");
+        loader06.getNames().add("key");
+        Assertions.assertThat(loader06.getNames()).containsExactly("key1", "key2", "key3");
+        loader06.load();
+        Assertions.assertThat(loader06.getNames()).containsExactly("key1", "key2", "key3");
+
+        String resource07 = "config1.properties";
+        Set<String> excludeProperties07 = new HashSet<>();
+        excludeProperties07.add("key1");
+        PropertiesResourceLoader loader07 = new PropertiesResourceLoader(getClass().getClassLoader(), resource07, excludeProperties07);
+        Assertions.assertThat(loader07.getNames()).containsExactly();
+        loader07.load();
+        Assertions.assertThat(loader07.getNames()).containsExactly("key2", "key3");
+        excludeProperties07.add("key2");
+        Assertions.assertThat(loader07.getNames()).containsExactly("key2", "key3");
+        loader07.load();
+        Assertions.assertThat(loader07.getNames()).containsExactly("key2", "key3");
     }
 
     /**
@@ -180,6 +199,19 @@ public final class PropertiesResourceLoaderTest {
         Assertions.assertThat(loader04.getProperty("key1")).isNull();
         Assertions.assertThat(loader04.getProperty("key2")).isEqualTo("value1-2");
         Assertions.assertThat(loader04.getProperty("key3")).isEqualTo("value1-3");
+    }
+
+    /**
+     * {@link PropertiesResourceLoader} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void loadNullClassLoaderFailTest() {
+        ClassLoader classLoader = null;
+        String resource = "config1.properties";
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key1");
+        PropertiesResourceLoader loader = new PropertiesResourceLoader(classLoader, resource, excludeProperties);
+        loader.load();
     }
 
 }
