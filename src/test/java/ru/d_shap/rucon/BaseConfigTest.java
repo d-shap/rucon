@@ -19,6 +19,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -977,6 +982,35 @@ public final class BaseConfigTest {
         propertyAliases.put("key", "KEY_ALIAS");
         Map<String, String> properties = null;
         new BaseConfig(null, null, propertyAliases, null).excludeProperties(properties);
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test
+    public void getInputStreamTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("config1.properties");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+
+        InputStream inputStream = null;
+        try {
+            inputStream = new BaseConfig(null, null, null, null).getInputStream(filePath);
+            Assertions.assertThat(inputStream).isNotCompleted();
+        } finally {
+            new BaseConfig(null, null, null, null).closeInputStream(inputStream);
+        }
+
+        try {
+            filePath = filePath.replace("config1.properties", "config.properties");
+            new BaseConfig(null, null, null, null).getInputStream(filePath);
+            Assertions.fail("BaseConfig test fail");
+        } catch (LoadException ex) {
+            Assertions.assertThat(ex).hasCause(IOException.class);
+        }
     }
 
 }
