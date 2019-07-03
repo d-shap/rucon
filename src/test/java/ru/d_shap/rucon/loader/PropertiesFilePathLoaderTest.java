@@ -273,7 +273,9 @@ public final class PropertiesFilePathLoaderTest {
         File file = new File(uri);
         String filePath = file.getAbsolutePath();
 
-        PropertiesFilePathLoader loader = new PropertiesFilePathLoader(filePath, null);
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key");
+        PropertiesFilePathLoader loader = new PropertiesFilePathLoader(filePath, excludeProperties);
         loader.load();
         Assertions.assertThat(loader.getNames()).containsExactly("some");
         Assertions.assertThat(loader.getProperty("some")).isEqualTo("other text");
@@ -291,7 +293,9 @@ public final class PropertiesFilePathLoaderTest {
         File file = new File(uri);
         String filePath = file.getAbsolutePath();
 
-        PropertiesFilePathLoader loader = new PropertiesFilePathLoader(filePath, null);
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key");
+        PropertiesFilePathLoader loader = new PropertiesFilePathLoader(filePath, excludeProperties);
         loader.load();
     }
 
