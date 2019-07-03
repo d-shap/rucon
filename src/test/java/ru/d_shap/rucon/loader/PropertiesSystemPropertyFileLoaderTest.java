@@ -312,7 +312,9 @@ public final class PropertiesSystemPropertyFileLoaderTest {
 
         String name = getClass().getName() + "_name_t";
         System.setProperty(name, filePath);
-        PropertiesSystemPropertyFileLoader loader = new PropertiesSystemPropertyFileLoader(name, null);
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key");
+        PropertiesSystemPropertyFileLoader loader = new PropertiesSystemPropertyFileLoader(name, excludeProperties);
         loader.load();
         Assertions.assertThat(loader.getNames()).containsExactly("some");
         Assertions.assertThat(loader.getProperty("some")).isEqualTo("other text");
@@ -332,7 +334,9 @@ public final class PropertiesSystemPropertyFileLoaderTest {
 
         String name = getClass().getName() + "_name_d";
         System.setProperty(name, filePath);
-        PropertiesSystemPropertyFileLoader loader = new PropertiesSystemPropertyFileLoader(name, null);
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key");
+        PropertiesSystemPropertyFileLoader loader = new PropertiesSystemPropertyFileLoader(name, excludeProperties);
         loader.load();
     }
 
