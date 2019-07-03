@@ -248,12 +248,43 @@ public final class PropertiesResourceLoaderTest {
      */
     @Test(expected = NullPointerException.class)
     public void loadNullClassLoaderFailTest() {
-        ClassLoader classLoader = null;
         String resource = "config1.properties";
         Set<String> excludeProperties = new HashSet<>();
-        excludeProperties.add("key1");
-        PropertiesResourceLoader loader = new PropertiesResourceLoader(classLoader, resource, excludeProperties);
+        excludeProperties.add("key");
+        PropertiesResourceLoader loader = new PropertiesResourceLoader(null, resource, excludeProperties);
         loader.load();
+    }
+
+    /**
+     * {@link PropertiesResourceLoader} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test
+    public void loadTextFileTest() throws Exception {
+        String resource = "dir/file.txt";
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key");
+        PropertiesResourceLoader loader = new PropertiesResourceLoader(getClass().getClassLoader(), resource, excludeProperties);
+        loader.load();
+        Assertions.assertThat(loader.getNames()).containsExactly("some");
+        Assertions.assertThat(loader.getProperty("some")).isEqualTo("other text");
+    }
+
+    /**
+     * {@link PropertiesResourceLoader} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test
+    public void loadDirectoryFailTest() throws Exception {
+        String resource = "dir";
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key");
+        PropertiesResourceLoader loader = new PropertiesResourceLoader(getClass().getClassLoader(), resource, excludeProperties);
+        loader.load();
+        Assertions.assertThat(loader.getNames()).containsExactly("file.txt");
+        Assertions.assertThat(loader.getProperty("file.txt")).isEqualTo("");
     }
 
 }
