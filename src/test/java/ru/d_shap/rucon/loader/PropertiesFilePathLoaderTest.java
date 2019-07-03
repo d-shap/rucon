@@ -290,6 +290,7 @@ public final class PropertiesFilePathLoaderTest {
         URI uri = url.toURI();
         File file = new File(uri);
         String filePath = file.getAbsolutePath();
+
         PropertiesFilePathLoader loader = new PropertiesFilePathLoader(filePath, null);
         loader.load();
     }
