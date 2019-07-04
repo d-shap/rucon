@@ -63,14 +63,14 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         loader01.load();
         Assertions.assertThat(loader01.getNames()).containsExactly();
 
-        String name02 = getClass().getName() + "_name2_n";
+        String name02 = getClass().getName() + "_name02_n";
         Set<String> excludeProperties02 = null;
         PropertiesSystemPropertyFileLoader loader02 = new PropertiesSystemPropertyFileLoader(name02, excludeProperties02);
         Assertions.assertThat(loader02.getNames()).containsExactly();
         loader02.load();
         Assertions.assertThat(loader02.getNames()).containsExactly();
 
-        String name03 = getClass().getName() + "_name3_n";
+        String name03 = getClass().getName() + "_name03_n";
         System.setProperty(name03, filePath.replace("config1.properties", "configWrong.properties"));
         Set<String> excludeProperties03 = null;
         PropertiesSystemPropertyFileLoader loader03 = new PropertiesSystemPropertyFileLoader(name03, excludeProperties03);
@@ -78,7 +78,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         loader03.load();
         Assertions.assertThat(loader03.getNames()).containsExactly();
 
-        String name04 = getClass().getName() + "_name4_n";
+        String name04 = getClass().getName() + "_name04_n";
         System.setProperty(name04, filePath);
         Set<String> excludeProperties04 = null;
         PropertiesSystemPropertyFileLoader loader04 = new PropertiesSystemPropertyFileLoader(name04, excludeProperties04);
@@ -86,7 +86,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         loader04.load();
         Assertions.assertThat(loader04.getNames()).containsExactly("key1", "key2", "key3");
 
-        String name05 = getClass().getName() + "_name5_n";
+        String name05 = getClass().getName() + "_name05_n";
         System.setProperty(name05, filePath);
         Set<String> excludeProperties05 = new HashSet<>();
         PropertiesSystemPropertyFileLoader loader05 = new PropertiesSystemPropertyFileLoader(name05, excludeProperties05);
@@ -94,7 +94,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         loader05.load();
         Assertions.assertThat(loader05.getNames()).containsExactly("key1", "key2", "key3");
 
-        String name06 = getClass().getName() + "_name6_n";
+        String name06 = getClass().getName() + "_name06_n";
         System.setProperty(name06, filePath);
         Set<String> excludeProperties06 = new HashSet<>();
         excludeProperties06.add("key1");
@@ -103,7 +103,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         loader06.load();
         Assertions.assertThat(loader06.getNames()).containsExactly("key2", "key3");
 
-        String name07 = getClass().getName() + "_name7_n";
+        String name07 = getClass().getName() + "_name07_n";
         System.setProperty(name07, filePath);
         Set<String> excludeProperties07 = null;
         PropertiesSystemPropertyFileLoader loader07 = new PropertiesSystemPropertyFileLoader(name07, excludeProperties07);
@@ -115,7 +115,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         loader07.load();
         Assertions.assertThat(loader07.getNames()).containsExactly("key1", "key2", "key3");
 
-        String name08 = getClass().getName() + "_name8_n";
+        String name08 = getClass().getName() + "_name08_n";
         System.setProperty(name08, filePath);
         Set<String> excludeProperties08 = new HashSet<>();
         excludeProperties08.add("key1");
@@ -160,7 +160,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         Assertions.assertThat(loader01.getProperty("key2")).isNull();
         Assertions.assertThat(loader01.getProperty("key3")).isNull();
 
-        String name02 = getClass().getName() + "_name2_v";
+        String name02 = getClass().getName() + "_name02_v";
         Set<String> excludeProperties02 = null;
         PropertiesSystemPropertyFileLoader loader02 = new PropertiesSystemPropertyFileLoader(name02, excludeProperties02);
         Assertions.assertThat(loader02.getProperty(null)).isNull();
@@ -179,7 +179,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         Assertions.assertThat(loader02.getProperty("key2")).isNull();
         Assertions.assertThat(loader02.getProperty("key3")).isNull();
 
-        String name03 = getClass().getName() + "_name3_v";
+        String name03 = getClass().getName() + "_name03_v";
         System.setProperty(name03, filePath.replace("config1.properties", "configWrong.properties"));
         Set<String> excludeProperties03 = null;
         PropertiesSystemPropertyFileLoader loader03 = new PropertiesSystemPropertyFileLoader(name03, excludeProperties03);
@@ -199,7 +199,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         Assertions.assertThat(loader03.getProperty("key2")).isNull();
         Assertions.assertThat(loader03.getProperty("key3")).isNull();
 
-        String name04 = getClass().getName() + "_name4_v";
+        String name04 = getClass().getName() + "_name04_v";
         System.setProperty(name04, filePath);
         Set<String> excludeProperties04 = null;
         PropertiesSystemPropertyFileLoader loader04 = new PropertiesSystemPropertyFileLoader(name04, excludeProperties04);
@@ -219,7 +219,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         Assertions.assertThat(loader04.getProperty("key2")).isEqualTo("value1-2");
         Assertions.assertThat(loader04.getProperty("key3")).isEqualTo("value1-3");
 
-        String name05 = getClass().getName() + "_name5_v";
+        String name05 = getClass().getName() + "_name05_v";
         System.setProperty(name05, filePath);
         Set<String> excludeProperties05 = new HashSet<>();
         PropertiesSystemPropertyFileLoader loader05 = new PropertiesSystemPropertyFileLoader(name05, excludeProperties05);
@@ -239,7 +239,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         Assertions.assertThat(loader05.getProperty("key2")).isEqualTo("value1-2");
         Assertions.assertThat(loader05.getProperty("key3")).isEqualTo("value1-3");
 
-        String name06 = getClass().getName() + "_name6_v";
+        String name06 = getClass().getName() + "_name06_v";
         System.setProperty(name06, filePath);
         Set<String> excludeProperties06 = new HashSet<>();
         excludeProperties06.add("key1");
@@ -260,7 +260,7 @@ public final class PropertiesSystemPropertyFileLoaderTest {
         Assertions.assertThat(loader06.getProperty("key2")).isEqualTo("value1-2");
         Assertions.assertThat(loader06.getProperty("key3")).isEqualTo("value1-3");
 
-        String name07 = getClass().getName() + "_name7_v";
+        String name07 = getClass().getName() + "_name07_v";
         System.setProperty(name07, filePath);
         Set<String> excludeProperties07 = new HashSet<>();
         excludeProperties07.add("key1");
