@@ -111,6 +111,42 @@ public final class ConfigurationLoaderTest {
         Assertions.assertThat(loader08.getNames()).containsExactly();
         loader08.load();
         Assertions.assertThat(loader08.getNames()).containsExactly("key1", "key3");
+
+        List<ConfigDelegate> configDelegates09 = new ArrayList<>();
+        Set<String> excludeProperties091 = new HashSet<>();
+        excludeProperties091.add("key2");
+        configDelegates09.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config2.properties", excludeProperties091));
+        Set<String> excludeProperties092 = new HashSet<>();
+        excludeProperties092.add("key4");
+        configDelegates09.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties092));
+        ConfigurationLoader loader09 = new ConfigurationLoader(configDelegates09);
+        Assertions.assertThat(loader09.getNames()).containsExactly();
+        loader09.load();
+        Assertions.assertThat(loader09.getNames()).containsExactly("key1", "key2", "key3", "key4");
+
+        List<ConfigDelegate> configDelegates10 = new ArrayList<>();
+        Set<String> excludeProperties101 = new HashSet<>();
+        excludeProperties101.add("key1");
+        configDelegates10.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties101));
+        Set<String> excludeProperties102 = new HashSet<>();
+        excludeProperties102.add("key3");
+        configDelegates10.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config2.properties", excludeProperties102));
+        ConfigurationLoader loader10 = new ConfigurationLoader(configDelegates10);
+        Assertions.assertThat(loader10.getNames()).containsExactly();
+        loader10.load();
+        Assertions.assertThat(loader10.getNames()).containsExactly("key1", "key2", "key3", "key4");
+
+        List<ConfigDelegate> configDelegates11 = new ArrayList<>();
+        Set<String> excludeProperties111 = new HashSet<>();
+        excludeProperties111.add("key1");
+        configDelegates11.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config2.properties", excludeProperties111));
+        Set<String> excludeProperties112 = new HashSet<>();
+        excludeProperties112.add("key3");
+        configDelegates11.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties112));
+        ConfigurationLoader loader11 = new ConfigurationLoader(configDelegates11);
+        Assertions.assertThat(loader11.getNames()).containsExactly();
+        loader11.load();
+        Assertions.assertThat(loader11.getNames()).containsExactly("key1", "key2", "key3", "key4");
     }
 
     /**
