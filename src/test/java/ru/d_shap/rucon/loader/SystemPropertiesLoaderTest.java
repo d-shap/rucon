@@ -213,23 +213,35 @@ public final class SystemPropertiesLoaderTest {
         Assertions.assertThat(loader14.getNames()).contains(name14);
         Assertions.assertThat(loader14.getNames()).doesNotContain("key");
 
-        String name15 = getClass().getName() + "_name15_n";
+        String name151 = getClass().getName() + "_name151_n";
+        String name152 = getClass().getName() + "_name152_n";
         String prefix15 = null;
         String suffix15 = null;
         Set<String> excludeProperties15 = new HashSet<>();
-        excludeProperties15.add(name15);
-        System.setProperty(name15, "value");
+        excludeProperties15.add(name151);
+        System.setProperty(name151, "value");
         SystemPropertiesLoader loader15 = new SystemPropertiesLoader(prefix15, suffix15, excludeProperties15);
         Assertions.assertThat(loader15.getNames()).containsExactly();
         loader15.load();
         Assertions.assertThat(loader15.getNames()).containsAll("file.separator", "line.separator", "path.separator");
-        Assertions.assertThat(loader15.getNames()).doesNotContain(name15);
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name151);
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name152);
         excludeProperties15.add("file.separator");
         Assertions.assertThat(loader15.getNames()).containsAll("file.separator", "line.separator", "path.separator");
-        Assertions.assertThat(loader15.getNames()).doesNotContain(name15);
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name151);
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name152);
         loader15.load();
         Assertions.assertThat(loader15.getNames()).containsAll("file.separator", "line.separator", "path.separator");
-        Assertions.assertThat(loader15.getNames()).doesNotContain(name15);
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name151);
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name152);
+        System.setProperty(name152, "value");
+        Assertions.assertThat(loader15.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name151);
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name152);
+        loader15.load();
+        Assertions.assertThat(loader15.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader15.getNames()).doesNotContain(name151);
+        Assertions.assertThat(loader15.getNames()).contains(name152);
     }
 
     /**
@@ -449,32 +461,49 @@ public final class SystemPropertiesLoaderTest {
         Assertions.assertThat(loader13.getProperty("path.separator")).isNull();
         Assertions.assertThat(loader13.getProperty(name13)).isNull();
 
-        String name14 = getClass().getName() + "_name14_v";
+        String name141 = getClass().getName() + "_name141_v";
+        String name142 = getClass().getName() + "_name142_v";
         String prefix14 = null;
         String suffix14 = null;
         Set<String> excludeProperties14 = new HashSet<>();
-        excludeProperties14.add(name14);
-        System.setProperty(name14, "value");
+        excludeProperties14.add(name141);
+        System.setProperty(name141, "value");
         SystemPropertiesLoader loader14 = new SystemPropertiesLoader(prefix14, suffix14, excludeProperties14);
         Assertions.assertThat(loader14.getProperty("file.separator")).isNull();
         Assertions.assertThat(loader14.getProperty("line.separator")).isNull();
         Assertions.assertThat(loader14.getProperty("path.separator")).isNull();
-        Assertions.assertThat(loader14.getProperty(name14)).isNull();
+        Assertions.assertThat(loader14.getProperty(name141)).isNull();
+        Assertions.assertThat(loader14.getProperty(name142)).isNull();
         loader14.load();
         Assertions.assertThat(loader14.getProperty("file.separator")).isNotNull();
         Assertions.assertThat(loader14.getProperty("line.separator")).isNotNull();
         Assertions.assertThat(loader14.getProperty("path.separator")).isNotNull();
-        Assertions.assertThat(loader14.getProperty(name14)).isNull();
+        Assertions.assertThat(loader14.getProperty(name141)).isNull();
+        Assertions.assertThat(loader14.getProperty(name142)).isNull();
         excludeProperties14.add("file.separator");
         Assertions.assertThat(loader14.getProperty("file.separator")).isNotNull();
         Assertions.assertThat(loader14.getProperty("line.separator")).isNotNull();
         Assertions.assertThat(loader14.getProperty("path.separator")).isNotNull();
-        Assertions.assertThat(loader14.getProperty(name14)).isNull();
+        Assertions.assertThat(loader14.getProperty(name141)).isNull();
+        Assertions.assertThat(loader14.getProperty(name142)).isNull();
         loader14.load();
         Assertions.assertThat(loader14.getProperty("file.separator")).isNotNull();
         Assertions.assertThat(loader14.getProperty("line.separator")).isNotNull();
         Assertions.assertThat(loader14.getProperty("path.separator")).isNotNull();
-        Assertions.assertThat(loader14.getProperty(name14)).isNull();
+        Assertions.assertThat(loader14.getProperty(name141)).isNull();
+        Assertions.assertThat(loader14.getProperty(name142)).isNull();
+        System.setProperty(name142, "value");
+        Assertions.assertThat(loader14.getProperty("file.separator")).isNotNull();
+        Assertions.assertThat(loader14.getProperty("line.separator")).isNotNull();
+        Assertions.assertThat(loader14.getProperty("path.separator")).isNotNull();
+        Assertions.assertThat(loader14.getProperty(name141)).isNull();
+        Assertions.assertThat(loader14.getProperty(name142)).isNull();
+        loader14.load();
+        Assertions.assertThat(loader14.getProperty("file.separator")).isNotNull();
+        Assertions.assertThat(loader14.getProperty("line.separator")).isNotNull();
+        Assertions.assertThat(loader14.getProperty("path.separator")).isNotNull();
+        Assertions.assertThat(loader14.getProperty(name141)).isNull();
+        Assertions.assertThat(loader14.getProperty(name142)).isEqualTo("value");
     }
 
 }
