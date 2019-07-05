@@ -47,7 +47,79 @@ public final class PropertiesObjectDelegateTest {
      */
     @Test
     public void getNamesTest() {
-        // TODO
+        Map<Object, Object> properties01 = null;
+        Set<String> excludeProperties01 = null;
+        PropertiesObjectDelegate delegate01 = new PropertiesObjectDelegate(properties01, excludeProperties01);
+        Assertions.assertThat(delegate01.getNames()).containsExactly();
+
+        Map<Object, Object> properties02 = new HashMap<>();
+        Set<String> excludeProperties02 = null;
+        PropertiesObjectDelegate delegate02 = new PropertiesObjectDelegate(properties02, excludeProperties02);
+        Assertions.assertThat(delegate02.getNames()).containsExactly();
+
+        Map<Object, Object> properties03 = new HashMap<>();
+        properties03.put("key", "value");
+        Set<String> excludeProperties03 = null;
+        PropertiesObjectDelegate delegate03 = new PropertiesObjectDelegate(properties03, excludeProperties03);
+        Assertions.assertThat(delegate03.getNames()).containsExactly("key");
+
+        Map<Object, Object> properties04 = new HashMap<>();
+        properties04.put("key1", "value1");
+        properties04.put("key2", "value2");
+        Set<String> excludeProperties04 = null;
+        PropertiesObjectDelegate delegate04 = new PropertiesObjectDelegate(properties04, excludeProperties04);
+        Assertions.assertThat(delegate04.getNames()).containsExactly("key1", "key2");
+
+        Map<Object, Object> properties05 = new HashMap<>();
+        properties05.put("key1", null);
+        properties05.put(null, "value2");
+        Set<String> excludeProperties05 = null;
+        PropertiesObjectDelegate delegate05 = new PropertiesObjectDelegate(properties05, excludeProperties05);
+        Assertions.assertThat(delegate05.getNames()).containsExactly("key1", null);
+
+        Map<Object, Object> properties06 = new HashMap<>();
+        properties06.put("key1", new StringBuilder("value1"));
+        properties06.put(new StringBuilder("key2"), "value2");
+        Set<String> excludeProperties06 = null;
+        PropertiesObjectDelegate delegate06 = new PropertiesObjectDelegate(properties06, excludeProperties06);
+        Assertions.assertThat(delegate06.getNames()).containsExactly("key1", "key2");
+
+        Map<Object, Object> properties07 = new HashMap<>();
+        properties07.put("key1", "value1");
+        properties07.put("key2", "value2");
+        Set<String> excludeProperties07 = new HashSet<>();
+        PropertiesObjectDelegate delegate07 = new PropertiesObjectDelegate(properties07, excludeProperties07);
+        Assertions.assertThat(delegate07.getNames()).containsExactly("key1", "key2");
+
+        Map<Object, Object> properties08 = new HashMap<>();
+        properties08.put("key1", "value1");
+        properties08.put("key2", "value2");
+        Set<String> excludeProperties08 = new HashSet<>();
+        excludeProperties08.add("key1");
+        PropertiesObjectDelegate delegate08 = new PropertiesObjectDelegate(properties08, excludeProperties08);
+        Assertions.assertThat(delegate08.getNames()).containsExactly("key2");
+
+        Map<Object, Object> properties09 = new HashMap<>();
+        properties09.put("key1", "value1");
+        properties09.put("key2", "value2");
+        Set<String> excludeProperties09 = null;
+        PropertiesObjectDelegate delegate09 = new PropertiesObjectDelegate(properties09, excludeProperties09);
+        Assertions.assertThat(delegate09.getNames()).containsExactly("key1", "key2");
+        delegate09.getNames().add("key");
+        Assertions.assertThat(delegate09.getNames()).containsExactly("key1", "key2");
+
+        Map<Object, Object> properties10 = new HashMap<>();
+        properties10.put("key1", "value1");
+        properties10.put("key2", "value2");
+        Set<String> excludeProperties10 = new HashSet<>();
+        excludeProperties10.add("key1");
+        PropertiesObjectDelegate delegate10 = new PropertiesObjectDelegate(properties10, excludeProperties10);
+        Assertions.assertThat(delegate10.getNames()).containsExactly("key2");
+        properties10.put("key", "value");
+        properties10.remove("key2");
+        Assertions.assertThat(delegate10.getNames()).containsExactly("key");
+        excludeProperties10.add("key");
+        Assertions.assertThat(delegate10.getNames()).containsExactly("key");
     }
 
     /**
