@@ -199,6 +199,51 @@ public final class SystemEnvironmentLoaderTest {
         values032.add(loader03.getProperty("path2"));
         values032.add(loader03.getProperty("path3"));
         Assertions.assertThat(values032).hasSize(1);
+
+        Map<String, String> aliases04 = new HashMap<>();
+        aliases04.put("path1", "PATH");
+        aliases04.put("path2", "ROOTPATH");
+        aliases04.put("path3", "Path");
+        Set<String> excludeProperties04 = new HashSet<>();
+        excludeProperties04.add("path1");
+        excludeProperties04.add("path2");
+        excludeProperties04.add("path3");
+        SystemEnvironmentLoader loader04 = new SystemEnvironmentLoader(aliases04, excludeProperties04);
+        Set<String> values041 = new HashSet<>();
+        values041.add(loader04.getProperty("path1"));
+        values041.add(loader04.getProperty("path2"));
+        values041.add(loader04.getProperty("path3"));
+        Assertions.assertThat(values041).hasSize(1);
+        loader04.load();
+        Set<String> values042 = new HashSet<>();
+        values042.add(loader04.getProperty("path1"));
+        values042.add(loader04.getProperty("path2"));
+        values042.add(loader04.getProperty("path3"));
+        Assertions.assertThat(values042).hasSize(1);
+        aliases04.clear();
+        Set<String> values043 = new HashSet<>();
+        values043.add(loader04.getProperty("path1"));
+        values043.add(loader04.getProperty("path2"));
+        values043.add(loader04.getProperty("path3"));
+        Assertions.assertThat(values043).hasSize(1);
+        loader04.load();
+        Set<String> values044 = new HashSet<>();
+        values044.add(loader04.getProperty("path1"));
+        values044.add(loader04.getProperty("path2"));
+        values044.add(loader04.getProperty("path3"));
+        Assertions.assertThat(values044).hasSize(1);
+        excludeProperties04.clear();
+        Set<String> values045 = new HashSet<>();
+        values045.add(loader04.getProperty("path1"));
+        values045.add(loader04.getProperty("path2"));
+        values045.add(loader04.getProperty("path3"));
+        Assertions.assertThat(values045).hasSize(1);
+        loader04.load();
+        Set<String> values046 = new HashSet<>();
+        values046.add(loader04.getProperty("path1"));
+        values046.add(loader04.getProperty("path2"));
+        values046.add(loader04.getProperty("path3"));
+        Assertions.assertThat(values046).hasSize(1);
     }
 
 }
