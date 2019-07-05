@@ -20,7 +20,9 @@
 package ru.d_shap.rucon;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -89,6 +91,26 @@ public final class ConfigurationLoaderTest {
         Assertions.assertThat(loader06.getNames()).containsExactly();
         loader06.load();
         Assertions.assertThat(loader06.getNames()).containsExactly("key1", "key2", "key3", "key4");
+
+        List<ConfigDelegate> configDelegates07 = new ArrayList<>();
+        configDelegates07.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", new HashSet<String>()));
+        configDelegates07.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config2.properties", new HashSet<String>()));
+        ConfigurationLoader loader07 = new ConfigurationLoader(configDelegates07);
+        Assertions.assertThat(loader07.getNames()).containsExactly();
+        loader07.load();
+        Assertions.assertThat(loader07.getNames()).containsExactly("key1", "key2", "key3", "key4");
+
+        List<ConfigDelegate> configDelegates08 = new ArrayList<>();
+        Set<String> excludeProperties081 = new HashSet<>();
+        excludeProperties081.add("key2");
+        configDelegates08.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties081));
+        Set<String> excludeProperties082 = new HashSet<>();
+        excludeProperties082.add("key4");
+        configDelegates08.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config2.properties", excludeProperties082));
+        ConfigurationLoader loader08 = new ConfigurationLoader(configDelegates08);
+        Assertions.assertThat(loader08.getNames()).containsExactly();
+        loader08.load();
+        Assertions.assertThat(loader08.getNames()).containsExactly("key1", "key3");
     }
 
     /**
