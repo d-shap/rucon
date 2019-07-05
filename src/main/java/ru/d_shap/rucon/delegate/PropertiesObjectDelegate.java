@@ -20,6 +20,7 @@
 package ru.d_shap.rucon.delegate;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -55,7 +56,7 @@ public final class PropertiesObjectDelegate extends BaseConfig implements Config
         Map<String, String> properties = new HashMap<>();
         fillObjectMap(_properties, properties);
         excludeProperties(properties);
-        return properties.keySet();
+        return new HashSet<>(properties.keySet());
     }
 
     @Override
