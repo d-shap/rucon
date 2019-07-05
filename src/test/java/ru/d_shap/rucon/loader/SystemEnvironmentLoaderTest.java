@@ -143,7 +143,62 @@ public final class SystemEnvironmentLoaderTest {
      */
     @Test
     public void getPropertyTest() {
-        // TODO
+        Map<String, String> aliases01 = new HashMap<>();
+        aliases01.put("path1", "PATH");
+        aliases01.put("path2", "ROOTPATH");
+        aliases01.put("path3", "Path");
+        Set<String> excludeProperties01 = null;
+        SystemEnvironmentLoader loader01 = new SystemEnvironmentLoader(aliases01, excludeProperties01);
+        Set<String> values011 = new HashSet<>();
+        values011.add(loader01.getProperty("path1"));
+        values011.add(loader01.getProperty("path2"));
+        values011.add(loader01.getProperty("path3"));
+        Assertions.assertThat(values011).hasSize(1);
+        loader01.load();
+        Set<String> values012 = new HashSet<>();
+        values012.add(loader01.getProperty("path1"));
+        values012.add(loader01.getProperty("path2"));
+        values012.add(loader01.getProperty("path3"));
+        Assertions.assertThat(values012).hasSize(2);
+
+        Map<String, String> aliases02 = new HashMap<>();
+        aliases02.put("path1", "PATH");
+        aliases02.put("path2", "ROOTPATH");
+        aliases02.put("path3", "Path");
+        Set<String> excludeProperties02 = new HashSet<>();
+        SystemEnvironmentLoader loader02 = new SystemEnvironmentLoader(aliases02, excludeProperties02);
+        Set<String> values021 = new HashSet<>();
+        values021.add(loader02.getProperty("path1"));
+        values021.add(loader02.getProperty("path2"));
+        values021.add(loader02.getProperty("path3"));
+        Assertions.assertThat(values021).hasSize(1);
+        loader02.load();
+        Set<String> values022 = new HashSet<>();
+        values022.add(loader02.getProperty("path1"));
+        values022.add(loader02.getProperty("path2"));
+        values022.add(loader02.getProperty("path3"));
+        Assertions.assertThat(values022).hasSize(2);
+
+        Map<String, String> aliases03 = new HashMap<>();
+        aliases03.put("path1", "PATH");
+        aliases03.put("path2", "ROOTPATH");
+        aliases03.put("path3", "Path");
+        Set<String> excludeProperties03 = new HashSet<>();
+        excludeProperties03.add("path1");
+        excludeProperties03.add("path2");
+        excludeProperties03.add("path3");
+        SystemEnvironmentLoader loader03 = new SystemEnvironmentLoader(aliases03, excludeProperties03);
+        Set<String> values031 = new HashSet<>();
+        values031.add(loader03.getProperty("path1"));
+        values031.add(loader03.getProperty("path2"));
+        values031.add(loader03.getProperty("path3"));
+        Assertions.assertThat(values031).hasSize(1);
+        loader03.load();
+        Set<String> values032 = new HashSet<>();
+        values032.add(loader03.getProperty("path1"));
+        values032.add(loader03.getProperty("path2"));
+        values032.add(loader03.getProperty("path3"));
+        Assertions.assertThat(values032).hasSize(1);
     }
 
 }
