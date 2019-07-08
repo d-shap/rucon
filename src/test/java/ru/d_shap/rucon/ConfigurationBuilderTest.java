@@ -353,6 +353,23 @@ public final class ConfigurationBuilderTest {
      * {@link ConfigurationBuilder} class test.
      */
     @Test
+    public void addSystemEnvironmentLoaderWithExcludeTest() {
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("PATH");
+        excludeProperties.add("Path");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemEnvironmentLoader(excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsNone("PATH", "Path");
+        Set<String> values = new HashSet<>();
+        values.add(configuration.getPropertyAsString("PATH", "default"));
+        values.add(configuration.getPropertyAsString("Path", "default"));
+        Assertions.assertThat(values).hasSize(1);
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
     public void addSystemEnvironmentLoaderWithAliasesExcludeTest() {
         Map<String, String> aliases = new HashMap<>();
         aliases.put("path1", "PATH");
