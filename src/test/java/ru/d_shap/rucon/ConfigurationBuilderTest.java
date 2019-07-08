@@ -19,6 +19,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -443,18 +446,41 @@ public final class ConfigurationBuilderTest {
 
     /**
      * {@link ConfigurationBuilder} class test.
+     *
+     * @throws Exception exception in test.
      */
     @Test
-    public void addPropertiesFilePathLoaderTest() {
-        // TODO
+    public void addPropertiesFilePathLoaderTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("config1.properties");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addPropertiesFilePathLoader(filePath).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsExactly("key1", "key2", "key3");
+        Assertions.assertThat(configuration.getPropertyAsString("key1", "default")).isEqualTo("value1-1");
+        Assertions.assertThat(configuration.getPropertyAsString("key2", "default")).isEqualTo("value1-2");
+        Assertions.assertThat(configuration.getPropertyAsString("key3", "default")).isEqualTo("value1-3");
     }
 
     /**
      * {@link ConfigurationBuilder} class test.
+     *
+     * @throws Exception exception in test.
      */
     @Test
-    public void addPropertiesFilePathLoaderWithExcludeTest() {
-        // TODO
+    public void addPropertiesFilePathLoaderWithExcludeTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("config1.properties");
+        URI uri = url.toURI();
+        File file = new File(uri);
+        String filePath = file.getAbsolutePath();
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key2");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addPropertiesFilePathLoader(filePath, excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsExactly("key1", "key3");
+        Assertions.assertThat(configuration.getPropertyAsString("key1", "default")).isEqualTo("value1-1");
+        Assertions.assertThat(configuration.getPropertyAsString("key3", "default")).isEqualTo("value1-3");
     }
 
     /**
