@@ -72,7 +72,7 @@ public final class PropertiesResourceLoader extends BaseConfig implements Config
         }
         InputStream inputStream = null;
         try {
-            inputStream = _classLoader.getResourceAsStream(_resource);
+            inputStream = getInputStream(url);
             Map<Object, Object> properties = new Properties();
             loadProperties(properties, inputStream);
             fillObjectMap(properties, _properties);
