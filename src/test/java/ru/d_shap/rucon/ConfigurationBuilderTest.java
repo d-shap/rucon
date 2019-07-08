@@ -392,7 +392,12 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addPropertiesResourceLoaderTest() {
-        // TODO
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addPropertiesResourceLoader("config1.properties").buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsExactly("key1", "key2", "key3");
+        Assertions.assertThat(configuration.getPropertyAsString("key1", "default")).isEqualTo("value1-1");
+        Assertions.assertThat(configuration.getPropertyAsString("key2", "default")).isEqualTo("value1-2");
+        Assertions.assertThat(configuration.getPropertyAsString("key3", "default")).isEqualTo("value1-3");
     }
 
     /**
@@ -400,7 +405,12 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addPropertiesResourceLoaderWithClassLoaderTest() {
-        // TODO
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addPropertiesResourceLoader(getClass().getClassLoader(), "config1.properties").buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsExactly("key1", "key2", "key3");
+        Assertions.assertThat(configuration.getPropertyAsString("key1", "default")).isEqualTo("value1-1");
+        Assertions.assertThat(configuration.getPropertyAsString("key2", "default")).isEqualTo("value1-2");
+        Assertions.assertThat(configuration.getPropertyAsString("key3", "default")).isEqualTo("value1-3");
     }
 
     /**
@@ -408,7 +418,13 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addPropertiesResourceLoaderWithExcludeTest() {
-        // TODO
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key2");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addPropertiesResourceLoader("config1.properties", excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsExactly("key1", "key3");
+        Assertions.assertThat(configuration.getPropertyAsString("key1", "default")).isEqualTo("value1-1");
+        Assertions.assertThat(configuration.getPropertyAsString("key3", "default")).isEqualTo("value1-3");
     }
 
     /**
@@ -416,7 +432,13 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addPropertiesResourceLoaderWithClassLoaderExcludeTest() {
-        // TODO
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key2");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addPropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsExactly("key1", "key3");
+        Assertions.assertThat(configuration.getPropertyAsString("key1", "default")).isEqualTo("value1-1");
+        Assertions.assertThat(configuration.getPropertyAsString("key3", "default")).isEqualTo("value1-3");
     }
 
     /**
