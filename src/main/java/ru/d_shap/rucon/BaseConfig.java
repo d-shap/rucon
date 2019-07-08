@@ -22,6 +22,8 @@ package ru.d_shap.rucon;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -252,17 +254,18 @@ public class BaseConfig {
     }
 
     /**
-     * Create new input stream to read the file with the specified uri.
+     * Create new input stream to read the file with the specified URL.
      *
-     * @param uri the specified uri.
+     * @param url the specified URL.
      *
      * @return new input stream to read the file.
      */
-    protected final InputStream getInputStream(final URI uri) {
+    protected final InputStream getInputStream(final URL url) {
         try {
+            URI uri = url.toURI();
             Path path = Paths.get(uri);
             return Files.newInputStream(path);
-        } catch (IOException ex) {
+        } catch (IOException | URISyntaxException ex) {
             throw new LoadException(ex);
         }
     }
