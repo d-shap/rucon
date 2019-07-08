@@ -25,6 +25,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import ru.d_shap.assertions.Assertions;
+import ru.d_shap.rucon.LoadException;
 
 /**
  * Tests for {@link PropertiesResourceLoader}.
@@ -276,15 +277,13 @@ public final class PropertiesResourceLoaderTest {
      *
      * @throws Exception exception in test.
      */
-    @Test
+    @Test(expected = LoadException.class)
     public void loadDirectoryFailTest() throws Exception {
         String resource = "dir";
         Set<String> excludeProperties = new HashSet<>();
         excludeProperties.add("key");
         PropertiesResourceLoader loader = new PropertiesResourceLoader(getClass().getClassLoader(), resource, excludeProperties);
         loader.load();
-        Assertions.assertThat(loader.getNames()).containsExactly("file.txt");
-        Assertions.assertThat(loader.getProperty("file.txt")).isEqualTo("");
     }
 
 }
