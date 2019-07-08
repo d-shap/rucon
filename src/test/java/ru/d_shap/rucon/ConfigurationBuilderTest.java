@@ -535,7 +535,17 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addPropertiesObjectDelegateTest() {
-        // TODO
+        Map<Object, Object> properties = createProperties();
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration1 = configurationBuilder.addPropertiesObjectDelegate(properties).buildAndLoad();
+        Assertions.assertThat(configuration1.getNames()).containsExactly("key1", "key2");
+        Assertions.assertThat(configuration1.getPropertyAsString("key1", "default")).isEqualTo("value1");
+        Assertions.assertThat(configuration1.getPropertyAsString("key2", "default")).isEqualTo("value2");
+        properties.remove("key2");
+        properties.put("key3", "value3");
+        Assertions.assertThat(configuration1.getNames()).containsExactly("key1", "key3");
+        Assertions.assertThat(configuration1.getPropertyAsString("key1", "default")).isEqualTo("value1");
+        Assertions.assertThat(configuration1.getPropertyAsString("key3", "default")).isEqualTo("value3");
     }
 
     /**
@@ -543,7 +553,17 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addPropertiesObjectDelegateWithExcludeTest() {
-        // TODO
+        Map<Object, Object> properties = createProperties();
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("key1");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration1 = configurationBuilder.addPropertiesObjectDelegate(properties, excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration1.getNames()).containsExactly("key2");
+        Assertions.assertThat(configuration1.getPropertyAsString("key2", "default")).isEqualTo("value2");
+        properties.remove("key2");
+        properties.put("key3", "value3");
+        Assertions.assertThat(configuration1.getNames()).containsExactly("key3");
+        Assertions.assertThat(configuration1.getPropertyAsString("key3", "default")).isEqualTo("value3");
     }
 
     /**
