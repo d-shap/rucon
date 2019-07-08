@@ -192,7 +192,7 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader03.getProperty(null)).isNull();
         Assertions.assertThat(loader03.getProperty("")).isNull();
         Assertions.assertThat(loader03.getProperty(" ")).isNull();
-        Assertions.assertThat(loader03.getProperty("key")).isEqualTo("value");
+        Assertions.assertThat(loader03.getProperty("key")).isNull();
         Assertions.assertThat(loader03.getProperty("key1")).isNull();
         Assertions.assertThat(loader03.getProperty("key2")).isNull();
         loader03.load();
@@ -212,8 +212,8 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader04.getProperty("")).isNull();
         Assertions.assertThat(loader04.getProperty(" ")).isNull();
         Assertions.assertThat(loader04.getProperty("key")).isNull();
-        Assertions.assertThat(loader04.getProperty("key1")).isEqualTo("value1");
-        Assertions.assertThat(loader04.getProperty("key2")).isEqualTo("value2");
+        Assertions.assertThat(loader04.getProperty("key1")).isNull();
+        Assertions.assertThat(loader04.getProperty("key2")).isNull();
         loader04.load();
         Assertions.assertThat(loader04.getProperty(null)).isNull();
         Assertions.assertThat(loader04.getProperty("")).isNull();
@@ -227,7 +227,7 @@ public final class PropertiesObjectLoaderTest {
         properties05.put(null, "value2");
         Set<String> excludeProperties05 = null;
         PropertiesObjectLoader loader05 = new PropertiesObjectLoader(properties05, excludeProperties05);
-        Assertions.assertThat(loader05.getProperty(null)).isEqualTo("value2");
+        Assertions.assertThat(loader05.getProperty(null)).isNull();
         Assertions.assertThat(loader05.getProperty("")).isNull();
         Assertions.assertThat(loader05.getProperty(" ")).isNull();
         Assertions.assertThat(loader05.getProperty("key")).isNull();
@@ -250,8 +250,8 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader06.getProperty("")).isNull();
         Assertions.assertThat(loader06.getProperty(" ")).isNull();
         Assertions.assertThat(loader06.getProperty("key")).isNull();
-        Assertions.assertThat(loader06.getProperty("key1")).isEqualTo("value1");
-        Assertions.assertThat(loader06.getProperty("key2")).isEqualTo("value2");
+        Assertions.assertThat(loader06.getProperty("key1")).isNull();
+        Assertions.assertThat(loader06.getProperty("key2")).isNull();
         loader06.load();
         Assertions.assertThat(loader06.getProperty(null)).isNull();
         Assertions.assertThat(loader06.getProperty("")).isNull();
@@ -269,8 +269,8 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader07.getProperty("")).isNull();
         Assertions.assertThat(loader07.getProperty(" ")).isNull();
         Assertions.assertThat(loader07.getProperty("key")).isNull();
-        Assertions.assertThat(loader07.getProperty("key1")).isEqualTo("value1");
-        Assertions.assertThat(loader07.getProperty("key2")).isEqualTo("value2");
+        Assertions.assertThat(loader07.getProperty("key1")).isNull();
+        Assertions.assertThat(loader07.getProperty("key2")).isNull();
         loader07.load();
         Assertions.assertThat(loader07.getProperty(null)).isNull();
         Assertions.assertThat(loader07.getProperty("")).isNull();
@@ -289,8 +289,8 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader08.getProperty("")).isNull();
         Assertions.assertThat(loader08.getProperty(" ")).isNull();
         Assertions.assertThat(loader08.getProperty("key")).isNull();
-        Assertions.assertThat(loader08.getProperty("key1")).isEqualTo("value1");
-        Assertions.assertThat(loader08.getProperty("key2")).isEqualTo("value2");
+        Assertions.assertThat(loader08.getProperty("key1")).isNull();
+        Assertions.assertThat(loader08.getProperty("key2")).isNull();
         loader08.load();
         Assertions.assertThat(loader08.getProperty(null)).isNull();
         Assertions.assertThat(loader08.getProperty("")).isNull();
@@ -309,8 +309,8 @@ public final class PropertiesObjectLoaderTest {
         Assertions.assertThat(loader09.getProperty("")).isNull();
         Assertions.assertThat(loader09.getProperty(" ")).isNull();
         Assertions.assertThat(loader09.getProperty("key")).isNull();
-        Assertions.assertThat(loader09.getProperty("key1")).isEqualTo("value1");
-        Assertions.assertThat(loader09.getProperty("key2")).isEqualTo("value2");
+        Assertions.assertThat(loader09.getProperty("key1")).isNull();
+        Assertions.assertThat(loader09.getProperty("key2")).isNull();
         loader09.load();
         Assertions.assertThat(loader09.getProperty(null)).isNull();
         Assertions.assertThat(loader09.getProperty("")).isNull();
