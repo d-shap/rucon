@@ -991,7 +991,7 @@ public final class BaseConfigTest {
      * @throws Exception exception in test.
      */
     @Test
-    public void getInputStreamTest() throws Exception {
+    public void getInputStreamFileTest() throws Exception {
         URL url = getClass().getClassLoader().getResource("config1.properties");
         URI uri = url.toURI();
         File file = new File(uri);
@@ -1008,6 +1008,34 @@ public final class BaseConfigTest {
         try {
             filePath = filePath.replace("config1.properties", "configWrong.properties");
             new BaseConfig(null, null, null, null).getInputStream(filePath);
+            Assertions.fail("BaseConfig test fail");
+        } catch (LoadException ex) {
+            Assertions.assertThat(ex).hasCause(IOException.class);
+        }
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     *
+     * @throws Exception exception in test.
+     */
+    @Test
+    public void getInputStreamUrlTest() throws Exception {
+        URL url = getClass().getClassLoader().getResource("config1.properties");
+
+        InputStream inputStream = null;
+        try {
+            inputStream = new BaseConfig(null, null, null, null).getInputStream(url);
+            Assertions.assertThat(inputStream).isNotCompleted();
+        } finally {
+            new BaseConfig(null, null, null, null).closeInputStream(inputStream);
+        }
+
+        try {
+            String urlStr = url.toString();
+            urlStr = urlStr.replace("config1.properties", "configWrong.properties");
+            url = new URL(urlStr);
+            new BaseConfig(null, null, null, null).getInputStream(url);
             Assertions.fail("BaseConfig test fail");
         } catch (LoadException ex) {
             Assertions.assertThat(ex).hasCause(IOException.class);
