@@ -349,7 +349,7 @@ public final class ConfigurationLoaderTest {
         properties122.put("key21", "value21");
         configDelegates12.add(new PropertiesObjectDelegate(properties122, null));
         ConfigurationLoader loader12 = new ConfigurationLoader(configDelegates12);
-        Assertions.assertThat(loader12.getProperty("key11")).isEqualTo("value11");
+        Assertions.assertThat(loader12.getProperty("key11")).isNull();
         Assertions.assertThat(loader12.getProperty("key12")).isNull();
         Assertions.assertThat(loader12.getProperty("key21")).isEqualTo("value21");
         Assertions.assertThat(loader12.getProperty("key22")).isNull();
