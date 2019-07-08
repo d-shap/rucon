@@ -22,11 +22,15 @@ package ru.d_shap.rucon;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.junit.Test;
 
 import ru.d_shap.assertions.Assertions;
+import ru.d_shap.rucon.delegate.PropertiesObjectDelegate;
+import ru.d_shap.rucon.loader.PropertiesObjectLoader;
 import ru.d_shap.rucon.loader.PropertiesResourceLoader;
 
 /**
@@ -147,6 +151,23 @@ public final class ConfigurationLoaderTest {
         Assertions.assertThat(loader11.getNames()).containsExactly();
         loader11.load();
         Assertions.assertThat(loader11.getNames()).containsExactly("key1", "key2", "key3", "key4");
+
+        List<ConfigDelegate> configDelegates12 = new ArrayList<>();
+        Map<Object, Object> properties121 = new Properties();
+        properties121.put("key11", "value11");
+        configDelegates12.add(new PropertiesObjectLoader(properties121, null));
+        Map<Object, Object> properties122 = new Properties();
+        properties122.put("key21", "value21");
+        configDelegates12.add(new PropertiesObjectDelegate(properties122, null));
+        ConfigurationLoader loader12 = new ConfigurationLoader(configDelegates12);
+        Assertions.assertThat(loader12.getNames()).containsExactly("key21");
+        loader12.load();
+        Assertions.assertThat(loader12.getNames()).containsExactly("key11", "key21");
+        properties121.put("key12", "value12");
+        properties122.put("key22", "value22");
+        Assertions.assertThat(loader12.getNames()).containsExactly("key11", "key21", "key22");
+        loader12.load();
+        Assertions.assertThat(loader12.getNames()).containsExactly("key11", "key21", "key22");
     }
 
     /**
@@ -319,6 +340,35 @@ public final class ConfigurationLoaderTest {
         Assertions.assertThat(loader11.getProperty("key2")).isEqualTo("value1-2");
         Assertions.assertThat(loader11.getProperty("key3")).isEqualTo("value2-3");
         Assertions.assertThat(loader11.getProperty("key4")).isEqualTo("value2-4");
+
+        List<ConfigDelegate> configDelegates12 = new ArrayList<>();
+        Map<Object, Object> properties121 = new Properties();
+        properties121.put("key11", "value11");
+        configDelegates12.add(new PropertiesObjectLoader(properties121, null));
+        Map<Object, Object> properties122 = new Properties();
+        properties122.put("key21", "value21");
+        configDelegates12.add(new PropertiesObjectDelegate(properties122, null));
+        ConfigurationLoader loader12 = new ConfigurationLoader(configDelegates12);
+        Assertions.assertThat(loader12.getProperty("key11")).isEqualTo("value11");
+        Assertions.assertThat(loader12.getProperty("key12")).isNull();
+        Assertions.assertThat(loader12.getProperty("key21")).isEqualTo("value21");
+        Assertions.assertThat(loader12.getProperty("key22")).isNull();
+        loader12.load();
+        Assertions.assertThat(loader12.getProperty("key11")).isEqualTo("value11");
+        Assertions.assertThat(loader12.getProperty("key12")).isNull();
+        Assertions.assertThat(loader12.getProperty("key21")).isEqualTo("value21");
+        Assertions.assertThat(loader12.getProperty("key22")).isNull();
+        properties121.put("key12", "value12");
+        properties122.put("key22", "value22");
+        Assertions.assertThat(loader12.getProperty("key11")).isEqualTo("value11");
+        Assertions.assertThat(loader12.getProperty("key12")).isNull();
+        Assertions.assertThat(loader12.getProperty("key21")).isEqualTo("value21");
+        Assertions.assertThat(loader12.getProperty("key22")).isEqualTo("value22");
+        loader12.load();
+        Assertions.assertThat(loader12.getProperty("key11")).isEqualTo("value11");
+        Assertions.assertThat(loader12.getProperty("key12")).isNull();
+        Assertions.assertThat(loader12.getProperty("key21")).isEqualTo("value21");
+        Assertions.assertThat(loader12.getProperty("key22")).isEqualTo("value22");
     }
 
     /**
