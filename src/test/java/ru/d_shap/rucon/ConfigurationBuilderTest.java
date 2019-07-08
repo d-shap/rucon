@@ -70,8 +70,12 @@ public final class ConfigurationBuilderTest {
         ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
         Configuration configuration1 = configurationBuilder.addConfigDelegate(new PropertiesObjectDelegate(createProperties(), null)).buildAndLoad();
         Assertions.assertThat(configuration1.getNames()).containsExactly("key1", "key2");
+        Assertions.assertThat(configuration1.getPropertyAsString("key1", "default")).isEqualTo("value1");
+        Assertions.assertThat(configuration1.getPropertyAsString("key2", "default")).isEqualTo("value2");
         Configuration configuration2 = configurationBuilder.addConfigDelegate(new PropertiesObjectLoader(createProperties(), null)).buildAndLoad();
         Assertions.assertThat(configuration2.getNames()).containsExactly("key1", "key2");
+        Assertions.assertThat(configuration2.getPropertyAsString("key1", "default")).isEqualTo("value1");
+        Assertions.assertThat(configuration2.getPropertyAsString("key2", "default")).isEqualTo("value2");
     }
 
     /**
