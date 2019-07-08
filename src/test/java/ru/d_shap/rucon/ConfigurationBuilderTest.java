@@ -607,7 +607,22 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void buildAndLoadTest() {
-        // TODO
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration1 = configurationBuilder.buildAndLoad();
+        Configuration configuration2 = configurationBuilder.addPropertiesResourceLoader("config1.properties").buildAndLoad();
+        Configuration configuration3 = configurationBuilder.buildAndLoad();
+        Assertions.assertThat(configuration1).isNotSameAs(configuration2);
+        Assertions.assertThat(configuration1).isNotSameAs(configuration3);
+        Assertions.assertThat(configuration2).isNotSameAs(configuration1);
+        Assertions.assertThat(configuration2).isNotSameAs(configuration3);
+        Assertions.assertThat(configuration3).isNotSameAs(configuration1);
+        Assertions.assertThat(configuration3).isNotSameAs(configuration2);
+        Assertions.assertThat(configuration1.getNames()).containsExactly();
+        Assertions.assertThat(configuration2.getNames()).containsExactly("key1", "key2", "key3");
+        Assertions.assertThat(configuration2.getPropertyAsString("key1", "default")).isEqualTo("value1-1");
+        Assertions.assertThat(configuration2.getPropertyAsString("key2", "default")).isEqualTo("value1-2");
+        Assertions.assertThat(configuration2.getPropertyAsString("key3", "default")).isEqualTo("value1-3");
+        Assertions.assertThat(configuration3.getNames()).containsExactly();
     }
 
     private Map<Object, Object> createProperties() {
