@@ -106,6 +106,18 @@ public final class ConfigurationBuilder {
     /**
      * Add configuration delegate for the system properties.
      *
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemPropertiesDelegate(final Set<String> excludeProperties) {
+        ConfigDelegate configDelegate = new SystemPropertiesDelegate(null, null, excludeProperties);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration delegate for the system properties.
+     *
      * @param prefix            the prefix to add to the property name.
      * @param excludeProperties the properties to exclude.
      *
@@ -162,6 +174,18 @@ public final class ConfigurationBuilder {
      */
     public ConfigurationBuilder addSystemPropertiesLoader(final String prefix, final String suffix) {
         ConfigDelegate configDelegate = new SystemPropertiesLoader(prefix, suffix, null);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration loader for the system properties.
+     *
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemPropertiesLoader(final Set<String> excludeProperties) {
+        ConfigDelegate configDelegate = new SystemPropertiesLoader(null, null, excludeProperties);
         return addConfigDelegate(configDelegate);
     }
 
