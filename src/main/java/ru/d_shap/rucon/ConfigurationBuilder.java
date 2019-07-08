@@ -241,6 +241,18 @@ public final class ConfigurationBuilder {
     /**
      * Add configuration loader for the system environment.
      *
+     * @param excludeProperties the properties to exclude.
+     *
+     * @return current object for the method chaining.
+     */
+    public ConfigurationBuilder addSystemEnvironmentLoader(final Set<String> excludeProperties) {
+        ConfigDelegate configDelegate = new SystemEnvironmentLoader(null, excludeProperties);
+        return addConfigDelegate(configDelegate);
+    }
+
+    /**
+     * Add configuration loader for the system environment.
+     *
      * @param aliases           the property aliases, the key is the property name, the value is the alias.
      * @param excludeProperties the properties to exclude.
      *
