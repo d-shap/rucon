@@ -20,6 +20,7 @@
 package ru.d_shap.rucon;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
@@ -321,7 +322,13 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemEnvironmentLoaderTest() {
-        // TODO
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemEnvironmentLoader().buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsAny("PATH", "Path");
+        Set<String> values = new HashSet<>();
+        values.add(configuration.getPropertyAsString("PATH", "default"));
+        values.add(configuration.getPropertyAsString("Path", "default"));
+        Assertions.assertThat(values).hasSize(2);
     }
 
     /**
@@ -329,7 +336,17 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemEnvironmentLoaderWithAliasesTest() {
-        // TODO
+        Map<String, String> aliases = new HashMap<>();
+        aliases.put("path1", "PATH");
+        aliases.put("path2", "Path");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemEnvironmentLoader(aliases).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsNone("PATH", "Path");
+        Assertions.assertThat(configuration.getNames()).containsAny("path1", "path2");
+        Set<String> values = new HashSet<>();
+        values.add(configuration.getPropertyAsString("path1", "default"));
+        values.add(configuration.getPropertyAsString("path2", "default"));
+        Assertions.assertThat(values).hasSize(2);
     }
 
     /**
@@ -337,7 +354,20 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemEnvironmentLoaderWithAliasesExcludeTest() {
-        // TODO
+        Map<String, String> aliases = new HashMap<>();
+        aliases.put("path1", "PATH");
+        aliases.put("path2", "Path");
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add("path1");
+        excludeProperties.add("path2");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemEnvironmentLoader(aliases, excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).containsNone("PATH", "Path");
+        Assertions.assertThat(configuration.getNames()).containsNone("path1", "path2");
+        Set<String> values = new HashSet<>();
+        values.add(configuration.getPropertyAsString("path1", "default"));
+        values.add(configuration.getPropertyAsString("path2", "default"));
+        Assertions.assertThat(values).hasSize(1);
     }
 
     /**
