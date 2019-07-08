@@ -125,6 +125,29 @@ public final class ConfigurationBuilderTest {
      * {@link ConfigurationBuilder} class test.
      */
     @Test
+    public void addSystemPropertiesDelegateWithExcludeTest() {
+        String name1 = getPropertyName();
+        String name2 = getPropertyName();
+        System.setProperty(name1, "value11");
+        System.setProperty(name2, "value21");
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add(name1);
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemPropertiesDelegate(excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value21");
+        System.setProperty(name1, "value12");
+        System.setProperty(name2, "value22");
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value22");
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
     public void addSystemPropertiesDelegateWithPrefixExcludeTest() {
         String prefix = "prefix.";
         String name1 = getPropertyName();
@@ -219,6 +242,29 @@ public final class ConfigurationBuilderTest {
         System.setProperty(prefix + name + suffix, "value2");
         Assertions.assertThat(configuration.getNames()).contains(name);
         Assertions.assertThat(configuration.getPropertyAsString(name, "default")).isEqualTo("value1");
+    }
+
+    /**
+     * {@link ConfigurationBuilder} class test.
+     */
+    @Test
+    public void addSystemPropertiesLoaderWithExcludeTest() {
+        String name1 = getPropertyName();
+        String name2 = getPropertyName();
+        System.setProperty(name1, "value11");
+        System.setProperty(name2, "value21");
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add(name1);
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemPropertiesLoader(excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value21");
+        System.setProperty(name1, "value12");
+        System.setProperty(name2, "value22");
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value21");
     }
 
     /**
