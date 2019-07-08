@@ -66,7 +66,11 @@ public final class PropertiesObjectLoader extends BaseConfig implements ConfigLo
 
     @Override
     public String getProperty(final String name) {
-        return _properties.get(name);
+        if (_names.contains(name)) {
+            return _properties.get(name);
+        } else {
+            return null;
+        }
     }
 
 }
