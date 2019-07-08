@@ -19,7 +19,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.Map;
+import java.util.Properties;
+
 import org.junit.Test;
+
+import ru.d_shap.assertions.Assertions;
+import ru.d_shap.rucon.delegate.PropertiesObjectDelegate;
+import ru.d_shap.rucon.loader.PropertiesObjectLoader;
 
 /**
  * Tests for {@link ConfigurationBuilder}.
@@ -40,7 +47,12 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void newInstanceTest() {
-        // TODO
+        ConfigurationBuilder configurationBuilder1 = ConfigurationBuilder.newInstance();
+        Assertions.assertThat(configurationBuilder1).isNotNull();
+        ConfigurationBuilder configurationBuilder2 = ConfigurationBuilder.newInstance();
+        Assertions.assertThat(configurationBuilder2).isNotNull();
+        Assertions.assertThat(configurationBuilder1).isNotSameAs(configurationBuilder2);
+        Assertions.assertThat(configurationBuilder2).isNotSameAs(configurationBuilder1);
     }
 
     /**
@@ -48,7 +60,11 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addConfigDelegateTest() {
-        // TODO
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration1 = configurationBuilder.addConfigDelegate(new PropertiesObjectDelegate(createProperties(), null)).buildAndLoad();
+        Assertions.assertThat(configuration1.getNames()).containsExactly("key1", "key2");
+        Configuration configuration2 = configurationBuilder.addConfigDelegate(new PropertiesObjectLoader(createProperties(), null)).buildAndLoad();
+        Assertions.assertThat(configuration2.getNames()).containsExactly("key1", "key2");
     }
 
     /**
@@ -257,6 +273,13 @@ public final class ConfigurationBuilderTest {
     @Test
     public void buildAndLoadTest() {
         // TODO
+    }
+
+    private Map<Object, Object> createProperties() {
+        Map<Object, Object> properties = new Properties();
+        properties.put("key1", "value1");
+        properties.put("key2", "value2");
+        return properties;
     }
 
 }
