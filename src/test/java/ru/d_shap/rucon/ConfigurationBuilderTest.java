@@ -19,8 +19,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -72,7 +75,15 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemPropertiesDelegateTest() {
-        // TODO
+        String name = getPropertyName();
+        System.setProperty(name, "value1");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemPropertiesDelegate().buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).contains(name);
+        Assertions.assertThat(configuration.getPropertyAsString(name, "default")).isEqualTo("value1");
+        System.setProperty(name, "value2");
+        Assertions.assertThat(configuration.getNames()).contains(name);
+        Assertions.assertThat(configuration.getPropertyAsString(name, "default")).isEqualTo("value2");
     }
 
     /**
@@ -80,7 +91,16 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemPropertiesDelegateWithPrefixTest() {
-        // TODO
+        String prefix = "prefix.";
+        String name = getPropertyName();
+        System.setProperty(prefix + name, "value1");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemPropertiesDelegate(prefix).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).contains(name);
+        Assertions.assertThat(configuration.getPropertyAsString(name, "default")).isEqualTo("value1");
+        System.setProperty(prefix + name, "value2");
+        Assertions.assertThat(configuration.getNames()).contains(name);
+        Assertions.assertThat(configuration.getPropertyAsString(name, "default")).isEqualTo("value2");
     }
 
     /**
@@ -88,7 +108,17 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemPropertiesDelegateWithPrefixSuffixTest() {
-        // TODO
+        String prefix = "prefix.";
+        String suffix = ".suffix";
+        String name = getPropertyName();
+        System.setProperty(prefix + name + suffix, "value1");
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemPropertiesDelegate(prefix, suffix).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).contains(name);
+        Assertions.assertThat(configuration.getPropertyAsString(name, "default")).isEqualTo("value1");
+        System.setProperty(prefix + name + suffix, "value2");
+        Assertions.assertThat(configuration.getNames()).contains(name);
+        Assertions.assertThat(configuration.getPropertyAsString(name, "default")).isEqualTo("value2");
     }
 
     /**
@@ -96,7 +126,23 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemPropertiesDelegateWithPrefixExcludeTest() {
-        // TODO
+        String prefix = "prefix.";
+        String name1 = getPropertyName();
+        String name2 = getPropertyName();
+        System.setProperty(prefix + name1, "value11");
+        System.setProperty(prefix + name2, "value21");
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add(name1);
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemPropertiesDelegate(prefix, excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value21");
+        System.setProperty(prefix + name1, "value12");
+        System.setProperty(prefix + name2, "value22");
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value22");
     }
 
     /**
@@ -104,7 +150,24 @@ public final class ConfigurationBuilderTest {
      */
     @Test
     public void addSystemPropertiesDelegateWithPrefixSuffixExcludeTest() {
-        // TODO
+        String prefix = "prefix.";
+        String suffix = ".suffix";
+        String name1 = getPropertyName();
+        String name2 = getPropertyName();
+        System.setProperty(prefix + name1 + suffix, "value11");
+        System.setProperty(prefix + name2 + suffix, "value21");
+        Set<String> excludeProperties = new HashSet<>();
+        excludeProperties.add(name1);
+        ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+        Configuration configuration = configurationBuilder.addSystemPropertiesDelegate(prefix, suffix, excludeProperties).buildAndLoad();
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value21");
+        System.setProperty(prefix + name1 + suffix, "value12");
+        System.setProperty(prefix + name2 + suffix, "value22");
+        Assertions.assertThat(configuration.getNames()).contains(name2);
+        Assertions.assertThat(configuration.getPropertyAsString(name1, "default")).isEqualTo("default");
+        Assertions.assertThat(configuration.getPropertyAsString(name2, "default")).isEqualTo("value22");
     }
 
     /**
@@ -280,6 +343,13 @@ public final class ConfigurationBuilderTest {
         properties.put("key1", "value1");
         properties.put("key2", "value2");
         return properties;
+    }
+
+    private String getPropertyName() {
+        String name = getClass().getName() + "_name_";
+        long time = new Date().getTime();
+        long random = Math.round(Math.random() * 1000);
+        return name + time + "_" + random;
     }
 
 }
