@@ -75,7 +75,7 @@
  * configuration is obtained from the <i>jdbc.properties</i> file.
  * </p>
  * <p>
- * The content of the <i>/somepath/externalJdbc.properties</i> file
+ * The content of the <i>/somepath/externalJdbc.properties</i> file:
  * </p>
  * <pre>{@code
  * # Login info
