@@ -54,8 +54,10 @@ public final class SystemPropertiesDelegate extends BaseConfig implements Config
         Set<String> sysNames = properties.keySet();
         Set<String> names = new HashSet<>();
         for (String name : sysNames) {
-            String propertyName = extractPropertyName(name);
-            names.add(propertyName);
+            if (canExtractPropertyName(name)) {
+                String extractedPropertyName = extractPropertyName(name);
+                names.add(extractedPropertyName);
+            }
         }
         return names;
     }

@@ -59,8 +59,10 @@ public final class SystemPropertiesLoader extends BaseConfig implements ConfigLo
         excludeProperties(_properties);
         Set<String> names = _properties.keySet();
         for (String name : names) {
-            String propertyName = extractPropertyName(name);
-            _names.add(propertyName);
+            if (canExtractPropertyName(name)) {
+                String extractedPropertyName = extractPropertyName(name);
+                _names.add(extractedPropertyName);
+            }
         }
     }
 
