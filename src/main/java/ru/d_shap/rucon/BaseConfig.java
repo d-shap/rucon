@@ -188,16 +188,20 @@ public class BaseConfig {
         if (name == null) {
             return null;
         }
-        String propertyName = name;
-        if (_prefix != null && propertyName.startsWith(_prefix)) {
+        if (_prefix != null && name.startsWith(_prefix) && _suffix != null && name.endsWith(_suffix)) {
             int beginIndex = _prefix.length();
-            propertyName = propertyName.substring(beginIndex);
+            int endIndex = name.length() - _suffix.length();
+            return name.substring(beginIndex, endIndex);
         }
-        if (_suffix != null && propertyName.endsWith(_suffix)) {
-            int endIndex = propertyName.length() - _suffix.length();
-            propertyName = propertyName.substring(0, endIndex);
+        if (_prefix != null && name.startsWith(_prefix) && _suffix == null) {
+            int beginIndex = _prefix.length();
+            return name.substring(beginIndex);
         }
-        return propertyName;
+        if (_prefix == null && _suffix != null && name.endsWith(_suffix)) {
+            int endIndex = name.length() - _suffix.length();
+            return name.substring(0, endIndex);
+        }
+        return name;
     }
 
     /**
