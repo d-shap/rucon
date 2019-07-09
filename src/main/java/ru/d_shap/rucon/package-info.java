@@ -49,7 +49,6 @@
  * jdbc.pass=tempsecret
  * }</pre>
  * <p>
- * <p>
  * The following code reads this configuration:
  * </p>
  * <pre>{@code
