@@ -342,6 +342,52 @@ public final class BaseConfigTest {
      * {@link BaseConfig} class test.
      */
     @Test
+    public void canExtractPropertyNameTest() {
+        Assertions.assertThat(new BaseConfig(null, null, null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(null, null, null, null).canExtractPropertyName("")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, null, null, null).canExtractPropertyName(" ")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, null, null, null).canExtractPropertyName("key")).isTrue();
+
+        Assertions.assertThat(new BaseConfig("", null, null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig("", null, null, null).canExtractPropertyName("")).isTrue();
+        Assertions.assertThat(new BaseConfig("", null, null, null).canExtractPropertyName(" ")).isTrue();
+        Assertions.assertThat(new BaseConfig("", null, null, null).canExtractPropertyName("key")).isTrue();
+
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).canExtractPropertyName(" ")).isTrue();
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).canExtractPropertyName("  ")).isTrue();
+        Assertions.assertThat(new BaseConfig(" ", null, null, null).canExtractPropertyName(" key")).isTrue();
+
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).canExtractPropertyName("pre.")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).canExtractPropertyName("pre. ")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", null, null, null).canExtractPropertyName("pre.key")).isTrue();
+
+        Assertions.assertThat(new BaseConfig(null, "", null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(null, "", null, null).canExtractPropertyName("")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, "", null, null).canExtractPropertyName(" ")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, "", null, null).canExtractPropertyName("key")).isTrue();
+
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).canExtractPropertyName(" ")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).canExtractPropertyName("  ")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, " ", null, null).canExtractPropertyName("key ")).isTrue();
+
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).canExtractPropertyName(".post")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).canExtractPropertyName(" .post")).isTrue();
+        Assertions.assertThat(new BaseConfig(null, ".post", null, null).canExtractPropertyName("key.post")).isTrue();
+
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).canExtractPropertyName(null)).isFalse();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).canExtractPropertyName("pre..post")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).canExtractPropertyName("pre. .post")).isTrue();
+        Assertions.assertThat(new BaseConfig("pre.", ".post", null, null).canExtractPropertyName("pre.key.post")).isTrue();
+    }
+
+    /**
+     * {@link BaseConfig} class test.
+     */
+    @Test
     public void extractPropertyNameTest() {
         Assertions.assertThat(new BaseConfig(null, null, null, null).extractPropertyName(null)).isNull();
         Assertions.assertThat(new BaseConfig(null, null, null, null).extractPropertyName("")).isEqualTo("");
