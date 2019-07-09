@@ -82,10 +82,10 @@
  * jdbc.pass=realsecret
  * }</pre>
  * <p>
- * The path to this file is specified as JVM argument <i>-Djdbc.config.file.location</i>.
+ * The path to this file is specified as the JVM argument <b>-Djdbc.config.file.location</b>.
  * </p>
  * <p>
- * The following code reads this new configuration:
+ * The following code reads configuration with the external file:
  * </p>
  * <pre>{@code
  * ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
@@ -99,5 +99,31 @@
  * String password = configuration.getPropertyAsString("jdbc.pass", "undefined");
  * // password == "realsecret"
  * }</pre>
+ * <p>
+ * Also this configuration can be adjust with the JVM arguments. The database name can be specified
+ * as the JVM argument <b>-Dorg.mycompany.myproject.jdbc.database=realbase</b>
+ * </p>
+ * <p>
+ * The following code reads configuration with the JVM arguments:
+ * </p>
+ * <pre>{@code
+ * ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+ * configurationBuilder.addSystemPropertiesLoader("org.mycompany.myproject.");
+ * configurationBuilder.addPropertiesSystemPropertyFileLoader("jdbc.config.file.location");
+ * configurationBuilder.addPropertiesResourceLoader("jdbc.properties");
+ * Configuration configuration = configurationBuilder.buildAndLoad();
+ * String database = configuration.getPropertyAsString("jdbc.database", "undefined");
+ * // database == "realbase"
+ * String username = configuration.getPropertyAsString("jdbc.user", "undefined");
+ * // username == "realuser"
+ * String password = configuration.getPropertyAsString("jdbc.pass", "undefined");
+ * // password == "realsecret"
+ * }</pre>
+ * <p>
+ * This final code looks first looks for the property in the JVM arguments that starts with <b>org.mycompany.myproject.</b>
+ * If this argument is not defined, then the code looks for the property in the <i>/somepath/externalJdbc.properties</i>
+ * external file. Finally, if the property is not defined in the external file, then the code looks for the
+ * property in the <i>jdbc.properties</i> file in the classpath.
+ * </p>
  */
 package ru.d_shap.rucon;
