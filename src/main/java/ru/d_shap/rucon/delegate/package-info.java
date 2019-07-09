@@ -18,6 +18,17 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
+ * <p>
  * Configuration delegate implementation classes.
+ * </p>
+ * <p>
+ * {@link ru.d_shap.rucon.ConfigDelegate} instances are used to read the configuration from the different sources.
+ * Several {@link ru.d_shap.rucon.ConfigDelegate} instances together can be used to union the configuration properties
+ * from the different sources and to override the configuration properties.
+ * </p>
+ * <p>
+ * If the {@link ru.d_shap.rucon.ConfigDelegate} instance implements the {@link ru.d_shap.rucon.ConfigLoader}
+ * interface, then changes in the configuration source does NOT reflect the {@link ru.d_shap.rucon.ConfigDelegate} instance.
+ * </p>
  */
 package ru.d_shap.rucon.delegate;
