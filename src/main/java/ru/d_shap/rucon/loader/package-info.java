@@ -22,10 +22,10 @@
  * Configuration loader implementation classes.
  * </p>
  * <p>
- * Loader is the {@link ru.d_shap.rucon.ConfigDelegate} instance, that stores configuration internally.
+ * Configuration loader is the {@link ru.d_shap.rucon.ConfigDelegate} instance, that stores configuration internally.
  * </p>
  * <p>
- * Loader reads the configuration once and then uses this configuration read in the subsequent calls.
+ * Configuration loader reads the configuration once and then uses this configuration read in the subsequent calls.
  * If the configuration source changes, this does not reflect the loader.
  * </p>
  */
