@@ -25,7 +25,7 @@
  * Application configuration can be defined in the properties file, as the system properties
  * (specified as JVM -D arguments), as the system environment variables. Configuration can be defined
  * in the deployment descriptors (for example, web.xml, ejb-jar.xml). Configuration can be defined
- * in the framework-specific configuration files (for example, spring applicationContext.xml).
+ * in the framework-specific configuration files (for example, Spring's applicationContext.xml).
  * </p>
  * <p>
  * Also the possibility to override configuration is mandatory.
