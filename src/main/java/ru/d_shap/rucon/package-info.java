@@ -123,10 +123,11 @@
  * // password == "realsecret"
  * }</pre>
  * <p>
- * This final code looks first looks for the property in the JVM arguments that starts with <b>org.mycompany.myproject.</b>
- * If this argument is not defined, then the code looks for the property in the <i>/somepath/externalJdbc.properties</i>
- * external file. Finally, if the property is not defined in the external file, then the code looks for the
- * property in the <i>jdbc.properties</i> file in the classpath.
+ * This final code looks first looks for the configuration property in the JVM arguments that starts
+ * with <b>org.mycompany.myproject.</b>. If the configuration property is not defined, then the code
+ * looks for the configuration property in the <i>/somepath/externalJdbc.properties</i> external file.
+ * Finally, if the configuration property is not defined in the external file, then the code looks for the
+ * configuration property in the <i>jdbc.properties</i> file in the classpath.
  * </p>
  */
 package ru.d_shap.rucon;
