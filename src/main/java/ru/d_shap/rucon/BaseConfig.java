@@ -147,14 +147,16 @@ public class BaseConfig {
         if (name == null) {
             return null;
         }
-        String propertyName = name;
+        if (_prefix != null && _suffix != null) {
+            return _prefix + name + _suffix;
+        }
         if (_prefix != null) {
-            propertyName = _prefix + propertyName;
+            return _prefix + name;
         }
         if (_suffix != null) {
-            propertyName = propertyName + _suffix;
+            return name + _suffix;
         }
-        return propertyName;
+        return name;
     }
 
     /**
