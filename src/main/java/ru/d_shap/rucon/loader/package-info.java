@@ -26,7 +26,7 @@
  * </p>
  * <p>
  * Configuration loader reads the configuration once and then uses this configuration read in the subsequent calls.
- * If the configuration source changes, this does not reflect the loader.
+ * If the configuration source changes, this does NOT reflect the configuration loader.
  * </p>
  */
 package ru.d_shap.rucon.loader;
