@@ -158,6 +158,26 @@ public class BaseConfig {
     }
 
     /**
+     * Check if the original property name without prefix and suffix can be obtained.
+     *
+     * @param name the property name with prefix and suffix.
+     *
+     * @return true, if the original property name without prefix and suffix can be obtained.
+     */
+    protected final boolean canExtractPropertyName(final String name) {
+        if (name == null) {
+            return false;
+        }
+        if (_prefix != null && !name.startsWith(_prefix)) {
+            return false;
+        }
+        if (_suffix != null && !name.endsWith(_suffix)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Get the original property name without prefix and suffix.
      *
      * @param name the property name with prefix and suffix.
