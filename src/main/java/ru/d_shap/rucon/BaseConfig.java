@@ -225,8 +225,8 @@ public class BaseConfig {
     protected final void excludeProperties(final Map<String, String> properties) {
         Set<String> keySet = properties.keySet();
         for (String name : _excludeProperties) {
-            String propertyName = getFullPropertyName(name);
-            keySet.remove(propertyName);
+            String fullPropertyName = getFullPropertyName(name);
+            keySet.remove(fullPropertyName);
         }
     }
 
@@ -254,9 +254,9 @@ public class BaseConfig {
             if (properties.containsKey(alias)) {
                 removeKeys.add(alias);
                 String name = entry.getKey();
-                String propertyName = getFullPropertyName(name);
+                String fullPropertyName = getFullPropertyName(name);
                 String propertyValue = properties.get(alias);
-                putProperties.put(propertyName, propertyValue);
+                putProperties.put(fullPropertyName, propertyValue);
             }
         }
         properties.keySet().removeAll(removeKeys);
