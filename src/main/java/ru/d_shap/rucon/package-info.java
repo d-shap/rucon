@@ -21,5 +21,17 @@
  * <p>
  * RuCon is the application configuration helper.
  * </p>
+ * <p>
+ * Application configuration can be defined in the properties file, as the system properties
+ * (specified as JVM -D arguments), as the system environment variables. Configuration can be defined
+ * in the deployment descriptors (for example, web.xml, ejb-jar.xml). Configuration can be defined
+ * in the framework-specific configuration files (for example, spring applicationContext.xml).
+ * </p>
+ * <p>
+ * Also the possibility to override configuration is mandatory.
+ * </p>
+ * <p>
+ * RuCon is intended to deal with this problems.
+ * </p>
  */
 package ru.d_shap.rucon;
