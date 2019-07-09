@@ -83,7 +83,7 @@
  * jdbc.pass=realsecret
  * }</pre>
  * <p>
- * The path to this file is specified as the JVM argument <b>-Djdbc.config.file.location</b>.
+ * The path to this file is specified as the JVM argument <b>-Djdbc.config.file.location=/somepath/externalJdbc.properties</b>.
  * </p>
  * <p>
  * The following code reads configuration with the external file:
