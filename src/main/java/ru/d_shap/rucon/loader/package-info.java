@@ -18,6 +18,15 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
+ * <p>
  * Configuration loader implementation classes.
+ * </p>
+ * <p>
+ * Loader is the {@link ru.d_shap.rucon.ConfigDelegate} instance, that stores configuration internally.
+ * </p>
+ * <p>
+ * Loader reads the configuration once and then uses this configuration read in the subsequent calls.
+ * If the configuration source changes, this does not reflect the loader.
+ * </p>
  */
 package ru.d_shap.rucon.loader;
