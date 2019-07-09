@@ -102,7 +102,7 @@
  * // password == "realsecret"
  * }</pre>
  * <p>
- * Also this configuration can be adjust with the JVM arguments. The database name can be specified
+ * Also this configuration can be adjusted with the JVM arguments. The database name can be specified
  * as the JVM argument <b>-Dorg.mycompany.myproject.jdbc.database=realbase</b>
  * </p>
  * <p>
