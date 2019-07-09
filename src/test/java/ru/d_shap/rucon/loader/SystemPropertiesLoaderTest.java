@@ -73,7 +73,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader03 = new SystemPropertiesLoader(prefix03, suffix03, excludeProperties03);
         Assertions.assertThat(loader03.getNames()).containsExactly();
         loader03.load();
-        Assertions.assertThat(loader03.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader03.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader03.getNames()).contains(name03);
 
         String name04 = getClass().getName() + "_name04_n";
@@ -84,7 +84,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader04 = new SystemPropertiesLoader(prefix04, suffix04, excludeProperties04);
         Assertions.assertThat(loader04.getNames()).containsExactly();
         loader04.load();
-        Assertions.assertThat(loader04.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader04.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader04.getNames()).contains(name04);
 
         String name05 = getClass().getName() + "_name05_n";
@@ -95,7 +95,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader05 = new SystemPropertiesLoader(prefix05, suffix05, excludeProperties05);
         Assertions.assertThat(loader05.getNames()).containsExactly();
         loader05.load();
-        Assertions.assertThat(loader05.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader05.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader05.getNames()).contains(name05);
 
         String name06 = getClass().getName() + "_name06_n";
@@ -130,7 +130,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader08 = new SystemPropertiesLoader(prefix08, suffix08, excludeProperties08);
         Assertions.assertThat(loader08.getNames()).containsExactly();
         loader08.load();
-        Assertions.assertThat(loader08.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader08.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader08.getNames()).contains(name08);
 
         String name09 = getClass().getName() + "_name09_n";
@@ -142,7 +142,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader09 = new SystemPropertiesLoader(prefix09, suffix09, excludeProperties09);
         Assertions.assertThat(loader09.getNames()).containsExactly();
         loader09.load();
-        Assertions.assertThat(loader09.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader09.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader09.getNames()).doesNotContain(name09);
 
         String name10 = getClass().getName() + "_name10_n";
@@ -154,7 +154,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader10 = new SystemPropertiesLoader(prefix10, suffix10, excludeProperties10);
         Assertions.assertThat(loader10.getNames()).containsExactly();
         loader10.load();
-        Assertions.assertThat(loader10.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader10.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader10.getNames()).contains(name10);
 
         String name11 = getClass().getName() + "_name11_n";
@@ -166,7 +166,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader11 = new SystemPropertiesLoader(prefix11, suffix11, excludeProperties11);
         Assertions.assertThat(loader11.getNames()).containsExactly();
         loader11.load();
-        Assertions.assertThat(loader11.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader11.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader11.getNames()).doesNotContain(name11);
 
         String name12 = getClass().getName() + "_name12_n";
@@ -178,7 +178,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader12 = new SystemPropertiesLoader(prefix12, suffix12, excludeProperties12);
         Assertions.assertThat(loader12.getNames()).containsExactly();
         loader12.load();
-        Assertions.assertThat(loader12.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader12.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader12.getNames()).contains(name12);
 
         String name13 = getClass().getName() + "_name13_n";
@@ -190,7 +190,7 @@ public final class SystemPropertiesLoaderTest {
         SystemPropertiesLoader loader13 = new SystemPropertiesLoader(prefix13, suffix13, excludeProperties13);
         Assertions.assertThat(loader13.getNames()).containsExactly();
         loader13.load();
-        Assertions.assertThat(loader13.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(loader13.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(loader13.getNames()).doesNotContain(name13);
 
         String name14 = getClass().getName() + "_name14_n";

@@ -67,7 +67,7 @@ public final class SystemPropertiesDelegateTest {
         Set<String> excludeProperties03 = null;
         System.setProperty(prefix03 + name03, "value");
         SystemPropertiesDelegate delegate03 = new SystemPropertiesDelegate(prefix03, suffix03, excludeProperties03);
-        Assertions.assertThat(delegate03.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate03.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate03.getNames()).contains(name03);
 
         String name04 = getClass().getName() + "_name04_n";
@@ -76,7 +76,7 @@ public final class SystemPropertiesDelegateTest {
         Set<String> excludeProperties04 = null;
         System.setProperty(name04 + suffix04, "value");
         SystemPropertiesDelegate delegate04 = new SystemPropertiesDelegate(prefix04, suffix04, excludeProperties04);
-        Assertions.assertThat(delegate04.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate04.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate04.getNames()).contains(name04);
 
         String name05 = getClass().getName() + "_name05_n";
@@ -85,7 +85,7 @@ public final class SystemPropertiesDelegateTest {
         Set<String> excludeProperties05 = null;
         System.setProperty(prefix05 + name05 + suffix05, "value");
         SystemPropertiesDelegate delegate05 = new SystemPropertiesDelegate(prefix05, suffix05, excludeProperties05);
-        Assertions.assertThat(delegate05.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate05.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate05.getNames()).contains(name05);
 
         String name06 = getClass().getName() + "_name06_n";
@@ -114,7 +114,7 @@ public final class SystemPropertiesDelegateTest {
         excludeProperties08.add(prefix08 + name08);
         System.setProperty(prefix08 + name08, "value");
         SystemPropertiesDelegate delegate08 = new SystemPropertiesDelegate(prefix08, suffix08, excludeProperties08);
-        Assertions.assertThat(delegate08.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate08.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate08.getNames()).contains(name08);
 
         String name09 = getClass().getName() + "_name09_n";
@@ -124,7 +124,7 @@ public final class SystemPropertiesDelegateTest {
         excludeProperties09.add(name09);
         System.setProperty(prefix09 + name09, "value");
         SystemPropertiesDelegate delegate09 = new SystemPropertiesDelegate(prefix09, suffix09, excludeProperties09);
-        Assertions.assertThat(delegate09.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate09.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate09.getNames()).doesNotContain(name09);
 
         String name10 = getClass().getName() + "_name10_n";
@@ -134,7 +134,7 @@ public final class SystemPropertiesDelegateTest {
         excludeProperties10.add(name10 + suffix10);
         System.setProperty(name10 + suffix10, "value");
         SystemPropertiesDelegate delegate10 = new SystemPropertiesDelegate(prefix10, suffix10, excludeProperties10);
-        Assertions.assertThat(delegate10.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate10.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate10.getNames()).contains(name10);
 
         String name11 = getClass().getName() + "_name11_n";
@@ -144,7 +144,7 @@ public final class SystemPropertiesDelegateTest {
         excludeProperties11.add(name11);
         System.setProperty(name11 + suffix11, "value");
         SystemPropertiesDelegate delegate11 = new SystemPropertiesDelegate(prefix11, suffix11, excludeProperties11);
-        Assertions.assertThat(delegate11.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate11.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate11.getNames()).doesNotContain(name11);
 
         String name12 = getClass().getName() + "_name12_n";
@@ -154,7 +154,7 @@ public final class SystemPropertiesDelegateTest {
         excludeProperties12.add(prefix12 + name12 + suffix12);
         System.setProperty(prefix12 + name12 + suffix12, "value");
         SystemPropertiesDelegate delegate12 = new SystemPropertiesDelegate(prefix12, suffix12, excludeProperties12);
-        Assertions.assertThat(delegate12.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate12.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate12.getNames()).contains(name12);
 
         String name13 = getClass().getName() + "_name13_n";
@@ -164,7 +164,7 @@ public final class SystemPropertiesDelegateTest {
         excludeProperties13.add(name13);
         System.setProperty(prefix13 + name13 + suffix13, "value");
         SystemPropertiesDelegate delegate13 = new SystemPropertiesDelegate(prefix13, suffix13, excludeProperties13);
-        Assertions.assertThat(delegate13.getNames()).containsAll("file.separator", "line.separator", "path.separator");
+        Assertions.assertThat(delegate13.getNames()).containsNone("file.separator", "line.separator", "path.separator");
         Assertions.assertThat(delegate13.getNames()).doesNotContain(name13);
 
         String name14 = getClass().getName() + "_name14_n";
