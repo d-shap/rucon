@@ -56,6 +56,7 @@
  * ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
  * configurationBuilder.addPropertiesResourceLoader("jdbc.properties");
  * Configuration configuration = configurationBuilder.buildAndLoad();
+ *
  * String database = configuration.getPropertyAsString("jdbc.database", "undefined");
  * // database == "tempbase"
  * String username = configuration.getPropertyAsString("jdbc.user", "undefined");
@@ -92,6 +93,7 @@
  * configurationBuilder.addPropertiesSystemPropertyFileLoader("jdbc.config.file.location");
  * configurationBuilder.addPropertiesResourceLoader("jdbc.properties");
  * Configuration configuration = configurationBuilder.buildAndLoad();
+ *
  * String database = configuration.getPropertyAsString("jdbc.database", "undefined");
  * // database == "tempbase"
  * String username = configuration.getPropertyAsString("jdbc.user", "undefined");
@@ -112,6 +114,7 @@
  * configurationBuilder.addPropertiesSystemPropertyFileLoader("jdbc.config.file.location");
  * configurationBuilder.addPropertiesResourceLoader("jdbc.properties");
  * Configuration configuration = configurationBuilder.buildAndLoad();
+ *
  * String database = configuration.getPropertyAsString("jdbc.database", "undefined");
  * // database == "realbase"
  * String username = configuration.getPropertyAsString("jdbc.user", "undefined");
