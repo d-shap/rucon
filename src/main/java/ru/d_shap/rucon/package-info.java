@@ -33,5 +33,37 @@
  * <p>
  * RuCon is intended to deal with this problems.
  * </p>
+ * <p>
+ * For example, application uses JDBC driver. To connect to the database, some configuration is needed.
+ * This configuration is defined in the <i>jdbc.properties</i> file, that is located in the classpath.
+ * Application is packaged as jar file and the <i>jdbc.properties</i> file is in this jar.
+ * </p>
+ * <p>
+ * The content of the <i>jdbc.properties</i> file is the following:
+ * </p>
+ * <pre>{@code
+ * # Database name
+ * jdbc.database=tempbase
+ * # Login info
+ * jdbc.user=tempuser
+ * jdbc.pass=tempsecret
+ * }</pre>
+ * <p>
+ * <p>
+ * The following code reads this configuration:
+ * </p>
+ * <pre>{@code
+ * ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+ * configurationBuilder.addPropertiesResourceLoader("jdbc.properties");
+ * Configuration configuration = configurationBuilder.buildAndLoad();
+ * String database = configuration.getPropertyAsString("jdbc.database", "undefined");
+ * String username = configuration.getPropertyAsString("jdbc.user", "undefined");
+ * String password = configuration.getPropertyAsString("jdbc.pass", "undefined");
+ * }</pre>
+ * <p>
+ * This application is deployed to different environments. Database configuration may not be the same
+ * in each environment. And to adjust the application configuration to the environment the <i>jdbc.properties</i>
+ * in the jar file should be updated.
+ * </p>
  */
 package ru.d_shap.rucon;
