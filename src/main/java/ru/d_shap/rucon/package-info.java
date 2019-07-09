@@ -36,7 +36,7 @@
  * <p>
  * For example, application uses JDBC driver. To connect to the database, some configuration is needed.
  * This configuration is defined in the <i>jdbc.properties</i> file, that is located in the classpath.
- * Application is packaged as jar file and the <i>jdbc.properties</i> file is in this jar.
+ * Application is packaged as jar and the <i>jdbc.properties</i> file is in this jar.
  * </p>
  * <p>
  * The content of the <i>jdbc.properties</i> file is the following:
@@ -57,13 +57,47 @@
  * configurationBuilder.addPropertiesResourceLoader("jdbc.properties");
  * Configuration configuration = configurationBuilder.buildAndLoad();
  * String database = configuration.getPropertyAsString("jdbc.database", "undefined");
+ * // database == "tempbase"
  * String username = configuration.getPropertyAsString("jdbc.user", "undefined");
+ * // username == "tempuser"
  * String password = configuration.getPropertyAsString("jdbc.pass", "undefined");
+ * // password == "tempsecret"
  * }</pre>
  * <p>
  * This application is deployed to different environments. Database configuration may not be the same
- * in each environment. And to adjust the application configuration to the environment the <i>jdbc.properties</i>
- * in the jar file should be updated.
+ * in each environment. And to adjust the application configuration to the environment the
+ * <i>jdbc.properties</i> file in the jar should be updated.
  * </p>
+ * <p>
+ * To avoid this, configuration can be defined in the properties file, located somewhere in the environment.
+ * If this file exists, then configuration is obtained from this file. If this file does not exist, then
+ * configuration is obtained from the <i>jdbc.properties</i> file.
+ * </p>
+ * <p>
+ * The content of the <i>/somepath/externalJdbc.properties</i> file
+ * </p>
+ * <pre>{@code
+ * # Login info
+ * jdbc.user=realuser
+ * jdbc.pass=realsecret
+ * }</pre>
+ * <p>
+ * The path to this file is specified as JVM argument <i>-Djdbc.config.file.location</i>.
+ * </p>
+ * <p>
+ * The following code reads this new configuration:
+ * </p>
+ * <pre>{@code
+ * ConfigurationBuilder configurationBuilder = ConfigurationBuilder.newInstance();
+ * configurationBuilder.addPropertiesSystemPropertyFileLoader("jdbc.config.file.location");
+ * configurationBuilder.addPropertiesResourceLoader("jdbc.properties");
+ * Configuration configuration = configurationBuilder.buildAndLoad();
+ * String database = configuration.getPropertyAsString("jdbc.database", "undefined");
+ * // database == "tempbase"
+ * String username = configuration.getPropertyAsString("jdbc.user", "undefined");
+ * // username == "realuser"
+ * String password = configuration.getPropertyAsString("jdbc.pass", "undefined");
+ * // password == "realsecret"
+ * }</pre>
  */
 package ru.d_shap.rucon;
