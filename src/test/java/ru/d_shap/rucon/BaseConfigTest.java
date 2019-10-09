@@ -287,7 +287,7 @@ public final class BaseConfigTest {
         Assertions.assertThat(new BaseConfig(null, null, null, null).getString("")).isEqualTo("");
         Assertions.assertThat(new BaseConfig(null, null, null, null).getString(" ")).isEqualTo(" ");
         Assertions.assertThat(new BaseConfig(null, null, null, null).getString("key")).isEqualTo("key");
-        Assertions.assertThat(new BaseConfig(null, null, null, null).getString(new StringBuilder(""))).isEqualTo("");
+        Assertions.assertThat(new BaseConfig(null, null, null, null).getString(new StringBuilder())).isEqualTo("");
         Assertions.assertThat(new BaseConfig(null, null, null, null).getString(new StringBuilder(" "))).isEqualTo(" ");
         Assertions.assertThat(new BaseConfig(null, null, null, null).getString(new StringBuilder("key"))).isEqualTo("key");
     }
