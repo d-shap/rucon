@@ -5,14 +5,14 @@ Application configuration can be defined in the properties file, as the system p
 Configuration can be defined in the deployment descriptors (for example, web.xml, ejb-jar.xml).
 Configuration can be defined in the framework-specific configuration files (for example, Spring's applicationContext.xml).
 
-Also the possibility to override configuration is mandatory.
+Also, the possibility to override configuration is mandatory.
 
-RuCon is intended to deal with this problems.
+RuCon is intended to deal with these problems.
 
 For example, application uses JDBC driver.
 To connect to the database, some configuration is needed.
 This configuration is defined in the *jdbc.properties* file, that is located in the classpath.
-Application is packaged as jar and the *jdbc.properties* file is in this jar.
+Application is packaged as jar, and the *jdbc.properties* file is in this jar.
 
 The content of the *jdbc.properties* file is the following:
 ```
@@ -69,7 +69,7 @@ String password = configuration.getPropertyAsString("jdbc.pass", "undefined");
 // password == "realsecret"
 ```
 
-Also this configuration can be adjusted with the JVM arguments.
+Also, this configuration can be adjusted with the JVM arguments.
 The database name can be specified as the JVM argument **-Dorg.mycompany.myproject.jdbc.database=realbase**
 
 The following code reads configuration with the JVM arguments:
@@ -92,7 +92,7 @@ This final code looks first looks for the configuration property in the JVM argu
 If the configuration property is not defined, then the code looks for the configuration property in the */somepath/externalJdbc.properties* external file.
 Finally, if the configuration property is not defined in the external file, then the code looks for the configuration property in the *jdbc.properties* file in the classpath.
 
-# Latest release
+# The latest release
 RuCon:
 * **&lt;groupId&gt;**: ru.d-shap
 * **&lt;artifactId&gt;**: rucon
