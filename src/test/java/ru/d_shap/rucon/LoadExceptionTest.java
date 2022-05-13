@@ -44,7 +44,7 @@ public final class LoadExceptionTest {
      */
     @Test
     public void getCauseTest() {
-        Assertions.assertThat(new LoadException(null)).toCause().isNull();
+        Assertions.assertThat(new LoadException(null)).causeIsNull();
         Assertions.assertThat(new LoadException(new IOException("message"))).hasCause(IOException.class);
         Assertions.assertThat(new LoadException(new IOException("message"))).hasCauseMessage("message");
         Assertions.assertThat(new LoadException(new IllegalArgumentException("message"))).hasCause(IllegalArgumentException.class);
