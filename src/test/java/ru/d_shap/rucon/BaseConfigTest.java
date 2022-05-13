@@ -19,6 +19,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.rucon;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +34,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import ru.d_shap.assertions.Assertions;
+import ru.d_shap.assertions.mock.IsCloseable;
 import ru.d_shap.assertions.util.DataHelper;
 
 /**
@@ -1156,16 +1158,17 @@ public final class BaseConfigTest {
         URI uri = url.toURI();
         File file = new File(uri);
         String filePath = file.getAbsolutePath();
-        ClosedInputStream inputStream = null;
+        InputStream inputStream = null;
         try {
-            inputStream = new ClosedInputStream(new BaseConfig(null, null, null, null).getInputStream(filePath));
+            byte[] content = getFullContent(new BaseConfig(null, null, null, null).getInputStream(filePath));
+            inputStream = DataHelper.createInputStreamBuilder().setContent(content).buildInputStream();
             Map<Object, Object> properties = new Properties();
             new BaseConfig(null, null, null, null).loadProperties(properties, inputStream);
             Assertions.assertThat(properties).containsExactly("key1", "value1-1", "key2", "value1-2", "key3", "value1-3");
-            Assertions.assertThat(inputStream.isClosed()).isFalse();
+            Assertions.assertThat(((IsCloseable) inputStream).isClosed()).isFalse();
         } finally {
             new BaseConfig(null, null, null, null).closeInputStream(inputStream);
-            Assertions.assertThat(inputStream.isClosed()).isTrue();
+            Assertions.assertThat(((IsCloseable) inputStream).isClosed()).isTrue();
         }
 
         try {
@@ -1178,38 +1181,14 @@ public final class BaseConfigTest {
         }
     }
 
-    /**
-     * Test class.
-     *
-     * @author Dmitry Shapovalov
-     */
-    private static final class ClosedInputStream extends InputStream {
-
-        private final InputStream _inputStream;
-
-        private boolean _closed;
-
-        ClosedInputStream(final InputStream inputStream) {
-            super();
-            _inputStream = inputStream;
-            _closed = false;
+    private static byte[] getFullContent(final InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[100];
+        int read;
+        while ((read = inputStream.read(buffer)) > 0) {
+            byteArrayOutputStream.write(buffer, 0, read);
         }
-
-        boolean isClosed() {
-            return _closed;
-        }
-
-        @Override
-        public int read() throws IOException {
-            return _inputStream.read();
-        }
-
-        @Override
-        public void close() throws IOException {
-            _inputStream.close();
-            _closed = true;
-        }
-
+        return byteArrayOutputStream.toByteArray();
     }
 
 }
