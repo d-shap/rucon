@@ -33,6 +33,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import ru.d_shap.assertions.Assertions;
+import ru.d_shap.assertions.util.DataHelper;
 
 /**
  * Tests for {@link BaseConfig}.
@@ -1132,7 +1133,7 @@ public final class BaseConfigTest {
         }
 
         try {
-            InputStream failInputStream = new FailOnReadInputStream();
+            InputStream failInputStream = DataHelper.createInputStreamBuilder().setReadException("READ FAIL!").buildInputStream();
             Map<Object, Object> properties = new Properties();
             new BaseConfig(null, null, null, null).loadProperties(properties, failInputStream);
             Assertions.fail("BaseConfig test fail");
@@ -1168,31 +1169,13 @@ public final class BaseConfigTest {
         }
 
         try {
-            InputStream failInputStream = new FailOnCloseInputStream();
+            InputStream failInputStream = DataHelper.createInputStreamBuilder().setCloseException("CLOSE FAIL!").buildInputStream();
             new BaseConfig(null, null, null, null).closeInputStream(failInputStream);
             Assertions.fail("BaseConfig test fail");
         } catch (LoadException ex) {
             Assertions.assertThat(ex).hasCause(IOException.class);
             Assertions.assertThat(ex).hasCauseMessage("CLOSE FAIL!");
         }
-    }
-
-    /**
-     * Test class.
-     *
-     * @author Dmitry Shapovalov
-     */
-    private static final class FailOnReadInputStream extends InputStream {
-
-        FailOnReadInputStream() {
-            super();
-        }
-
-        @Override
-        public int read() throws IOException {
-            throw new IOException("READ FAIL!");
-        }
-
     }
 
     /**
@@ -1225,29 +1208,6 @@ public final class BaseConfigTest {
         public void close() throws IOException {
             _inputStream.close();
             _closed = true;
-        }
-
-    }
-
-    /**
-     * Test class.
-     *
-     * @author Dmitry Shapovalov
-     */
-    private static final class FailOnCloseInputStream extends InputStream {
-
-        FailOnCloseInputStream() {
-            super();
-        }
-
-        @Override
-        public int read() throws IOException {
-            return -1;
-        }
-
-        @Override
-        public void close() throws IOException {
-            throw new IOException("CLOSE FAIL!");
         }
 
     }
