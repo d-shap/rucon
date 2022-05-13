@@ -177,6 +177,16 @@ public final class ConfigurationLoaderTest {
         Assertions.assertThat(loader13.getNames()).containsExactly("key11", "key21", "key22");
         loader13.load();
         Assertions.assertThat(loader13.getNames()).containsExactly("key11", "key21", "key22");
+
+        List<ConfigDelegate> configDelegates14 = new ArrayList<>();
+        configDelegates14.add(new ConfigLoaderImpl());
+        configDelegates14.add(new PropertiesResourceLoader(getClass().getClassLoader(), "config1.properties", null));
+        configDelegates14.add(new ConfigDelegateImpl());
+        ConfigurationLoader loader14 = new ConfigurationLoader(configDelegates14);
+        Assertions.assertThat(loader14.getNames()).containsExactly();
+        loader14.load();
+        Assertions.assertThat(loader14.getNames()).containsExactly("key1", "key2", "key3", "loaded value");
+        Assertions.assertThat(loader14.getNames()).containsExactly("key1", "key2", "key3", "loaded value");
     }
 
     /**
@@ -641,6 +651,39 @@ public final class ConfigurationLoaderTest {
         @Override
         public Set<String> getNames() {
             return new HashSet<>();
+        }
+
+        @Override
+        public String getProperty(final String name) {
+            return null;
+        }
+
+    }
+
+    private static final class ConfigLoaderImpl implements ConfigLoader, ConfigDelegate {
+
+        private boolean _firstGetNames;
+
+        ConfigLoaderImpl() {
+            super();
+            _firstGetNames = false;
+        }
+
+        @Override
+        public void load() {
+            _firstGetNames = true;
+        }
+
+        @Override
+        public Set<String> getNames() {
+            Set<String> set = new HashSet<>();
+            if (_firstGetNames) {
+                set.add("loaded value");
+                _firstGetNames = false;
+            } else {
+                set.add("read value");
+            }
+            return set;
         }
 
         @Override
