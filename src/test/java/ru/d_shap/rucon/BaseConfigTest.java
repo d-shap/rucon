@@ -1181,7 +1181,7 @@ public final class BaseConfigTest {
         }
     }
 
-    private static byte[] getFullContent(final InputStream inputStream) throws IOException {
+    private byte[] getFullContent(final InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[100];
         int read;
