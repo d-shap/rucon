@@ -1,6 +1,6 @@
-Total - 3
+Total                                                               - 3
 ===========================================================================
-ru.d_shap.rucon - 0
-ru.d_shap.rucon.delegate - 0
-ru.d_shap.rucon.loader - 3
+ru.d_shap.rucon                                                     - 0
+ru.d_shap.rucon.delegate                                            - 0
+ru.d_shap.rucon.loader                                              - 3
 ===========================================================================
