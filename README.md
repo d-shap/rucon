@@ -91,12 +91,3 @@ String password = configuration.getPropertyAsString("jdbc.pass", "undefined");
 This final code looks first looks for the configuration property in the JVM arguments that starts with **org.mycompany.myproject.**.
 If the configuration property is not defined, then the code looks for the configuration property in the */somepath/externalJdbc.properties* external file.
 Finally, if the configuration property is not defined in the external file, then the code looks for the configuration property in the *jdbc.properties* file in the classpath.
-
-# The latest release
-RuCon:
-* **&lt;groupId&gt;**: ru.d-shap
-* **&lt;artifactId&gt;**: rucon
-* **&lt;version&gt;**: 1.0
-
-# Donation
-If you find my code useful, you can [bye me a coffee](https://www.paypal.me/dshapovalov)
